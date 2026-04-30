@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Linh Le — web developer who reads the system before writing to it. Browser-aware speed: first paint, prefetch, view transitions, view-source.">
+  <title>Linh Le — engineer</title>
+  <!-- data-mode must be set before first paint to avoid FOUC. Stays inline. -->
+  <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
+  <link rel="stylesheet" href="/assets/tokens/base.css">
+  <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
+  <style>
+    #rd { display: block; width: 100%; height: 40vh; min-height: 200px; max-height: 500px; }
+  </style>
+</head>
+<body>
+  <noscript><p>JavaScript is off — every page is plain HTML and the links work. Only the mode toggle and the inline source previews need JS.</p></noscript>
+  <site-header></site-header>
+  <main>
+    <section class="hero">
+      <h1>It loads fast, doesn't it. Here's why.</h1>
+      <p class="lede">Prefetches on hover. No FOUC. Motion-aware transitions. Zero deps.</p>
+      <aside class="meta">
+        <key-hint variant="compact"></key-hint>
+        <span><b>17</b> files</span>
+        <span><b>~1090</b> lines</span>
+        <span><b>0</b> deps</span>
+      </aside>
+    </section>
+
+    <canvas id="rd" aria-hidden="true"></canvas>
+
+    <section class="intro">
+      <h2>The page is the work sample.</h2>
+      <p>Four things on this site that are fast or smooth because I read what the browser already does well. On this one you can check — Ctrl+U anytime. The code blocks below are pulled live from disk; the <em>raw ↗</em> link opens the file.</p>
+    </section>
+
+    <section class="claim">
+      <header>
+        <span class="num">№ 01 · input</span>
+        <h3>Two letters and you've redecorated.</h3>
+        <p class="achieves"><key-hint></key-hint> The shortcut steps aside if you're typing into a search box, so it never fights you. <em>(Seven lines of vanilla event-listening; no library involved.)</em></p>
+      </header>
+      <source-snippet src="/assets/features/shortcuts.js" lines="16-22" caption="shortcuts.js · keydown"></source-snippet>
+    </section>
+
+    <section class="claim">
+      <header>
+        <span class="num">№ 02 · hover</span>
+        <h3>Hover ahead — the next page is already on its way.</h3>
+        <p class="achieves">Move your cursor onto a nav link and the site quietly fetches the next page in the background. By the time you actually click, it's already on disk. Open the network tab and watch the prefetch fire. <em>(The router injects a <code>&lt;link rel="prefetch"&gt;</code> into <code>&lt;head&gt;</code>, deduped per URL.)</em></p>
+      </header>
+      <source-snippet src="/assets/kernel/router.js" lines="38-49" caption="router.js · onHover()"></source-snippet>
+    </section>
+
+    <section class="claim">
+      <header>
+        <span class="num">№ 03 · motion</span>
+        <h3>Smooth when you want it, snappy when you don't.</h3>
+        <p class="achieves">Page swaps and mode changes get a soft cross-fade — unless your OS has asked for less motion, in which case they're instant. The site checks before it animates. <em>(One four-line helper, called by both the mode-manager and the router.)</em></p>
+      </header>
+      <source-snippet src="/assets/kernel/mode-manager.js" lines="17-20" caption="mode-manager.js · withTransition()"></source-snippet>
+    </section>
+
+    <section class="claim">
+      <header>
+        <span class="num">№ 04 · paint</span>
+        <h3>Nothing flickered.</h3>
+        <p class="achieves">The site picks a theme before the browser draws a single pixel — so a hard-refresh never gives you that "whoops, we meant the dark version" flash. <em>(Inside: an inline <code>&lt;head&gt;</code> script sets <code>data-mode</code> before any stylesheet starts loading.)</em></p>
+      </header>
+      <source-snippet src="/index.html" lines="8-9" caption="index.html · &lt;head&gt;"></source-snippet>
+    </section>
+
+    <section class="claim">
+      <header>
+        <span class="num">№ 05 · system</span>
+        <h3>Those drifting spots are a system, not a texture.</h3>
+        <p class="achieves">Two chemicals on a grid: A gets fed in, B eats A and decays — the patterns fall out of the math. State lives in an RGBA texture, a shader runs the Gray-Scott update on every cell in parallel, ping-pong framebuffers step time forward. <em>(The interesting call was what to put on the GPU and what to leave in JS — read the system, then write to it.)</em></p>
+      </header>
+      <source-snippet src="/assets/features/rd-shaders.js" lines="32-37" caption="rd-shaders.js · Gray-Scott update"></source-snippet>
+    </section>
+
+    <section class="next">
+      <p>Read the <a href="/work/">work</a> for the same writing applied to bigger systems — or keep view-source open and click around. That's the intended browsing mode.</p>
+    </section>
+  </main>
+  <site-footer></site-footer>
+  <mode-indicator></mode-indicator>
+  <script type="module">
+    import { init as initMode } from '/assets/kernel/mode-manager.js';
+    import { init as initRouter } from '/assets/kernel/router.js';
+    import '/assets/modes/components.js';
+    import '/assets/modes/terminal/components.js';
+    import '/assets/modes/swiss/components.js';
+    import '/assets/features/mode-indicator.js';
+    import '/assets/features/source-snippet.js';
+    import '/assets/features/console-banner.js';
+    import '/assets/features/shortcuts.js';
+    import '/assets/features/key-hint.js';
+    initMode();
+    initRouter();
+    // WebGL sim is decorative — load it after the page is idle so first paint and
+    // interactive features aren't blocked by the shader compile.
+    const startRD = () => import('/assets/features/gray-scott.js').then(m => m.init(rd));
+    (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(startRD);
+  </script>
+</body>
+</html>

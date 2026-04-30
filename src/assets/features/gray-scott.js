@@ -1,0 +1,133 @@
+/* gray-scott.js — Gray-Scott sim via WebGL ping-pong framebuffers.
+ * Dependencies: ./rd-shaders.js
+ * Invariants: two RGBA textures alternate as read/write targets each sim step.
+ *             Canvas is sized to W×H internally; CSS scales the display.
+ * Non-goals: no resize handling, no interaction, no context-loss recovery.
+ */
+import { vert, simFrag, dispFrag } from './rd-shaders.js';
+
+const W = 512, H = 512, STEPS = 8, F = 0.037, K = 0.060;
+
+function mkShader(gl, type, src) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src);
+  gl.compileShader(s);
+  return s;
+}
+
+function mkProg(gl, vs, fs) {
+  const p = gl.createProgram();
+  gl.attachShader(p, mkShader(gl, gl.VERTEX_SHADER, vs));
+  gl.attachShader(p, mkShader(gl, gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(p);
+  return p;
+}
+
+function mkTex(gl, data) {
+  const t = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+  return t;
+}
+
+function mkFB(gl, tex) {
+  const fb = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  return fb;
+}
+
+function seed() {
+  const d = new Uint8Array(W * H * 4);
+  for (let i = 0; i < d.length; i += 4) { d[i] = 255; d[i+3] = 255; } // A=1 everywhere
+  for (let s = 0; s < 24; s++) {
+    const cx = (Math.random() * W) | 0, cy = (Math.random() * H) | 0;
+    for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) {
+      const idx = (((cy+dy+H)%H)*W + (cx+dx+W)%W) * 4;
+      d[idx] = 0; d[idx+1] = 255; // A=0, B=1 — seeds for B to grow
+    }
+  }
+  return d;
+}
+
+function cssColor(varName) {
+  const el = document.createElement('span');
+  el.style.cssText = `display:none;color:${varName}`;
+  document.body.appendChild(el);
+  const vals = getComputedStyle(el).color.match(/[\d.]+/g).slice(0, 3);
+  el.remove();
+  return vals.map(v => +v / 255);
+}
+
+export function init(canvas) {
+  const gl = canvas.getContext('webgl');
+  if (!gl) return;
+  canvas.width = W; canvas.height = H;
+
+  const simProg = mkProg(gl, vert, simFrag);
+  const dispProg = mkProg(gl, vert, dispFrag);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
+  const su = {
+    res: gl.getUniformLocation(simProg, 'u_res'),
+    f:   gl.getUniformLocation(simProg, 'u_f'),
+    k:   gl.getUniformLocation(simProg, 'u_k'),
+    pos: gl.getAttribLocation(simProg, 'a_pos'),
+  };
+  const du = {
+    res: gl.getUniformLocation(dispProg, 'u_res'),
+    lo:  gl.getUniformLocation(dispProg, 'u_lo'),
+    hi:  gl.getUniformLocation(dispProg, 'u_hi'),
+    pos: gl.getAttribLocation(dispProg, 'a_pos'),
+  };
+
+  const lo = cssColor('var(--bg-sunk)');
+  const hi = cssColor('var(--accent)');
+
+  let texA = mkTex(gl, seed()), texB = mkTex(gl, null);
+  let fbA  = mkFB(gl, texA),  fbB  = mkFB(gl, texB);
+  let ping = { tex: texA, fb: fbA }, pong = { tex: texB, fb: fbB };
+
+  function simStep(src, dstFB) {
+    gl.bindFramebuffer(gl.FRAMEBUFFER, dstFB);
+    gl.viewport(0, 0, W, H);
+    gl.useProgram(simProg);
+    gl.bindTexture(gl.TEXTURE_2D, src);
+    gl.uniform2f(su.res, W, H);
+    gl.uniform1f(su.f, F);
+    gl.uniform1f(su.k, K);
+    gl.enableVertexAttribArray(su.pos);
+    gl.vertexAttribPointer(su.pos, 2, gl.FLOAT, false, 0, 0);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  function render(src) {
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, W, H);
+    gl.useProgram(dispProg);
+    gl.bindTexture(gl.TEXTURE_2D, src);
+    gl.uniform2f(du.res, W, H);
+    gl.uniform3fv(du.lo, lo);
+    gl.uniform3fv(du.hi, hi);
+    gl.enableVertexAttribArray(du.pos);
+    gl.vertexAttribPointer(du.pos, 2, gl.FLOAT, false, 0, 0);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  (function frame() {
+    for (let i = 0; i < STEPS; i++) {
+      simStep(ping.tex, pong.fb);
+      [ping, pong] = [pong, ping];
+    }
+    render(ping.tex);
+    requestAnimationFrame(frame);
+  })();
+}

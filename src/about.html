@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="About Linh Le — systems developer. Readable, fast code on the web and below.">
+  <title>About — Linh Le</title>
+  <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
+  <link rel="stylesheet" href="/assets/tokens/base.css">
+  <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
+</head>
+<body>
+  <noscript><p>JavaScript is off — content below is plain HTML and the links work.</p></noscript>
+  <site-header></site-header>
+  <main>
+    <section class="hero">
+      <h1>About.</h1>
+      <p class="lede">Systems developer. Web mostly, but also games, LoRaWAN fleets, and data at scale. Fast because I read the platform; readable because someone has to maintain it — and I only ship systems I can explain to myself. Work page has the long version; this is the short one.</p>
+      <aside class="meta">
+        <span><b>Node · Web · Zig · Unity C#</b></span>
+        <span>web · systems · data · games</span>
+        <span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a></span>
+        <span><a href="https://github.com/Linh35">github.com/Linh35</a></span>
+      </aside>
+      <aside class="meta domains">
+        <span>web apps · games · telemetry · IoT fleets</span>
+      </aside>
+    </section>
+
+    <section class="principle" data-num="01">
+      <header>
+        <span class="num">№ 01</span>
+        <span class="area">How</span>
+        <h2>Hot path first.</h2>
+      </header>
+      <div class="body">
+        <p>Write the fast part first, before anything else is built around it. The rest of the system takes its shape from that constraint. Speed bolted on later is just a rewrite that hasn't happened yet.</p>
+        <p><em>Corollary: the hot path doesn't get a fallback. Fallbacks lie about latency.</em></p>
+      </div>
+      <pre class="proof" aria-label="hot path sketch">// hot path: request in → response out.
+// no extra DB call on the happy
+// case. no log line that might
+// block the response.</pre>
+    </section>
+
+    <section class="principle" data-num="02">
+      <header>
+        <span class="num">№ 02</span>
+        <span class="area">Why</span>
+        <h2>Numbers over adjectives.</h2>
+      </header>
+      <div class="body">
+        <p>"Faster" is unfalsifiable. "<em>P99: 412ms → 89ms after we dropped the N+1 query</em>" is. If you can't reproduce the benchmark, the optimization didn't really happen.</p>
+        <p>A small win with a number beats a big win with a story.</p>
+      </div>
+      <pre class="proof" aria-label="claim shape">// "fast"
+//   → unfalsifiable.
+// "p99 89ms @ 12k req/s,
+//   repro: wrk -t4 -c100 -d30s"
+//   → ship it.</pre>
+    </section>
+
+    <section class="principle" data-num="03">
+      <header>
+        <span class="num">№ 03</span>
+        <span class="area">Who</span>
+        <h2>Code is for the next reader.</h2>
+      </header>
+      <div class="body">
+        <p>In three months I'll read this code as a stranger. Header comments, honest names, and notes about <em>why</em> are the breadcrumbs I leave for that stranger.</p>
+        <p>Files stay small enough to hold in one head. When a file gets fat, split it — don't compress it.</p>
+      </div>
+      <pre class="proof" aria-label="every file's shape">/*
+ * file.js — one-line purpose.
+ * Dependencies: ...
+ * Invariants: ...
+ * Non-goals: ...
+ */</pre>
+    </section>
+
+    <section class="patterns">
+      <header class="patterns-head">
+        <span class="num">Stack</span>
+        <h2>Tools I reach for, and when.</h2>
+      </header>
+      <ul class="pattern-grid" role="list">
+        <li>
+          <h3>Node</h3>
+          <p>Default for anything web-shaped on the server side. The stdlib is most of a framework — if you bother to read it.</p>
+          <span class="where">→ servers · tooling · scripts</span>
+        </li>
+        <li>
+          <h3>Web</h3>
+          <p>The browser is the system. First paint, prefetch, View Transitions, view-source — most of what you need is already in the platform once you read the docs.</p>
+          <span class="where">→ first paint · prefetch · view transitions</span>
+        </li>
+        <li>
+          <h3>Zig</h3>
+          <p>For write paths that have to be deterministic. No hidden allocator, no surprises — and comptime makes hand-written serialization worth the typing.</p>
+          <span class="where">→ hot loops · parsers · binary formats</span>
+        </li>
+        <li>
+          <h3>Unity / C#</h3>
+          <p>For games. Sixteen milliseconds a frame, and the engine draws whether your code is ready or not — which is the best forcing function for "fast enough" I've ever worked under.</p>
+          <span class="where">→ gameplay · tooling · prototypes</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="decisions">
+      <header class="decisions-head">
+        <h2>Things I tried and dropped.</h2>
+        <p class="lede">Four decisions on this site that lost. The version that shipped is better because of the version that didn't.</p>
+      </header>
+      <ol class="decision-list" role="list">
+        <li>
+          <h3>Separate tags per mode.</h3>
+          <p>First sketch had <code>&lt;terminal-card&gt;</code> and <code>&lt;swiss-card&gt;</code> as distinct elements; the router would swap tags on mode change. Killed it the first time I switched modes mid-scroll — swapping tags throws out the DOM node, so focus, scroll position, and any in-flight transition reset with it. Now there's one <code>&lt;project-card&gt;</code> shell and a per-mode renderer registry; the element survives the swap, only its innards change.</p>
+        </li>
+        <li>
+          <h3>One renderer with <code>if (mode === ...)</code> branches.</h3>
+          <p>Considered a single mode-aware function per shell. Dropped it because adding a third mode would mean editing every renderer in the codebase — modes coupled through every shell. The registry inverts that: each mode owns its own file and registers itself. <em>(Adding Blueprint mode later is a new file, not a sweep through old ones.)</em></p>
+        </li>
+        <li>
+          <h3>Shadow DOM.</h3>
+          <p>The obvious choice for custom elements. Pulled it out anyway — the page told one story and devtools told another, and the thesis of this site is that the source <em>is</em> the product. View-source has to match what's actually rendering. Renderers now write straight to <code>host.innerHTML</code>.</p>
+        </li>
+        <li>
+          <h3>A Proxy-based observable store.</h3>
+          <p>Started sketching one for cross-component state and stopped about thirty lines in. The actual need was "late subscribers should see the current value" — the event bus solves that in forty lines by replaying the last published value to new subscribers in a microtask. <em>(The fancier option was solving a problem I didn't have.)</em></p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="next">
+      <p>If you care how it's built, not just that it ships — <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> or <a href="https://github.com/Linh35">github.com/Linh35</a>. Or see the <a href="/work/">work</a> page for the principles in full.</p>
+    </section>
+  </main>
+  <site-footer></site-footer>
+  <mode-indicator></mode-indicator>
+  <script type="module">
+    import { init as initMode } from '/assets/kernel/mode-manager.js';
+    import { init as initRouter } from '/assets/kernel/router.js';
+    import '/assets/modes/components.js';
+    import '/assets/modes/terminal/components.js';
+    import '/assets/modes/swiss/components.js';
+    import '/assets/features/mode-indicator.js';
+    import '/assets/features/source-snippet.js';
+    import '/assets/features/console-banner.js';
+    import '/assets/features/shortcuts.js';
+    import '/assets/features/key-hint.js';
+    initMode(); initRouter();
+  </script>
+</body>
+</html>

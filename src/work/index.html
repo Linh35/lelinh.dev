@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The way Linh Le works — four principles, demonstrated by the site you're reading.">
+  <title>Work — Linh Le</title>
+  <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
+  <link rel="stylesheet" href="/assets/tokens/base.css">
+  <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
+</head>
+<body>
+  <noscript><p>JavaScript is off — every page is plain HTML and the links work.</p></noscript>
+  <site-header></site-header>
+  <main>
+    <section class="hero">
+      <h1>The way I work.</h1>
+      <p class="lede">Four habits I keep coming back to in serious work. Each one is wired into the site you're reading — the column on the right is the receipt, pulled straight from the source. Crack open devtools any time you want to check my math.</p>
+      <aside class="meta">
+        <span><b>4</b> habits</span>
+        <span><b>~1090</b> lines of proof</span>
+        <span><b>0</b> hand-waving</span>
+        <span>open devtools →</span>
+      </aside>
+    </section>
+
+    <section class="principle" data-num="01">
+      <header>
+        <span class="num">№ 01</span>
+        <span class="area">Systems</span>
+        <h2>I build in rings.</h2>
+      </header>
+      <div class="body">
+        <p>I split a system into rings — the most important things in the middle, the optional things on the outside. You should be able to peel off any feature without breaking the core. This site is wired exactly that way: a tiny kernel at the center, mode renderers in the middle, optional features at the edge.</p>
+        <p>Keeping the rings honest is forced clarity. The bus doesn't know about modes; modes don't know about features; features don't know about each other. <em>Coupling is what makes systems brittle — the boundary is where I draw the line.</em></p>
+      </div>
+      <pre class="proof" aria-label="ring tree">assets/
+├── kernel/    bus, router, mode, loader
+├── modes/     terminal · swiss
+├── features/  indicator · snippets
+│              banner · keys
+└── tokens/    palette + base</pre>
+    </section>
+
+    <section class="principle" data-num="02">
+      <header>
+        <span class="num">№ 02</span>
+        <span class="area">Speed</span>
+        <h2>Every byte earns its place.</h2>
+      </header>
+      <div class="body">
+        <p>I treat dependencies and code lines like ingredients — every one has to earn its spot. This site has no third-party libraries, no build step, and a hard rule that no file is allowed to grow past 150 lines. (A small script checks all of that on save.)</p>
+        <p>Constraints aren't about being a purist; they're how I keep the codebase legible six months later. The first time I cut a feature because a file was creeping past the line limit, I realized I didn't need that feature anyway. <em>Fast is a side-effect of small.</em></p>
+      </div>
+      <dl class="stats" aria-label="constraints">
+        <dt>deps</dt><dd>0</dd>
+        <dt>files</dt><dd>17</dd>
+        <dt>longest</dt><dd>141 lines</dd>
+        <dt>average</dt><dd>64 lines</dd>
+        <dt>fonts</dt><dd>system</dd>
+        <dt>build</dt><dd>none</dd>
+      </dl>
+    </section>
+
+    <section class="principle" data-num="03">
+      <header>
+        <span class="num">№ 03</span>
+        <span class="area">Craft</span>
+        <h2>Source is the product.</h2>
+      </header>
+      <div class="body">
+        <p>Open devtools right now. The HTML, CSS, and JavaScript you'll see is the same code I edited — no compiler in between, no Shadow DOM hiding things. Every file opens with a short comment naming what it's for, what it depends on, and what it deliberately won't do.</p>
+        <p>The reader I'm writing for is a senior engineer poking around for ten minutes. <em>Comments explain why something is the way it is — names handle the what.</em></p>
+      </div>
+      <pre class="proof" aria-label="example file header">/*
+ * mode-manager.js — owns &lt;html data-mode&gt;.
+ *   Wraps swap in a View Transition with
+ *   reduced-motion fallback. Emits 'mode:change'.
+ * Dependencies: ./event-bus.js
+ * Invariants: data-mode set inline before paint.
+ * Non-goals: no UI; no scheduling.
+ */</pre>
+    </section>
+
+    <section class="principle" data-num="04">
+      <header>
+        <span class="num">№ 04</span>
+        <span class="area">Proof</span>
+        <h2>Numbers over adjectives.</h2>
+      </header>
+      <div class="body">
+        <p>"Faster" is unfalsifiable. "<em>P99 dropped from 412ms to 89ms after dropping the N+1 query</em>" isn't. When I claim something about performance, I want a number behind it and a script that reproduces it. Otherwise the optimization didn't really happen.</p>
+        <p>This site has a budget too — the table on the right. They're not impressive numbers, just ones I picked on purpose and then held myself to.</p>
+      </div>
+      <table class="budget" aria-label="performance budget">
+        <thead><tr><th>metric</th><th>target</th></tr></thead>
+        <tbody>
+          <tr><td>first paint</td><td>&lt; 100 ms</td></tr>
+          <tr><td>transfer</td><td>&lt; 50 KB</td></tr>
+          <tr><td>CLS</td><td>0</td></tr>
+          <tr><td>INP</td><td>1 frame</td></tr>
+          <tr><td>fonts</td><td>system</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="patterns">
+      <header class="patterns-head">
+        <span class="num">Patterns</span>
+        <h2>Habits I keep coming back to.</h2>
+      </header>
+      <ul class="pattern-grid" role="list">
+        <li>
+          <h3>Signal-style bus</h3>
+          <p>Topics remember their last value. Late subscribers replay. Init order stops mattering.</p>
+          <span class="where">→ kernel/event-bus.js</span>
+        </li>
+        <li>
+          <h3>View Transition + motion fallback</h3>
+          <p>Feature-detect <code>startViewTransition</code> and respect <code>prefers-reduced-motion</code> in four lines.</p>
+          <span class="where">→ kernel/mode-manager.js</span>
+        </li>
+        <li>
+          <h3>Registry of renderers</h3>
+          <p>One shell per element, mode-keyed renderer per shell. Add a mode without touching the shell.</p>
+          <span class="where">→ modes/components.js</span>
+        </li>
+        <li>
+          <h3>Inline pre-paint script</h3>
+          <p>Set the theme attribute on <code>&lt;html&gt;</code> before any stylesheet loads. FOUC dies.</p>
+          <span class="where">→ &lt;head&gt; of every page</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="next">
+      <p>If a team treats the work like this, I'd love to talk. <a href="/about.html">About</a> · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a href="https://github.com/Linh35">github.com/Linh35</a></p>
+    </section>
+  </main>
+  <site-footer></site-footer>
+  <mode-indicator></mode-indicator>
+  <script type="module">
+    import { init as initMode } from '/assets/kernel/mode-manager.js';
+    import { init as initRouter } from '/assets/kernel/router.js';
+    import '/assets/modes/components.js';
+    import '/assets/modes/terminal/components.js';
+    import '/assets/modes/swiss/components.js';
+    import '/assets/features/mode-indicator.js';
+    import '/assets/features/source-snippet.js';
+    import '/assets/features/console-banner.js';
+    import '/assets/features/shortcuts.js';
+    import '/assets/features/key-hint.js';
+    initMode(); initRouter();
+  </script>
+</body>
+</html>
