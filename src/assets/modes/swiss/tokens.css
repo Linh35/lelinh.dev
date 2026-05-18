@@ -100,6 +100,7 @@
   html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) h3 { font-size: var(--t-2); margin: 0 0 var(--u); }
   html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) p { color: var(--muted); margin: 0 0 var(--u); max-width: 48ch; line-height: 1.55; }
   html[data-mode="swiss"] ul.pattern-grid .where { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.06em; }
+  html[data-mode="swiss"] section.patterns p.more { grid-column: 1 / -1; color: var(--muted); font-size: 0.95em; }
 
   /* Source snippets */
   html[data-mode="swiss"] figure.source { margin: calc(var(--u)*3) 0 0; }

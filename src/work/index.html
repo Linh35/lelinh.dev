@@ -56,7 +56,7 @@
       <dl class="stats" aria-label="constraints">
         <dt>deps</dt><dd>0</dd>
         <dt>files</dt><dd>17</dd>
-        <dt>longest</dt><dd>141 lines</dd>
+        <dt>longest</dt><dd>142 lines</dd>
         <dt>average</dt><dd>64 lines</dd>
         <dt>fonts</dt><dd>system</dd>
         <dt>build</dt><dd>none</dd>
@@ -136,8 +136,33 @@
 
     <section class="patterns">
       <header class="patterns-head">
-        <span class="num">Open source</span>
-        <h2>Other work.</h2>
+        <span class="num">At scale</span>
+        <h2>Where I've put this to work.</h2>
+      </header>
+      <p class="more">Past here the source goes private. The four above are the part I can prove on this page; the rest you take on the numbers — or on a call.</p>
+      <ul class="pattern-grid" role="list">
+        <li>
+          <h3>Sensor fleets at volume</h3>
+          <p>Ingestion for 100,000+ sensors, each reporting every few minutes — tens of millions of data points a day, sustained, zero dropped readings, no backlog.</p>
+          <span class="where">→ 100k+ devices · ~tens of M points/day</span>
+        </li>
+        <li>
+          <h3>LoRaWAN, end to end</h3>
+          <p>Gateways, device provisioning, network-server integration — the full path from radio to database. The edges you only hit running a live fleet, not reading the spec.</p>
+          <span class="where">→ field-deployed, full stack</span>
+        </li>
+        <li>
+          <h3>AWS in production</h3>
+          <p>Compute, storage, queues, and the pipelines between them — production systems I own from the instance up, not just the code on it. Years in, not a weekend course.</p>
+          <span class="where">→ years in production</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="patterns">
+      <header class="patterns-head">
+        <span class="num">For fun</span>
+        <h2>Here are some things I made for myself.</h2>
       </header>
       <ul class="pattern-grid" role="list">
         <li>
@@ -145,11 +170,46 @@
           <p>A single-binary static site bundler and HTTP server in Zig. Brotli + gzip, ETags, 304s, hot reload via SIGHUP — bake a site into one <code>.bin</code> file, then serve it. The same toolchain that publishes <em>this</em> portfolio when I'm not pointing at GitHub Pages.</p>
           <span class="where">→ github.com/Linh35/baker · Zig</span>
         </li>
+        <li>
+          <h3><a href="https://github.com/Linh35/wiki-art-downloader">wiki-art-downloader</a></h3>
+          <p>Bulk-downloads an artist's catalogue from WikiArt as JPGs. Node 18+, zero dependencies — global <code>fetch</code>, walks the eight CDN shards, parallel with configurable concurrency, dry-run, and resume-by-skip. Written so I could archive a painter's collection without clicking 400 thumbnails.</p>
+          <span class="where">→ github.com/Linh35/wiki-art-downloader · Node</span>
+        </li>
+        <li>
+          <h3><a href="https://github.com/Linh35/ssw">ssw</a></h3>
+          <p>Multi-tab state, no ceremony. A signal store with a SharedWorker as the single source of truth and a live mirror per tab — write <code>store.count++</code>, an optimistic update reconciles across tabs over a batched ack protocol. ~3.5&nbsp;KB gzipped, store-shaped API, tested end-to-end against MessageChannels — no jsdom.</p>
+          <span class="where">→ github.com/Linh35/ssw · TypeScript</span>
+        </li>
+        <li>
+          <h3><a href="https://github.com/Linh35/number-helper-extensions">number-helper-extensions</a></h3>
+          <p>Ergonomic helpers on <code>Number</code> — <code>(6).minutes()</code>, <code>(3).times(i =&gt; i*2)</code>, <code>clamp</code>, <code>ordinal</code>, <code>ago()</code>/<code>fromNow()</code>. The prototype is touched only when you call <code>extendNumber()</code>; every helper is also exported raw for anyone who won't.</p>
+          <span class="where">→ github.com/Linh35/number-helper-extensions · JS</span>
+        </li>
+      </ul>
+      <p class="more">The rest of the workshop lives at <a href="https://github.com/Linh35">github.com/Linh35</a>.</p>
+    </section>
+
+    <section class="patterns">
+      <header class="patterns-head">
+        <span class="num">Private</span>
+        <h2>The work that isn't public.</h2>
+      </header>
+      <ul class="pattern-grid" role="list">
+        <li>
+          <h3>Client &amp; closed-source work</h3>
+          <p>The bulk of it is under NDA — production systems, infrastructure, tooling I can't link. Built on the four principles above; this site is just the slice I'm allowed to ship as source.</p>
+          <span class="where">→ details on request</span>
+        </li>
+        <li>
+          <h3>Want the full picture?</h3>
+          <p>Email me — I'll walk the architecture, the trade-offs, and the numbers, as far as each engagement lets me.</p>
+          <span class="where">→ <a href="mailto:linh@lelinh.dev?subject=Private%20work">linh@lelinh.dev</a></span>
+        </li>
       </ul>
     </section>
 
     <section class="next">
-      <p>If a team treats the work like this, I'd love to talk. <a href="/about.html">About</a> · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a href="https://github.com/Linh35">github.com/Linh35</a></p>
+      <p>If a team treats the work like this, I'd love to talk. <a href="/about.html">About</a> · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a href="https://github.com/Linh35">github.com/Linh35</a> · <a href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a></p>
     </section>
   </main>
   <site-footer></site-footer>
