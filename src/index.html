@@ -140,6 +140,7 @@
   <script type="module">
     import { init as initMode } from '/assets/kernel/mode-manager.js';
     import { init as initRouter } from '/assets/kernel/router.js';
+    import { bus } from '/assets/kernel/event-bus.js';
     import '/assets/modes/components.js';
     import '/assets/modes/terminal/components.js';
     import '/assets/modes/swiss/components.js';
@@ -150,10 +151,11 @@
     import '/assets/features/key-hint.js';
     initMode();
     initRouter();
-    // WebGL sim is decorative — load it after the page is idle so first paint and
-    // interactive features aren't blocked by the shader compile.
-    const startRD = () => import('/assets/features/gray-scott.js').then(m => m.init(rd));
-    (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(startRD);
+    // The sim lives inside <main>, which the router swaps on SPA nav (its
+    // bootstrap script doesn't re-run). Mount on every route:change, once per
+    // canvas element; idle-deferred so it never blocks first paint.
+    const mountRD = () => { if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); } };
+    bus.on('route:change', mountRD);
   </script>
 </body>
 </html>

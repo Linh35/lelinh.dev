@@ -125,6 +125,7 @@
   <script type="module">
     import { init as initMode } from '/assets/kernel/mode-manager.js';
     import { init as initRouter } from '/assets/kernel/router.js';
+    import { bus } from '/assets/kernel/event-bus.js';
     import '/assets/modes/components.js';
     import '/assets/modes/terminal/components.js';
     import '/assets/modes/swiss/components.js';
@@ -134,6 +135,9 @@
     import '/assets/features/shortcuts.js';
     import '/assets/features/key-hint.js';
     initMode(); initRouter();
+    // #rd only exists on the landing page; mount it on arrival there via SPA nav.
+    const mountRD = () => { if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); } };
+    bus.on('route:change', mountRD);
   </script>
 </body>
 </html>
