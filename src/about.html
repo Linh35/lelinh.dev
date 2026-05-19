@@ -32,40 +32,6 @@
     <section class="principle" data-num="01">
       <header>
         <span class="num">№ 01</span>
-        <span class="area">How</span>
-        <h2>Hot path first.</h2>
-      </header>
-      <div class="body">
-        <p>Write the fast part first, before anything else is built around it. The rest of the system takes its shape from that constraint. Speed bolted on later is just a rewrite that hasn't happened yet.</p>
-        <p><em>Corollary: the hot path doesn't get a fallback. Fallbacks lie about latency.</em></p>
-      </div>
-      <pre class="proof" aria-label="hot path sketch">// hot path: request in → response out.
-// no extra DB call on the happy
-// case. no log line that might
-// block the response.</pre>
-    </section>
-
-    <section class="principle" data-num="02">
-      <header>
-        <span class="num">№ 02</span>
-        <span class="area">Why</span>
-        <h2>Numbers over adjectives.</h2>
-      </header>
-      <div class="body">
-        <p>"Faster" is unfalsifiable. "<em>P99: 412ms → 89ms after we dropped the N+1 query</em>" is. If you can't reproduce the benchmark, the optimization didn't really happen.</p>
-        <p>A small win with a number beats a big win with a story.</p>
-      </div>
-      <pre class="proof" aria-label="claim shape">// "fast"
-//   → unfalsifiable.
-// "p99 89ms @ 12k req/s,
-//   repro: wrk -t4 -c100 -d30s"
-//   → ship it.</pre>
-    </section>
-
-    <section class="principle" data-num="03">
-      <header>
-        <span class="num">№ 03</span>
-        <span class="area">Who</span>
         <h2>Code is for the next reader.</h2>
       </header>
       <div class="body">
