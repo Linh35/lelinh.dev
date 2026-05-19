@@ -13,7 +13,8 @@ BAD=$(grep -rEn "from ['\"][^./]" src/assets/ 2>/dev/null)
 if [ -n "$BAD" ]; then echo "$BAD"; FAIL=1; fi
 
 echo "=== Framework references (must be empty) ==="
-FW=$(grep -riE "react|vue|svelte|alpine|jquery|lit-html" --include='*.js' --include='*.html' src/ 2>/dev/null)
+# Match real usage (imports / script srcs), not the words in prose copy.
+FW=$(grep -riEn "(from|import\(|require\()[[:space:]]*['\"][^'\"]*(react|vue|svelte|alpine|jquery|lit-html)|<script[^>]*src=['\"][^'\"]*(react|vue|svelte|alpine|jquery|lit-html)" --include='*.js' --include='*.html' src/ 2>/dev/null)
 if [ -n "$FW" ]; then echo "$FW"; FAIL=1; fi
 
 echo "=== Build artifacts (must be absent) ==="
