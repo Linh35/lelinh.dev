@@ -21,7 +21,7 @@
   html[data-mode="terminal"] code { color: var(--green); }
   html[data-mode="terminal"] pre { background: var(--bg-sunk); padding: var(--u) calc(var(--u)*2); border-left: 3px solid var(--cyan); color: var(--fg); margin: calc(var(--u)*2) 0; overflow-x: auto; }
   html[data-mode="terminal"] pre code { color: inherit; }
-  html[data-mode="terminal"] .lede { color: color-mix(in oklab, var(--fg) 80%, var(--muted)); }
+  html[data-mode="terminal"] .lede { color: color-mix(in oklab, var(--fg) 80%, var(--muted)); font-size: 1.1em; }
 
   html[data-mode="terminal"] site-header { display: block; margin-bottom: calc(var(--u)*3); color: var(--muted); }
   html[data-mode="terminal"] site-header .prompt { color: var(--cyan); }
@@ -87,7 +87,7 @@
   html[data-mode="terminal"] section.principle table.budget td { padding: 2px calc(var(--u)*2) 2px 0; }
   html[data-mode="terminal"] :is(section.patterns header.patterns-head, section.decisions header.decisions-head) { display: block; margin-top: calc(var(--u)*4); padding-top: calc(var(--u)*2); border-top: 1px dotted var(--rule); }
   html[data-mode="terminal"] section.patterns .num { color: var(--yellow); font-size: 0.85em; }
-  html[data-mode="terminal"] :is(section.patterns, section.decisions) h2 { color: var(--cyan); display: inline-block; margin: 0 0 0 1ch; }
+  html[data-mode="terminal"] :is(section.patterns, section.decisions) h2 { color: var(--cyan); display: inline-block; margin: 0 0 0 1ch; font-size: 1.5em; }
   html[data-mode="terminal"] :is(section.patterns, section.decisions) h2::before { content: "› "; color: var(--yellow); }
   html[data-mode="terminal"] section.decisions .lede { color: color-mix(in oklab, var(--fg) 80%, var(--muted)); padding-left: 2ch; margin: var(--u) 0; }
   html[data-mode="terminal"] :is(ul.pattern-grid, ol.decision-list) { list-style: none; padding: 0; margin: var(--u) 0; counter-reset: dec; }
