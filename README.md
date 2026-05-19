@@ -51,5 +51,8 @@ Dracula background `#282a36`. Dracula cyan `#8be9fd` and Monokai yellow `#e6db74
 
 ## Deploy
 
-Primary: served from a static host at `lelinh.dev`.
-Backup: a GitHub Actions workflow (`.github/workflows/pages.yml`) publishes `src/` to GitHub Pages on every push to `master`. The `src/CNAME` file binds Pages to the same custom domain.
+Hosted on Cloudflare Pages (project `lelinh`, custom domain `lelinh.dev`). Deploys are manual, direct-upload from the working tree — a push to GitHub does not deploy:
+
+```bash
+npx wrangler pages deploy src --project-name=lelinh
+```
