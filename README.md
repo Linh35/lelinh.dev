@@ -4,14 +4,13 @@ Personal portfolio of Linh Le. Plain HTML, CSS, and ES modules — no build step
 
 ## Run it
 
-The site is in `src/`. Any static file server works:
+The site is in `src/`. Use the included dev server:
 
 ```bash
-node serve.js                            # included dev server, :3000
-(cd src && python3 -m http.server 8000)  # or stdlib python
+node serve.js   # :3000
 ```
 
-Then open `http://localhost:3000/` (or `:8000` for the python server).
+Then open `http://localhost:3000/`.
 
 `./check.sh` runs the static verifier from repo root.
 
@@ -23,7 +22,7 @@ Then open `http://localhost:3000/` (or `:8000` for the python server).
    - `mode-manager.js` — owner of `<html data-mode>`. Persists to `localStorage['mode']`. `setMode(name)` runs through a View Transition.
    - `content-loader.js` — fetches `src/assets/content/{slug}.md`, parses frontmatter and a small markdown subset. Hand-written; no library.
 
-2. **Renderers** (`src/assets/modes/`) — shared custom-element shells (`<site-header>`, `<site-footer>`) with per-mode renderer registrations. Switching mode re-runs the active renderer against the same elements.
+2. **Renderers** (`src/assets/modes/`) — shared custom-element shells (`<site-header>`, `<site-footer>`, `<project-card>`, `<project-list>`) with per-mode renderer registrations. Switching mode re-runs the active renderer against the same elements.
    - **Terminal** — monospace, dark, cyan headers, yellow accents.
    - **Swiss** — editorial sans + serif, 12-column grid, large display type.
 
