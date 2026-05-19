@@ -45,7 +45,7 @@ function mkFB(gl, tex) {
 function seed() {
   const d = new Uint8Array(W * H * 4);
   for (let i = 0; i < d.length; i += 4) { d[i] = 255; d[i+3] = 255; } // A=1 everywhere
-  for (let s = 0; s < 24; s++) {
+  for (let s = 0; s < 36; s++) {
     const cx = (Math.random() * W) | 0, cy = (Math.random() * H) | 0;
     for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) {
       const idx = (((cy+dy+H)%H)*W + (cx+dx+W)%W) * 4;
