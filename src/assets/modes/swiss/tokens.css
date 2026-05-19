@@ -40,6 +40,8 @@
   html[data-mode="swiss"] kbd { font-family: var(--mono); background: var(--bg-sunk); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 2px; font-size: 0.85em; }
 
   /* Hero */
+  html[data-mode="swiss"] section.hero .ident { grid-column: 1 / -1; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  html[data-mode="swiss"] section.hero .ident b { color: var(--accent); font-weight: 400; }
   html[data-mode="swiss"] section.hero h1 { grid-column: 1 / -1; }
   html[data-mode="swiss"] section.hero .lede { grid-column: 1 / span 7; }
   html[data-mode="swiss"] section.hero .meta { grid-column: 9 / -1; align-self: end; display: flex; flex-wrap: wrap; gap: var(--u) calc(var(--u)*2); font-family: var(--mono); font-size: 0.78rem; color: var(--muted); padding-top: calc(var(--u)*2); border-top: 1px solid var(--echo); }
