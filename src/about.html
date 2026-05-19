@@ -120,7 +120,7 @@
         </li>
         <li>
           <h3>The reaction-diffusion sim on the CPU.</h3>
-          <p>First version stepped Gray-Scott in plain JS over a Canvas2D buffer — two float arrays, a double loop every frame. Correct, and far too slow: a few hundred cells in, the frame budget was gone and the pattern crawled. A static gradient was the fallback sketch — honest, but a gradient is a texture, and the page is supposed to <em>be</em> the system, not paint a picture of one. Moved the update onto the GPU: state in an RGBA texture, the step as a fragment shader, ping-pong framebuffers to advance time. The CPU does nothing per frame now but ask for the next draw.</p>
+          <p>First version stepped Gray-Scott in plain JS over a Canvas2D buffer — two float arrays, a double loop every frame. Correct, and far too slow: a few hundred cells in, the frame budget was gone and the pattern crawled. A static gradient was the fallback sketch — honest, but a gradient is a texture, and the page is supposed to <em>be</em> the system, not paint a picture of one. Moved the update onto the GPU: state in an RGBA texture, the step as a fragment shader, ping-pong framebuffers to advance time. Now the CPU does nothing per frame except ask for the next draw.</p>
         </li>
         <li>
           <h3>Mode from <code>prefers-color-scheme</code>.</h3>
