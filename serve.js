@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // serve.js — Node stdlib dev server for the static site under src/.
-// Single doc root, no rewriting. Run from the repo root: `node serve.js`.
+// Single doc root; misses serve src/404.html (matches Cloudflare Pages).
+// Run from the repo root: `node serve.js`.
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
@@ -35,6 +36,12 @@ function send(res, status, body, headers = {}) {
   res.end(body);
 }
 
+function notFound(res) {
+  fs.readFile(path.join(SITE_ROOT, "404.html"), (e, data) =>
+    e ? send(res, 404, "Not Found")
+      : send(res, 404, data, { "Content-Type": "text/html; charset=utf-8" }));
+}
+
 const server = http.createServer((req, res) => {
   let urlPath;
   try {
@@ -47,7 +54,7 @@ const server = http.createServer((req, res) => {
   if (!filePath.startsWith(SITE_ROOT)) return send(res, 403, "Forbidden");
 
   fs.stat(filePath, (err, stat) => {
-    if (err) return send(res, 404, "Not Found");
+    if (err) return notFound(res);
 
     if (stat.isDirectory()) {
       if (!urlPath.endsWith("/")) {
@@ -55,7 +62,7 @@ const server = http.createServer((req, res) => {
       }
       const indexFile = path.join(filePath, "index.html");
       return fs.readFile(indexFile, (e, data) => {
-        if (e) return send(res, 404, "Not Found");
+        if (e) return notFound(res);
         send(res, 200, data, { "Content-Type": "text/html; charset=utf-8" });
       });
     }
