@@ -123,6 +123,9 @@
     html[data-mode="swiss"] section.principle dl.stats,
     html[data-mode="swiss"] section.principle table.budget { grid-column: 1 / -1; }
     html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) { grid-template-columns: 1fr; }
+    html[data-mode="swiss"] :is(section.hero .lede, section.hero .meta, section.intro h2, section.intro > p) { grid-column: 1 / -1; }
+    html[data-mode="swiss"] section.intro > p { max-width: none; margin-top: var(--u); }
+    html[data-mode="swiss"] site-header { flex-wrap: wrap; }
   }
 }
 
