@@ -42,9 +42,22 @@ export const dispFrag = `
 precision highp float;
 uniform sampler2D u_tex;
 uniform vec2 u_res;
-uniform vec3 u_lo, u_hi;
+uniform vec3 u_lo;
+// Dracula accents (mirrors base.css) — keeps the sim on the site's palette.
+vec3 pal(float t) {
+  t = fract(t) * 5.0;
+  if (t < 1.0) return vec3(0.545, 0.914, 0.992); // cyan
+  if (t < 2.0) return vec3(0.314, 0.980, 0.482); // green
+  if (t < 3.0) return vec3(0.741, 0.576, 0.976); // purple
+  if (t < 4.0) return vec3(1.000, 0.475, 0.776); // pink
+  return vec3(0.902, 0.859, 0.455);              // yellow
+}
 void main() {
-  float b = texture2D(u_tex, gl_FragCoord.xy / u_res).g;
-  gl_FragColor = vec4(mix(u_lo, u_hi, smoothstep(0.0, 0.5, b)), 1.0);
+  vec2 uv = gl_FragCoord.xy / u_res;
+  vec4 C = texture2D(u_tex, uv);
+  // Each region owns one accent (by position + a little chemical A); drifting
+  // spots shift between accents as they move. Background stays palette.
+  float t = 0.6 * uv.x + 0.35 * uv.y + 0.25 * C.r;
+  gl_FragColor = vec4(mix(u_lo, pal(t), smoothstep(0.0, 0.5, C.g)), 1.0);
 }
 `;

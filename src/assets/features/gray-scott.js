@@ -1,12 +1,19 @@
 /* gray-scott.js — Gray-Scott sim via WebGL ping-pong framebuffers.
  * Dependencies: ./rd-shaders.js
  * Invariants: two RGBA textures alternate as read/write targets each sim step.
- *             Canvas is sized to W×H internally; CSS scales the display.
- * Non-goals: no resize handling, no interaction, no context-loss recovery.
+ *             Sim grid is W×H, power-of-two (REPEAT wrap needs POT in WebGL1).
+ *             Display pass renders at the canvas's device-pixel size.
+ * Non-goals: no interaction, no context-loss recovery. Canvas is sized once
+ *            at init from its laid-out box — no live resize handling.
  */
 import { vert, simFrag, dispFrag } from './rd-shaders.js';
 
-const W = 512, H = 512, STEPS = 8, F = 0.037, K = 0.060;
+const W = 1024, H = 1024, STEPS = 6, F = 0.037, K = 0.060;
+
+// The router swaps <main> on SPA nav, so each visit mounts a fresh canvas +
+// WebGL context. Track the live one and free it on the next mount — otherwise
+// contexts accumulate until the browser's ~16 limit and the sim breaks.
+let live = null;
 
 function mkShader(gl, type, src) {
   const s = gl.createShader(type);
@@ -67,7 +74,16 @@ function cssColor(varName) {
 export function init(canvas) {
   const gl = canvas.getContext('webgl');
   if (!gl) return;
-  canvas.width = W; canvas.height = H;
+  if (live) { cancelAnimationFrame(live.raf); live.lose?.loseContext(); }
+  const lose = gl.getExtension('WEBGL_lose_context');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  // Canvas can mount pre-layout (SPA nav) where a one-shot measure reads 0
+  // and would lock the buffer at 1×1 — size from layout and on every resize.
+  const size = () => {
+    const w = Math.max(1, Math.round(canvas.clientWidth * dpr)), h = Math.max(1, Math.round(canvas.clientHeight * dpr));
+    if (w !== canvas.width || h !== canvas.height) { canvas.width = w; canvas.height = h; }
+  };
+  new ResizeObserver(size).observe(canvas); size();
 
   const simProg = mkProg(gl, vert, simFrag);
   const dispProg = mkProg(gl, vert, dispFrag);
@@ -85,12 +101,10 @@ export function init(canvas) {
   const du = {
     res: gl.getUniformLocation(dispProg, 'u_res'),
     lo:  gl.getUniformLocation(dispProg, 'u_lo'),
-    hi:  gl.getUniformLocation(dispProg, 'u_hi'),
     pos: gl.getAttribLocation(dispProg, 'a_pos'),
   };
 
   const lo = cssColor('var(--bg-sunk)');
-  const hi = cssColor('var(--accent)');
 
   let texA = mkTex(gl, seed()), texB = mkTex(gl, null);
   let fbA  = mkFB(gl, texA),  fbB  = mkFB(gl, texB);
@@ -101,6 +115,7 @@ export function init(canvas) {
     gl.viewport(0, 0, W, H);
     gl.useProgram(simProg);
     gl.bindTexture(gl.TEXTURE_2D, src);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     gl.uniform2f(su.res, W, H);
     gl.uniform1f(su.f, F);
     gl.uniform1f(su.k, K);
@@ -111,23 +126,24 @@ export function init(canvas) {
 
   function render(src) {
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    gl.viewport(0, 0, W, H);
+    gl.viewport(0, 0, canvas.width, canvas.height);
     gl.useProgram(dispProg);
     gl.bindTexture(gl.TEXTURE_2D, src);
-    gl.uniform2f(du.res, W, H);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.uniform2f(du.res, canvas.width, canvas.height);
     gl.uniform3fv(du.lo, lo);
-    gl.uniform3fv(du.hi, hi);
     gl.enableVertexAttribArray(du.pos);
     gl.vertexAttribPointer(du.pos, 2, gl.FLOAT, false, 0, 0);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
 
+  live = { gl, lose, raf: 0 };
   (function frame() {
     for (let i = 0; i < STEPS; i++) {
       simStep(ping.tex, pong.fb);
       [ping, pong] = [pong, ping];
     }
     render(ping.tex);
-    requestAnimationFrame(frame);
+    live.raf = requestAnimationFrame(frame);
   })();
 }
