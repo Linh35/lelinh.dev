@@ -10,9 +10,8 @@ import { vert, simFrag, dispFrag } from './rd-shaders.js';
 
 const W = 1024, H = 1024, STEPS = 6, F = 0.037, K = 0.060;
 
-// The router swaps <main> on SPA nav, so each visit mounts a fresh canvas +
-// WebGL context. Track the live one and free it on the next mount — otherwise
-// contexts accumulate until the browser's ~16 limit and the sim breaks.
+// Router swaps <main> on SPA nav → each visit makes a fresh WebGL context.
+// Track the live one and free it next mount, else contexts leak to the ~16 cap.
 let live = null;
 
 function mkShader(gl, type, src) {
@@ -54,9 +53,10 @@ function seed() {
   for (let i = 0; i < d.length; i += 4) { d[i] = 255; d[i+3] = 255; } // A=1 everywhere
   for (let s = 0; s < 36; s++) {
     const cx = (Math.random() * W) | 0, cy = (Math.random() * H) | 0;
+    const hue = Math.round(((s * 0.6180339887) % 1) * 255); // per-seed hue, sim-advected
     for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) {
       const idx = (((cy+dy+H)%H)*W + (cx+dx+W)%W) * 4;
-      d[idx] = 0; d[idx+1] = 255; // A=0, B=1 — seeds for B to grow
+      d[idx] = 0; d[idx+1] = 255; d[idx+2] = hue; // A=0, B=1, hue label
     }
   }
   return d;

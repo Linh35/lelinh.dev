@@ -30,10 +30,16 @@ void main() {
     + 0.20 * (N.rg + S.rg + E.rg + W.rg)
     + 0.05 * (NE.rg + SW.rg + NW.rg + SE.rg);
   float a = C.r, b = C.g, r = a * b * b;
+  // Per-seed hue (.b channel) advects with the B chemical: B-weighted
+  // average of the 3x3 neighbourhood, so each blob keeps its seed colour.
+  float wsum = C.g + N.g + S.g + E.g + W.g + NE.g + SW.g + NW.g + SE.g;
+  float lsum = C.g*C.b + N.g*N.b + S.g*S.b + E.g*E.b + W.g*W.b
+             + NE.g*NE.b + SW.g*SW.b + NW.g*NW.b + SE.g*SE.b;
+  float label = wsum > 0.001 ? lsum / wsum : C.b;
   gl_FragColor = vec4(
     clamp(a + 0.2097*lap.x - r + u_f*(1.0 - a), 0.0, 1.0),
     clamp(b + 0.105 *lap.y + r - (u_k + u_f)*b, 0.0, 1.0),
-    0.0, 1.0
+    label, 1.0
   );
 }
 `;
@@ -55,9 +61,8 @@ vec3 pal(float t) {
 void main() {
   vec2 uv = gl_FragCoord.xy / u_res;
   vec4 C = texture2D(u_tex, uv);
-  // Each region owns one accent (by position + a little chemical A); drifting
-  // spots shift between accents as they move. Background stays palette.
-  float t = 0.6 * uv.x + 0.35 * uv.y + 0.25 * C.r;
-  gl_FragColor = vec4(mix(u_lo, pal(t), smoothstep(0.0, 0.5, C.g)), 1.0);
+  // Colour by the advected per-seed label (.b), not screen position — each
+  // blob is one solid accent that travels with it, no positional banding.
+  gl_FragColor = vec4(mix(u_lo, pal(C.b), smoothstep(0.0, 0.5, C.g)), 1.0);
 }
 `;
