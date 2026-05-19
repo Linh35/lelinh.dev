@@ -124,7 +124,7 @@
         </li>
         <li>
           <h3>Mode from <code>prefers-color-scheme</code>.</h3>
-          <p>The first cut had no toggle — read <code>matchMedia</code> and pick terminal or swiss off the OS theme. It collapsed two unrelated axes: the modes aren't dark-vs-light, they're a different reading of the page, and the OS has no opinion about that. A <code>?mode=</code> URL param came next — shareable, but it doesn't survive a click to the next page and clutters every link. Now an explicit choice persists to <code>localStorage</code>, and an inline <code>&lt;head&gt;</code> script replays it before first paint so the switch never flashes.</p>
+          <p>The first cut had no toggle — read <code>matchMedia</code> and pick terminal or swiss off the OS theme. But the modes aren't dark vs light; they're different readings of the page, which the OS theme doesn't control. A <code>?mode=</code> URL param came next — shareable, but it doesn't survive a click to the next page and clutters every link. Now an explicit choice persists to <code>localStorage</code>, and an inline <code>&lt;head&gt;</code> script replays it before first paint so the switch never flashes.</p>
         </li>
         <li>
           <h3>Project content as a JSON manifest.</h3>
