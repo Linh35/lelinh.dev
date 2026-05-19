@@ -23,7 +23,7 @@ register('site-header', 'swiss', host => {
 });
 
 register('site-footer', 'swiss', host => {
-  host.innerHTML = `<span>© ${new Date().getFullYear()} Linh Le</span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a><a href="https://github.com/Linh35">GitHub</a><a href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a><span class="hint">view-source friendly · Ctrl+U</span>`;
+  host.innerHTML = `<span>© ${new Date().getFullYear()} Linh Le</span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a><a rel="me" href="https://github.com/Linh35">GitHub</a><a rel="me" href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a><span class="hint">view-source friendly · Ctrl+U</span>`;
 });
 
 register('project-card', 'swiss', async host => {
