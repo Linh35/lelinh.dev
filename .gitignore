@@ -1,4 +1,5 @@
 .claude/
+.wrangler/
 baked.bin
 PITCHES.md
 CLAUDE.md
