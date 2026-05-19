@@ -126,6 +126,7 @@
     html[data-mode="swiss"] :is(section.hero .lede, section.hero .meta, section.intro h2, section.intro > p) { grid-column: 1 / -1; }
     html[data-mode="swiss"] section.intro > p { max-width: none; margin-top: var(--u); }
     html[data-mode="swiss"] site-header { flex-wrap: wrap; }
+    html[data-mode="swiss"] section.claim:nth-child(even of .claim) :is(header, source-snippet), html[data-mode="swiss"] section.principle:nth-child(even of .principle) :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1 / -1; }
   }
 }
 
