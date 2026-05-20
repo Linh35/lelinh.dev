@@ -61,10 +61,10 @@
   html[data-mode="swiss"] section.claim .achieves { color: var(--muted); max-width: 38ch; margin: 0; line-height: 1.55; }
   /* Default (odd): header left, snippet right. */
   html[data-mode="swiss"] section.claim header { grid-column: 1 / span 5; }
-  html[data-mode="swiss"] section.claim source-snippet { grid-column: 7 / -1; }
+  html[data-mode="swiss"] section.claim :is(source-snippet, figure.source) { grid-column: 7 / -1; }
   /* Every even .claim sibling — swap. */
   html[data-mode="swiss"] section.claim:nth-child(even of .claim) header { grid-column: 8 / -1; }
-  html[data-mode="swiss"] section.claim:nth-child(even of .claim) source-snippet { grid-column: 1 / span 6; }
+  html[data-mode="swiss"] section.claim:nth-child(even of .claim) :is(source-snippet, figure.source) { grid-column: 1 / span 6; }
 
   /* Principles (work + about) — alternate sides per even/odd. */
   html[data-mode="swiss"] section.principle { padding-top: calc(var(--u)*2); }
@@ -111,13 +111,14 @@
   html[data-mode="swiss"] figure.source .path { color: var(--fg); }
   html[data-mode="swiss"] figure.source .raw { color: var(--accent); }
   html[data-mode="swiss"] figure.source pre { font-family: var(--mono); background: var(--bg-sunk); padding: var(--u) calc(var(--u)*2); overflow-x: auto; font-size: 0.85rem; line-height: 1.5; border-left: 2px solid var(--echo); margin: 0; }
+  html[data-mode="swiss"] figure.source p { padding: var(--u) calc(var(--u)*2); border-left: 2px solid var(--echo); margin: 0; line-height: 1.55; }
 
   /* Closing line */
   html[data-mode="swiss"] section.next p { grid-column: 3 / span 8; text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.4em; line-height: 1.4; color: var(--muted); padding: calc(var(--u)*3) 0; border-top: 1px solid var(--echo); border-bottom: 1px solid var(--echo); }
 
   @container (max-width: 800px) {
     html[data-mode="swiss"] section.claim header,
-    html[data-mode="swiss"] section.claim source-snippet,
+    html[data-mode="swiss"] section.claim :is(source-snippet, figure.source),
     html[data-mode="swiss"] section.principle .body,
     html[data-mode="swiss"] section.principle pre.proof,
     html[data-mode="swiss"] section.principle dl.stats,
@@ -126,7 +127,7 @@
     html[data-mode="swiss"] :is(section.hero .lede, section.hero .meta, section.intro h2, section.intro > p) { grid-column: 1 / -1; }
     html[data-mode="swiss"] section.intro > p { max-width: none; margin-top: var(--u); }
     html[data-mode="swiss"] site-header { flex-wrap: wrap; }
-    html[data-mode="swiss"] section.claim:nth-child(even of .claim) :is(header, source-snippet), html[data-mode="swiss"] section.principle:nth-child(even of .principle) :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1 / -1; }
+    html[data-mode="swiss"] section.claim:nth-child(even of .claim) :is(header, source-snippet, figure.source), html[data-mode="swiss"] section.principle:nth-child(even of .principle) :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1 / -1; }
   }
 }
 

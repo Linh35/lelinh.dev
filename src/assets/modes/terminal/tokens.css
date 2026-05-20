@@ -40,6 +40,7 @@
   html[data-mode="terminal"] figure.source .path { color: var(--cyan); }
   html[data-mode="terminal"] figure.source .raw { color: var(--yellow); border: none; }
   html[data-mode="terminal"] figure.source pre { margin-top: 0; }
+  html[data-mode="terminal"] figure.source p { color: var(--fg); padding-left: 2ch; border-left: 3px solid var(--cyan); margin: var(--u) 0 0; }
   html[data-mode="terminal"] kbd { font-family: var(--mono); background: var(--bg-sunk); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 2px; font-size: 0.85em; color: var(--yellow); }
 
   html[data-mode="terminal"] main > section { display: block; }
