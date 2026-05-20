@@ -48,7 +48,7 @@
   html[data-mode="terminal"] section.hero .ident { color: var(--muted); margin-bottom: var(--u); }
   html[data-mode="terminal"] section.hero .ident::before { content: "# whoami: "; color: var(--yellow); }
   html[data-mode="terminal"] section.hero .ident b { color: var(--cyan); font-weight: normal; }
-  html[data-mode="terminal"] section.hero .meta { display: flex; flex-wrap: wrap; gap: var(--u) calc(var(--u)*2); margin-top: calc(var(--u)*2); padding-left: 2ch; color: var(--muted); font-size: 0.85em; }
+  html[data-mode="terminal"] section.hero .meta { display: flex; flex-wrap: wrap; gap: var(--u) calc(var(--u)*2); margin-top: calc(var(--u)*2); padding-left: 2ch; color: var(--muted); font-size: 1em; }
   html[data-mode="terminal"] section.hero .meta::before { content: "# stats:"; color: var(--yellow); }
   html[data-mode="terminal"] section.hero .domains::before { content: "# domains:"; color: var(--yellow); }
   html[data-mode="terminal"] section.hero .meta b { color: var(--cyan); font-weight: normal; }

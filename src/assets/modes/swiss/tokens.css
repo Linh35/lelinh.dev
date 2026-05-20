@@ -8,7 +8,7 @@
   html[data-mode="swiss"] { font-family: var(--sans); line-height: 1.5; --accent: var(--cyan); --echo: var(--yellow); }
   html[data-mode="swiss"] body {
     max-width: 1280px; margin: 0 auto;
-    padding: calc(var(--u)*10) calc(var(--u)*6);
+    padding: calc(var(--u)*8) calc(var(--u)*5);
     display: grid; grid-template-columns: repeat(12, 1fr);
     column-gap: calc(var(--u)*3); row-gap: calc(var(--u)*7);
   }
@@ -20,7 +20,7 @@
   html[data-mode="swiss"] main > section { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: calc(var(--u)*3); row-gap: calc(var(--u)*3); }
 
   /* Type scale — Fibonacci on display, em-relative for sub-1. */
-  html[data-mode="swiss"] h1 { font-family: var(--serif); font-weight: 400; line-height: 0.9; letter-spacing: -0.035em; margin: 0; font-size: clamp(var(--t-3), 10vw, var(--t-8)); color: var(--fg); }
+  html[data-mode="swiss"] h1 { font-family: var(--serif); font-weight: 400; line-height: 0.9; letter-spacing: -0.035em; margin: 0; font-size: clamp(var(--t-3), 8vw, var(--t-5)); color: var(--fg); }
   html[data-mode="swiss"] h1 em { font-style: italic; color: var(--accent); }
   html[data-mode="swiss"] h2 { font-family: var(--serif); font-weight: 400; line-height: 1.05; letter-spacing: -0.015em; margin: 0; font-size: clamp(var(--t-2), 5vw, var(--t-5)); color: var(--fg); }
   html[data-mode="swiss"] h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; margin: 0; font-size: var(--t-2); color: var(--fg); }
@@ -44,7 +44,7 @@
   html[data-mode="swiss"] section.hero .ident b { color: var(--accent); font-weight: 400; }
   html[data-mode="swiss"] section.hero h1 { grid-column: 1 / -1; }
   html[data-mode="swiss"] section.hero .lede { grid-column: 1 / span 7; }
-  html[data-mode="swiss"] section.hero .meta { grid-column: 9 / -1; align-self: end; display: flex; flex-wrap: wrap; gap: var(--u) calc(var(--u)*2); font-family: var(--mono); font-size: 0.78rem; color: var(--muted); padding-top: calc(var(--u)*2); border-top: 1px solid var(--echo); }
+  html[data-mode="swiss"] section.hero .meta { grid-column: 9 / -1; align-self: end; display: flex; flex-wrap: wrap; gap: var(--u) calc(var(--u)*2); font-family: var(--mono); font-size: 0.9rem; color: var(--muted); padding-top: calc(var(--u)*2); border-top: 1px solid var(--echo); }
   html[data-mode="swiss"] section.hero .meta b { color: var(--accent); font-weight: 400; }
   html[data-mode="swiss"] section.hero .meta + .domains { border-top: none; padding-top: calc(var(--u)*0.5); margin-top: calc(var(--u)*0.5); }
 
