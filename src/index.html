@@ -72,7 +72,10 @@
         <h3>Hover ahead — the next page is already on its way.</h3>
         <p class="achieves">Move your cursor onto a nav link and the site quietly fetches the next page in the background. By the time you actually click, it's already on disk. Open the network tab and watch the prefetch fire. <em>(The router injects a <code>&lt;link rel="prefetch"&gt;</code> into <code>&lt;head&gt;</code>, deduped per URL.)</em></p>
       </header>
-      <source-snippet src="/assets/kernel/router.js" lines="38-49" caption="router.js · onHover()"></source-snippet>
+      <figure class="source">
+        <figcaption><span class="path">Tried first · prefetch every link</span></figcaption>
+        <p>The easy version walked every in-page link on load and injected <code>&lt;link rel="prefetch"&gt;</code> for each. It works, and it's wasteful — spending the visitor's bandwidth on pages they'll never open, on a site whose whole pitch is that every byte is deliberate. An IntersectionObserver that prefetched links as they scrolled into view was better but still speculative. Hover won: once the cursor lands on a link the intent is real — one <code>&lt;link&gt;</code>, deduped per pathname, almost always on disk by the click.</p>
+      </figure>
     </section>
 
     <section class="claim">
@@ -99,7 +102,10 @@
         <h3>Those drifting spots are a system, not a texture.</h3>
         <p class="achieves">Two chemicals on a grid: A gets fed in, B eats A and decays — the patterns fall out of the math. State lives in an RGBA texture, a shader runs the Gray-Scott update on every cell in parallel, ping-pong framebuffers step time forward. <em>(The interesting call was what to put on the GPU and what to leave in JS — read the system, then write to it.)</em></p>
       </header>
-      <source-snippet src="/assets/features/rd-shaders.js" lines="32-37" caption="rd-shaders.js · Gray-Scott update"></source-snippet>
+      <figure class="source">
+        <figcaption><span class="path">Tried first · the CPU</span></figcaption>
+        <p>First version stepped Gray-Scott in plain JS over a Canvas2D buffer — two float arrays, a double loop every frame. Correct, and far too slow: a few hundred cells in, the frame budget was gone and the pattern crawled. A static gradient was the fallback sketch — honest, but a gradient is a texture, and the page is supposed to <em>be</em> the system, not paint a picture of one. Moved the update onto the GPU: state in an RGBA texture, the step as a fragment shader, ping-pong framebuffers to advance time. Now the CPU does nothing per frame except ask for the next draw.</p>
+      </figure>
     </section>
 
     <canvas id="rd" aria-hidden="true"></canvas>
