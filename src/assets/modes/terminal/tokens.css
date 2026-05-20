@@ -44,7 +44,7 @@
   html[data-mode="terminal"] kbd { font-family: var(--mono); background: var(--bg-sunk); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 2px; font-size: 0.85em; color: var(--yellow); }
 
   html[data-mode="terminal"] main > section { display: block; }
-  html[data-mode="terminal"] main > section + section { margin-top: calc(var(--u)*5); padding-top: calc(var(--u)*2); border-top: 1px dotted var(--rule); }
+  html[data-mode="terminal"] main > section + section { margin-top: calc(var(--u)*3); padding-top: calc(var(--u)*2); border-top: 1px dotted var(--rule); }
   html[data-mode="terminal"] section.hero .ident { color: var(--muted); margin-bottom: var(--u); }
   html[data-mode="terminal"] section.hero .ident::before { content: "# whoami: "; color: var(--yellow); }
   html[data-mode="terminal"] section.hero .ident b { color: var(--cyan); font-weight: normal; }

@@ -15,7 +15,7 @@
   html[data-mode="swiss"] site-header,
   html[data-mode="swiss"] site-footer,
   html[data-mode="swiss"] main { grid-column: 1 / -1; }
-  html[data-mode="swiss"] main { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: calc(var(--u)*3); row-gap: calc(var(--u)*8); }
+  html[data-mode="swiss"] main { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: calc(var(--u)*3); row-gap: calc(var(--u)*5); }
   html[data-mode="swiss"] main > * { grid-column: 1 / -1; }
   html[data-mode="swiss"] main > section { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: calc(var(--u)*3); row-gap: calc(var(--u)*3); }
 
