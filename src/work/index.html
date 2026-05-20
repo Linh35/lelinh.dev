@@ -155,6 +155,39 @@
       </ul>
     </section>
 
+    <section class="decisions">
+      <header class="decisions-head">
+        <h2>Things I tried and dropped.</h2>
+        <p class="lede">Six decisions on this site that lost. The version that shipped is better because of the version that didn't.</p>
+      </header>
+      <ol class="decision-list" role="list">
+        <li>
+          <h3>Separate tags per mode.</h3>
+          <p>First sketch had <code>&lt;terminal-card&gt;</code> and <code>&lt;swiss-card&gt;</code> as distinct elements; the router would swap tags on mode change. Killed it the first time I switched modes mid-scroll — swapping tags throws out the DOM node, so focus, scroll position, and any in-flight transition reset with it. Now there's one <code>&lt;project-card&gt;</code> shell and a per-mode renderer registry; the element survives the swap, only its innards change.</p>
+        </li>
+        <li>
+          <h3>One renderer with <code>if (mode === ...)</code> branches.</h3>
+          <p>Considered a single mode-aware function per shell. Dropped it because adding a third mode would mean editing every renderer in the codebase — modes coupled through every shell. The registry inverts that: each mode owns its own file and registers itself. <em>(Adding Blueprint mode later is a new file, not a sweep through old ones.)</em></p>
+        </li>
+        <li>
+          <h3>Shadow DOM.</h3>
+          <p>The obvious choice for custom elements. Pulled it out anyway — the page told one story and devtools told another, and the thesis of this site is that the source <em>is</em> the product. View-source has to match what's actually rendering. Renderers now write straight to <code>host.innerHTML</code>.</p>
+        </li>
+        <li>
+          <h3>A Proxy-based observable store.</h3>
+          <p>Started sketching one for cross-component state and stopped about thirty lines in. The actual need was "late subscribers should see the current value" — the event bus solves that in forty lines by replaying the last published value to new subscribers in a microtask. <em>(The fancier option was solving a problem I didn't have.)</em></p>
+        </li>
+        <li>
+          <h3>Mode from <code>prefers-color-scheme</code>.</h3>
+          <p>The first cut had no toggle — read <code>matchMedia</code> and pick terminal or swiss off the OS theme. But the modes aren't dark vs light; they're different readings of the page, which the OS theme doesn't control. A <code>?mode=</code> URL param came next — shareable, but it doesn't survive a click to the next page and clutters every link. Now an explicit choice persists to <code>localStorage</code>, and an inline <code>&lt;head&gt;</code> script replays it before first paint so the switch never flashes.</p>
+        </li>
+        <li>
+          <h3>Project content as a JSON manifest.</h3>
+          <p>Card data started as one <code>content.json</code> — title, summary, tags, body as an HTML string. Two problems: editing prose inside JSON strings is miserable, and a body of pre-baked HTML is exactly the opaque-source thing this site argues against. Inline-HTML-per-card had the same second problem. Settled on one markdown file per project with frontmatter, and a hand-written parser for the small markdown subset actually used — ~90 lines, not CommonMark, and a card's source reads as the card.</p>
+        </li>
+      </ol>
+    </section>
+
     <section class="patterns">
       <header class="patterns-head">
         <span class="num">At scale</span>
