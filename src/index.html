@@ -104,7 +104,7 @@
       </header>
       <figure class="source">
         <figcaption><span class="path">Tried first · the CPU</span></figcaption>
-        <p>First version stepped Gray-Scott in plain JS over a Canvas2D buffer — two float arrays, a double loop every frame. Correct, and far too slow: a few hundred cells in, the frame budget was gone and the pattern crawled. A static gradient was the fallback sketch — honest, but a gradient is a texture, and the page is supposed to <em>be</em> the system, not paint a picture of one. Moved the update onto the GPU: state in an RGBA texture, the step as a fragment shader, ping-pong framebuffers to advance time. Now the CPU does nothing per frame except ask for the next draw.</p>
+        <p>First version stepped Gray-Scott in plain JS over a Canvas2D buffer — two float arrays, a double loop every frame. Correct, and far too slow: a few hundred cells in, the frame budget was gone and the pattern crawled. Moved the update onto the GPU: state in an RGBA texture, the step as a fragment shader, ping-pong framebuffers to advance time. Now the CPU does nothing per frame except ask for the next draw.</p>
       </figure>
     </section>
 
@@ -123,7 +123,7 @@
         </li>
         <li>
           <h3>IoT &amp; large data · 9 yrs</h3>
-          <p>Alongside the web work, inside the same 11 years. ~100 networks, hundreds of thousands of devices reporting every 10 min — ingested, aggregated, and queryable in under 250&nbsp;ms. LoRaWAN radio→DB. AWS compute/storage/queues in production. Vue 3 operator dashboards on top of an Elasticsearch read layer.</p>
+          <p>Alongside the web work, inside the same 11 years. ~100 networks, hundreds of thousands of devices reporting every 10 min — ingested, aggregated, and queryable in under 250&nbsp;ms. LoRaWAN radio→DB; AWS compute/storage/queues; Vue 3 operator dashboards on top of an Elasticsearch read layer.</p>
           <span class="where">→ 100+ networks · &lt;250ms aggregated read</span>
         </li>
         <li>

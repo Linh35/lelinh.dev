@@ -54,7 +54,7 @@
       </header>
       <div class="body">
         <p>I split a system into rings — the most important things in the middle, the optional things on the outside. You should be able to peel off any feature without breaking the core. This site is wired exactly that way: a tiny kernel at the center, mode renderers in the middle, optional features at the edge.</p>
-        <p>Keeping the rings honest is forced clarity. The bus doesn't know about modes; modes don't know about features; features don't know about each other. <em>Coupling is what makes systems brittle — the boundary is where I draw the line.</em></p>
+        <p>The bus doesn't know about modes; modes don't know about features; features don't know about each other. <em>Coupling is what makes systems brittle — the boundary is where I draw the line.</em></p>
       </div>
       <pre class="proof" aria-label="ring tree">assets/
 ├── kernel/    bus, router, mode, loader
@@ -72,7 +72,7 @@
       </header>
       <div class="body">
         <p>I treat dependencies and code lines like ingredients — every one has to earn its spot. This site has no third-party libraries, no build step, and a hard rule that no file is allowed to grow past 150 lines. (A small script checks all of that on save.)</p>
-        <p>Constraints aren't about being a purist; they're how I keep the codebase legible six months later. The first time I cut a feature because a file was creeping past the line limit, I realized I didn't need that feature anyway. <em>Fast is a side-effect of small.</em></p>
+        <p>Constraints aren't about being a purist; they're how I keep the codebase legible six months later. First time I cut a feature to stay under the line limit, I realized I didn't need it. <em>Fast is a side-effect of small.</em></p>
       </div>
       <dl class="stats" aria-label="constraints">
         <dt>deps</dt><dd>0</dd>
@@ -185,7 +185,7 @@
         </li>
         <li>
           <h3>One renderer with <code>if (mode === ...)</code> branches.</h3>
-          <p>Considered a single mode-aware function per shell. Dropped it because adding a third mode would mean editing every renderer in the codebase — modes coupled through every shell. The registry inverts that: each mode owns its own file and registers itself. <em>(Adding Blueprint mode later is a new file, not a sweep through old ones.)</em></p>
+          <p>Considered a single mode-aware function per shell. Dropped it because adding a third mode would mean editing every renderer — modes coupled through every shell. The registry inverts that: each mode owns its own file and registers itself. <em>(Adding Blueprint mode later is a new file, not a sweep through old ones.)</em></p>
         </li>
         <li>
           <h3>Shadow DOM.</h3>
@@ -211,7 +211,7 @@
         <span class="num">At scale</span>
         <h2>Where I've put this to work.</h2>
       </header>
-      <p class="more">Past here the source goes private. The four above are the part I can prove on this page; the rest you take on the numbers — or on a call.</p>
+      <p class="more">Past here the source goes private. The five above are the part I can prove on this page; the rest you take on the numbers — or on a call.</p>
       <ul class="pattern-grid" role="list">
         <li>
           <h3>Sensor fleets at volume</h3>
