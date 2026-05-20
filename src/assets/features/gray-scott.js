@@ -80,7 +80,7 @@ export function init(canvas) {
   // Canvas can mount pre-layout (SPA nav) where a one-shot measure reads 0
   // and would lock the buffer at 1×1 — size from layout and on every resize.
   const size = () => {
-    const w = Math.max(1, Math.round(canvas.clientWidth * dpr)), h = Math.max(1, Math.round(canvas.clientHeight * dpr));
+    const w = Math.min(2560, Math.max(1, Math.round(canvas.clientWidth * dpr))), h = Math.min(1000, Math.max(1, Math.round(canvas.clientHeight * dpr)));
     if (w !== canvas.width || h !== canvas.height) { canvas.width = w; canvas.height = h; }
   };
   new ResizeObserver(size).observe(canvas); size();
