@@ -6,7 +6,7 @@
 
 @layer modes {
   html[data-mode="terminal"] { font-family: var(--mono); line-height: 1.55; --accent: var(--yellow); }
-  html[data-mode="terminal"] body { max-width: 92ch; margin: 0 auto; padding: calc(var(--u)*4) calc(var(--u)*3); }
+  html[data-mode="terminal"] body { max-width: 92ch; margin: 0 auto; padding: calc(var(--u)*5) calc(var(--u)*3); }
 
   html[data-mode="terminal"] a { color: var(--yellow); text-decoration: none; border-bottom: 1px dashed var(--muted); }
   html[data-mode="terminal"] a:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
@@ -44,7 +44,7 @@
   html[data-mode="terminal"] kbd { font-family: var(--mono); background: var(--bg-sunk); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 2px; font-size: 0.85em; color: var(--yellow); }
 
   html[data-mode="terminal"] main > section { display: block; }
-  html[data-mode="terminal"] main > section + section { margin-top: calc(var(--u)*4); padding-top: calc(var(--u)*2); border-top: 1px dotted var(--rule); }
+  html[data-mode="terminal"] main > section + section { margin-top: calc(var(--u)*5); padding-top: calc(var(--u)*2); border-top: 1px dotted var(--rule); }
   html[data-mode="terminal"] section.hero .ident { color: var(--muted); margin-bottom: var(--u); }
   html[data-mode="terminal"] section.hero .ident::before { content: "# whoami: "; color: var(--yellow); }
   html[data-mode="terminal"] section.hero .ident b { color: var(--cyan); font-weight: normal; }
@@ -86,7 +86,7 @@
   html[data-mode="terminal"] section.principle table.budget { border-collapse: collapse; }
   html[data-mode="terminal"] section.principle table.budget th { text-align: left; color: var(--muted); font-weight: 400; padding-right: calc(var(--u)*2); }
   html[data-mode="terminal"] section.principle table.budget td { padding: 2px calc(var(--u)*2) 2px 0; }
-  html[data-mode="terminal"] :is(section.patterns header.patterns-head, section.decisions header.decisions-head) { display: block; margin-top: calc(var(--u)*4); padding-top: calc(var(--u)*2); border-top: 1px dotted var(--rule); }
+  html[data-mode="terminal"] :is(section.patterns header.patterns-head, section.decisions header.decisions-head) { display: block; margin-top: calc(var(--u)*5); padding-top: calc(var(--u)*2); border-top: 1px dotted var(--rule); }
   html[data-mode="terminal"] section.patterns .num { color: var(--yellow); font-size: 0.85em; }
   html[data-mode="terminal"] :is(section.patterns, section.decisions) h2 { color: var(--cyan); display: inline-block; margin: 0 0 0 1ch; font-size: 1.5em; }
   html[data-mode="terminal"] :is(section.patterns, section.decisions) h2::before { content: "› "; color: var(--yellow); }
@@ -107,7 +107,7 @@
     position: fixed; bottom: 1rem; right: 1rem; z-index: 10;
     font-family: var(--mono); font-size: 0.85rem;
     background: var(--bg-sunk); border: 1px solid var(--rule);
-    color: var(--cyan); padding: var(--u) calc(var(--u)*1.5);
+    color: var(--cyan); padding: var(--u) calc(var(--u)*2);
     view-transition-name: mode-indicator;
   }
   html[data-mode="terminal"] mode-indicator button { display: block; color: inherit; font: inherit; text-align: left; }
