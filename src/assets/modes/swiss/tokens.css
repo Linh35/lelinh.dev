@@ -117,18 +117,17 @@
   html[data-mode="swiss"] section.next p { grid-column: 3 / span 8; text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.4em; line-height: 1.4; color: var(--muted); padding: calc(var(--u)*3) 0; border-top: 1px solid var(--echo); border-bottom: 1px solid var(--echo); }
 
   @container (max-width: 800px) {
-    html[data-mode="swiss"] section.claim header,
-    html[data-mode="swiss"] section.claim :is(source-snippet, figure.source),
-    html[data-mode="swiss"] section.principle .body,
-    html[data-mode="swiss"] section.principle pre.proof,
-    html[data-mode="swiss"] section.principle dl.stats,
-    html[data-mode="swiss"] section.principle table.budget { grid-column: 1 / -1; }
+    html[data-mode="swiss"] section.claim :is(header, source-snippet, figure.source), html[data-mode="swiss"] section.principle :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1 / -1; }
     html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) { grid-template-columns: 1fr; }
     html[data-mode="swiss"] :is(section.hero .lede, section.hero .meta, section.intro h2, section.intro > p) { grid-column: 1 / -1; }
     html[data-mode="swiss"] section.intro > p { max-width: none; margin-top: var(--u); }
     html[data-mode="swiss"] site-header { flex-wrap: wrap; }
     html[data-mode="swiss"] section.claim:nth-child(even of .claim) :is(header, source-snippet, figure.source), html[data-mode="swiss"] section.principle:nth-child(even of .principle) :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1 / -1; }
+    html[data-mode="swiss"] section.principle:nth-child(even of .principle) { padding: calc(var(--u)*2); }
+    html[data-mode="swiss"] section.principle pre.proof { max-width: none; }
+    html[data-mode="swiss"] section.next p { grid-column: 1 / -1; padding: calc(var(--u)*2) 0; font-size: 1.15em; }
   }
+  @media (max-width: 800px) { html[data-mode="swiss"] body { padding: calc(var(--u)*5) calc(var(--u)*2); row-gap: calc(var(--u)*3); } html[data-mode="swiss"] h1 { font-size: clamp(var(--t-2), 9vw, var(--t-3)); } html[data-mode="swiss"] :is(section.intro, section.patterns, section.decisions) h2 { font-size: clamp(var(--t-2), 7vw, var(--t-3)); } html[data-mode="swiss"] site-header nav a { padding: var(--u) 0; } }
 }
 
 @layer features {
@@ -146,4 +145,5 @@
   html[data-mode="swiss"] mode-indicator [aria-current="true"] .lbl { color: var(--accent); }
   html[data-mode="swiss"] mode-indicator .lbl { display: block; font-family: var(--serif); font-size: 1.1em; letter-spacing: -0.005em; text-transform: none; }
   html[data-mode="swiss"] mode-indicator .pitch { display: block; color: var(--muted); margin-top: 4px; text-transform: none; letter-spacing: 0; font-family: var(--sans); }
+  @media (max-width: 800px) { html[data-mode="swiss"] mode-indicator { bottom: var(--u); right: var(--u); padding: var(--u); font-size: 0.7rem; } }
 }

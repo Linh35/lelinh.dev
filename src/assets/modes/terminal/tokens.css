@@ -60,7 +60,7 @@
   html[data-mode="terminal"] section.claim h3 { color: var(--cyan); font-size: var(--t-2); margin: 0; }
   html[data-mode="terminal"] section.claim h3::before { content: "│ "; color: var(--rule); }
   html[data-mode="terminal"] section.claim .achieves { color: var(--fg); margin: 0; padding-left: 2ch; max-width: 56ch; }
-  @container (max-width: 720px) { html[data-mode="terminal"] section.claim { grid-template-columns: 1fr; } }
+  @container (max-width: 720px) { html[data-mode="terminal"] section.claim { grid-template-columns: minmax(0, 1fr); } }
   html[data-mode="terminal"] section.next p { color: var(--muted); padding-left: 2ch; }
   html[data-mode="terminal"] section.next p::before { content: "$ "; color: var(--cyan); }
 
@@ -79,7 +79,7 @@
   /* Auto-alternate every even .principle: swap columns + flip the border. */
   html[data-mode="terminal"] section.principle:nth-child(even of .principle) .body { grid-column: 2; grid-row: 2; }
   html[data-mode="terminal"] section.principle:nth-child(even of .principle) :is(pre.proof, dl.stats, table.budget) { grid-column: 1; grid-row: 2; border-left: 0; border-right: 3px solid var(--green); }
-  @container (max-width: 720px) { html[data-mode="terminal"] section.principle { grid-template-columns: 1fr; } html[data-mode="terminal"] section.principle :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1; grid-row: auto; } }
+  @container (max-width: 720px) { html[data-mode="terminal"] section.principle { grid-template-columns: minmax(0, 1fr); } html[data-mode="terminal"] section.principle:nth-child(n of .principle) :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1; grid-row: auto; } }
   html[data-mode="terminal"] section.principle dl.stats { display: grid; grid-template-columns: auto 1fr; column-gap: calc(var(--u)*2); row-gap: 2px; }
   html[data-mode="terminal"] section.principle dl.stats dt { color: var(--muted); }
   html[data-mode="terminal"] section.principle dl.stats dd { margin: 0; }
@@ -98,6 +98,7 @@
   html[data-mode="terminal"] ol.decision-list h3::before { content: "[0" counter(dec) "] "; color: var(--cyan); }
   html[data-mode="terminal"] :is(ul.pattern-grid, ol.decision-list) p { color: var(--fg); padding-left: 2ch; max-width: 84ch; margin: var(--u) 0 4px; }
   html[data-mode="terminal"] ul.pattern-grid .where { color: var(--purple); padding-left: 2ch; font-size: 0.85em; }
+  @media (max-width: 720px) { html[data-mode="terminal"] body { padding: calc(var(--u)*3) calc(var(--u)*2); } html[data-mode="terminal"] site-header nav a { display: inline-block; padding: var(--u) 0; } }
 }
 
 @keyframes cursor-blink { 50% { opacity: 0; } }
@@ -117,4 +118,5 @@
   html[data-mode="terminal"] mode-indicator [aria-current="true"] { color: var(--yellow); }
   html[data-mode="terminal"] mode-indicator .lbl { display: inline-block; min-width: 12ch; }
   html[data-mode="terminal"] mode-indicator .pitch { color: var(--muted); }
+  @media (max-width: 720px) { html[data-mode="terminal"] mode-indicator { bottom: var(--u); right: var(--u); padding: 4px var(--u); font-size: 0.78rem; } }
 }
