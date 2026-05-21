@@ -20,7 +20,7 @@ const escape = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&l
 
 register('site-header', 'terminal', host => {
   const links = NAV.map(n => `<a href="${n.href}"${location.pathname === n.href ? ' aria-current="page"' : ''}>${n.label}</a>`).join('');
-  host.innerHTML = `<span class="prompt">cd ~/linh-le && ls</span><br><nav aria-label="primary">${links}</nav>`;
+  host.innerHTML = `<span class="prompt">cd ~/lelinh.dev && ls</span><br><nav aria-label="primary">${links}</nav>`;
 });
 
 register('site-footer', 'terminal', host => {
