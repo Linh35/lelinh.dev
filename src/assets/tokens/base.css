@@ -1,5 +1,5 @@
 /*
- * base.css — palette + foundation. Dracula bg with Monokai yellow + Dracula cyan accents.
+ * base.css - palette + foundation. Dracula bg with Monokai yellow + Dracula cyan accents.
  * Purpose: cascade layers, reset, palette tokens, type stack, motion preferences.
  * Dependencies: none. Loaded before any mode token sheet.
  * Invariants: defines @layer order ONCE; modes only set --accent and font.
@@ -43,7 +43,7 @@
     --u: 8px;
     --measure: 64ch;
 
-    /* Fibonacci type scale — used everywhere a display size is set. */
+    /* Fibonacci type scale - used everywhere a display size is set. */
     --t-1: 1em;
     --t-2: 2em;
     --t-3: 3em;

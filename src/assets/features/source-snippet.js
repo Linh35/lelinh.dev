@@ -1,5 +1,5 @@
 /*
- * source-snippet.js — embed a source file inline as <pre><code>.
+ * source-snippet.js - embed a source file inline as <pre><code>.
  * Usage: <source-snippet src="/assets/kernel/event-bus.js"
  *                        caption="assets/kernel/event-bus.js"
  *                        lines="14-30"></source-snippet>

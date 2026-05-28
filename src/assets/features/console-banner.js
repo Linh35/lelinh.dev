@@ -1,5 +1,5 @@
 /*
- * console-banner.js — greets visitors who open devtools. Also rebinds the
+ * console-banner.js - greets visitors who open devtools. Also rebinds the
  * event bus and setMode onto window so console-exploration actually works.
  * Dependencies: ../kernel/event-bus.js, ../kernel/mode-manager.js
  * Invariants: prints exactly once per page load (browsers preserve console
@@ -22,7 +22,7 @@ const lines = [
   '  hi. you opened the console.',
   '  that is appropriate.',
   '',
-  '  source:  github.com/Linh35',
+  '  source:  codeberg.org/litozor  (github backup, when it works)',
   '  files:   11 · lines: ~800 · deps: 0',
   '',
   '  try:     bus.on("mode:change", console.log)',

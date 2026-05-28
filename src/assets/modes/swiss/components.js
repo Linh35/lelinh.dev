@@ -1,8 +1,8 @@
 /*
- * swiss/components.js — swiss-mode renderers. Editorial typography,
+ * swiss/components.js - swiss-mode renderers. Editorial typography,
  * numbered project cards, brand-on-left header.
  * Dependencies: ../components.js, ../../kernel/content-loader.js
- * Invariants: pure renderers — write only host.innerHTML.
+ * Invariants: pure renderers - write only host.innerHTML.
  * Non-goals: no animations beyond the View Transition wrap.
  */
 
@@ -23,7 +23,7 @@ register('site-header', 'swiss', host => {
 });
 
 register('site-footer', 'swiss', host => {
-  host.innerHTML = `<span>© ${new Date().getFullYear()} Linh Le</span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a><a rel="me" href="https://github.com/Linh35">GitHub</a><a rel="me" href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a><span class="hint">view-source friendly · Ctrl+U</span>`;
+  host.innerHTML = `<span>© ${new Date().getFullYear()} Linh Le</span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a><a rel="me" href="https://codeberg.org/litozor">Codeberg</a><a rel="me" href="https://github.com/Linh35">GitHub</a><a rel="me" href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a><span class="hint">view-source friendly · Ctrl+U</span>`;
 });
 
 register('project-card', 'swiss', async host => {
@@ -35,7 +35,7 @@ register('project-card', 'swiss', async host => {
     const tags = Array.isArray(meta.tags) ? meta.tags.join(' / ') : (meta.tags || '');
     host.innerHTML = `
       <a href="/work/${escape(slug)}.html">
-        <span class="num">№ ${escape(num)} — ${escape(meta.date || '')}</span>
+        <span class="num">№ ${escape(num)} - ${escape(meta.date || '')}</span>
         <h3 class="title">${escape(meta.title || slug)}</h3>
         <p class="summary">${escape(meta.summary || '')}</p>
         ${tags ? `<div class="tags">${escape(tags)}</div>` : ''}

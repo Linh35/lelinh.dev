@@ -1,10 +1,10 @@
 /*
- * modes/components.js — shared custom-element shells. Each shell holds a
+ * modes/components.js - shared custom-element shells. Each shell holds a
  * per-mode renderer registry. On 'mode:change' the active renderer re-runs
  * against the same element instance.
  * Dependencies: ../kernel/event-bus.js, ../kernel/mode-manager.js
  * Invariants: renderers are (host) => void. They write to host.innerHTML and
- *             do not attach listeners outside the host. No shadow DOM —
+ *             do not attach listeners outside the host. No shadow DOM -
  *             source must be inspectable in devtools. IDs (if used) live
  *             inside one component; cross-component talk goes through the bus.
  * Non-goals: no slotted projection; no two-way attribute sync.

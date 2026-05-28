@@ -1,4 +1,4 @@
-/* rd-shaders.js — GLSL source strings for the Gray-Scott diffusion sim.
+/* rd-shaders.js - GLSL source strings for the Gray-Scott diffusion sim.
  * Dependencies: none
  * Invariants: vert covers the [-1,1]² clip-space quad exactly.
  * Non-goals: no JS logic; callers own GL setup and uniform binding.
@@ -49,7 +49,7 @@ precision highp float;
 uniform sampler2D u_tex;
 uniform vec2 u_res;
 uniform vec3 u_lo;
-// Dracula accents (mirrors base.css) — keeps the sim on the site's palette.
+// Dracula accents (mirrors base.css) - keeps the sim on the site's palette.
 vec3 pal(float t) {
   t = fract(t) * 5.0;
   if (t < 1.0) return vec3(0.545, 0.914, 0.992); // cyan
@@ -61,7 +61,7 @@ vec3 pal(float t) {
 void main() {
   vec2 uv = gl_FragCoord.xy / u_res;
   vec4 C = texture2D(u_tex, uv);
-  // Colour by the advected per-seed label (.b), not screen position — each
+  // Colour by the advected per-seed label (.b), not screen position - each
   // blob is one solid accent that travels with it, no positional banding.
   gl_FragColor = vec4(mix(u_lo, pal(C.b), smoothstep(0.0, 0.5, C.g)), 1.0);
 }

@@ -1,10 +1,10 @@
-/* gray-scott.js — Gray-Scott sim via WebGL ping-pong framebuffers.
+/* gray-scott.js - Gray-Scott sim via WebGL ping-pong framebuffers.
  * Dependencies: ./rd-shaders.js
  * Invariants: two RGBA textures alternate as read/write targets each sim step.
  *             Sim grid is W×H, power-of-two (REPEAT wrap needs POT in WebGL1).
  *             Display pass renders at the canvas's device-pixel size.
  * Non-goals: no interaction, no context-loss recovery. Canvas is sized once
- *            at init from its laid-out box — no live resize handling.
+ *            at init from its laid-out box - no live resize handling.
  */
 import { vert, simFrag, dispFrag } from './rd-shaders.js';
 
@@ -78,7 +78,7 @@ export function init(canvas) {
   const lose = gl.getExtension('WEBGL_lose_context');
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   // Canvas can mount pre-layout (SPA nav) where a one-shot measure reads 0
-  // and would lock the buffer at 1×1 — size from layout and on every resize.
+  // and would lock the buffer at 1×1 - size from layout and on every resize.
   const size = () => {
     const w = Math.min(2560, Math.max(1, Math.round(canvas.clientWidth * dpr))), h = Math.min(1000, Math.max(1, Math.round(canvas.clientHeight * dpr)));
     if (w !== canvas.width || h !== canvas.height) { canvas.width = w; canvas.height = h; }

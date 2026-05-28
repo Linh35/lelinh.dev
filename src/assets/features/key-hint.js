@@ -1,11 +1,11 @@
 /*
- * key-hint.js — mode-aware keyboard hint. Renders the *non-current* mode
+ * key-hint.js - mode-aware keyboard hint. Renders the *non-current* mode
  * key first, since that's the one that actually does something useful.
  * Dependencies: ../kernel/event-bus.js, ../kernel/mode-manager.js
  * Invariants: re-renders on mode:change so the order updates live.
  *             Two variants via attribute: default (sentence) or
  *             variant="compact" (just the keys).
- * Non-goals: no styling — relies on host context's <kbd> styling.
+ * Non-goals: no styling - relies on host context's <kbd> styling.
  */
 
 import { bus } from '../kernel/event-bus.js';
@@ -27,7 +27,7 @@ class KeyHint extends HTMLElement {
     if (variant === 'compact') {
       this.innerHTML = `press <kbd>${KEY[other]}</kbd> · <kbd>${KEY[cur]}</kbd>`;
     } else {
-      this.innerHTML = `Tap <kbd>${KEY[other]}</kbd> for ${NAME[other]}, <kbd>${KEY[cur]}</kbd> for ${NAME[cur]} — anywhere on the site.`;
+      this.innerHTML = `Tap <kbd>${KEY[other]}</kbd> for ${NAME[other]}, <kbd>${KEY[cur]}</kbd> for ${NAME[cur]} - anywhere on the site.`;
     }
   }
 }

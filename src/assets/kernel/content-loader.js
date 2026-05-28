@@ -1,5 +1,5 @@
 /*
- * content-loader.js — fetches /assets/content/{slug}.md, parses YAML-ish
+ * content-loader.js - fetches /assets/content/{slug}.md, parses YAML-ish
  * frontmatter and a deliberately minimal markdown subset. Hand-written.
  * Dependencies: none.
  * Invariants: load(slug) returns { meta, html } from a process-wide cache.

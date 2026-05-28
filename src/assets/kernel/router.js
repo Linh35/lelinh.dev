@@ -1,5 +1,5 @@
 /*
- * router.js — same-origin click intercept. Fetches target HTML, swaps <main>,
+ * router.js - same-origin click intercept. Fetches target HTML, swaps <main>,
  * updates history, emits 'route:change'. Wraps the swap in
  * document.startViewTransition with a synchronous fallback.
  * Hover-prefetches via <link rel="prefetch">.

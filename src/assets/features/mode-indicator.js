@@ -1,7 +1,7 @@
 /*
- * mode-indicator.js — fixed bottom-right mode toggle. Collapsed shows current
+ * mode-indicator.js - fixed bottom-right mode toggle. Collapsed shows current
  * mode (~40px). Expanded shows both modes with one-line pitches. Renders
- * differently per mode — styling lives in each mode's tokens.css.
+ * differently per mode - styling lives in each mode's tokens.css.
  * Dependencies: ../kernel/event-bus.js, ../kernel/mode-manager.js
  * Invariants: only one element per page; aria-expanded tracks panel state.
  * Non-goals: no keyboard shortcut binding; no drag; no auto-collapse.

@@ -1,5 +1,5 @@
 /*
- * terminal/tokens.css — monospace, dark, warm. Cyan headers, yellow accents.
+ * terminal/tokens.css - monospace, dark, warm. Cyan headers, yellow accents.
  * Scoped under html[data-mode="terminal"]. Inherits palette from base.css.
  * Non-goals: no shared styling; no cross-mode rules.
  */

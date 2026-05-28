@@ -1,5 +1,5 @@
 /*
- * shortcuts.js — keyboard shortcuts. Single-key navigation:
+ * shortcuts.js - keyboard shortcuts. Single-key navigation:
  *   t = terminal mode, s = swiss mode.
  * Dependencies: ../kernel/mode-manager.js
  * Invariants: never preventDefault unless we handled the key.

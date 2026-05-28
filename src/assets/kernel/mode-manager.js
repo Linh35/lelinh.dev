@@ -1,5 +1,5 @@
 /*
- * mode-manager.js — owns <html data-mode>. Persists to localStorage['mode'].
+ * mode-manager.js - owns <html data-mode>. Persists to localStorage['mode'].
  * Wraps the swap in a View Transition with reduced-motion fallback. Emits 'mode:change'.
  * Dependencies: ./event-bus.js
  * Invariants: data-mode is set inline in <head> before first paint by every

@@ -1,5 +1,5 @@
 /*
- * terminal/components.js — terminal-mode renderers. ls -la layout for project
+ * terminal/components.js - terminal-mode renderers. ls -la layout for project
  * cards, shell prompt for site header, dotfile motif for footer.
  * Dependencies: ../components.js, ../../kernel/content-loader.js
  * Invariants: every renderer is (host) => void and writes only host.innerHTML.
@@ -24,7 +24,7 @@ register('site-header', 'terminal', host => {
 });
 
 register('site-footer', 'terminal', host => {
-  host.innerHTML = `<span># </span>linh le · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a rel="me" href="https://github.com/Linh35">github</a> · <a rel="me" href="https://www.linkedin.com/in/le-linh-42269082/">linkedin</a> · <span class="hint"># tip: Ctrl+U on any page</span> · ${new Date().getFullYear()}`;
+  host.innerHTML = `<span># </span>linh le · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a rel="me" href="https://codeberg.org/litozor">codeberg</a> · <a rel="me" href="https://github.com/Linh35">github <span class="hint">(backup)</span></a> · <a rel="me" href="https://www.linkedin.com/in/le-linh-42269082/">linkedin</a> ·<span class="hint"># tip: Ctrl+U on any page</span> · ${new Date().getFullYear()}`;
 });
 
 register('project-card', 'terminal', async host => {
@@ -36,7 +36,7 @@ register('project-card', 'terminal', async host => {
     host.innerHTML = `
       <div class="row">
         <span class="perm">-rw-r--r--</span>
-        <span class="size">${escape(meta.size || '— kB')}</span>
+        <span class="size">${escape(meta.size || '- kB')}</span>
         <span class="date">${escape(meta.date || '')}</span>
         <a class="name" href="/work/${escape(slug)}.html">${escape(meta.title || slug)}</a>
       </div>
