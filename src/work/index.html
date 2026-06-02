@@ -8,13 +8,13 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#21222c">
   <meta name="author" content="Linh Le">
-  <meta name="description" content="The way Linh Le works - principles demonstrated by the site you're reading, plus track record at scale.">
-  <title>How I Work - Linh Le, Senior Full-Stack Engineer</title>
+  <meta name="description" content="What Linh Le has made - a shipped product and a workshop of small, zero-dependency tools - and the way he works, wired into the page you're reading.">
+  <title>Work - Linh Le, Senior Full-Stack Engineer</title>
   <link rel="canonical" href="https://lelinh.dev/work/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Linh Le">
-  <meta property="og:title" content="How I Work - Linh Le">
-  <meta property="og:description" content="How I work, demonstrated by the site you're reading - plus ~13 years of track record at scale.">
+  <meta property="og:title" content="Work - Linh Le">
+  <meta property="og:description" content="What I've made - a shipped product and a workshop of small tools - and the way I work, wired into this page.">
   <meta property="og:url" content="https://lelinh.dev/work/">
   <meta property="og:image" content="https://lelinh.dev/assets/og.png">
   <meta property="og:image:width" content="1200">
@@ -22,8 +22,8 @@
   <meta property="og:image:alt" content="Linh Le - senior full-stack engineer · lelinh.dev">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="How I Work - Linh Le">
-  <meta name="twitter:description" content="How I work, demonstrated by the site you're reading - plus ~13 years of track record at scale.">
+  <meta name="twitter:title" content="Work - Linh Le">
+  <meta name="twitter:description" content="What I've made - a shipped product and a workshop of small tools - and the way I work, wired into this page.">
   <meta name="twitter:image" content="https://lelinh.dev/assets/og.png">
   <meta name="twitter:image:alt" content="Linh Le - senior full-stack engineer · lelinh.dev">
   <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
@@ -36,14 +36,54 @@
   <site-header></site-header>
   <main>
     <section class="hero">
-      <h1>The way I work.</h1>
-      <p class="lede">Five habits I keep coming back to in serious work. Each one is wired into the site you're reading: the column on the right is the receipt, pulled straight from the source. Open devtools any time and check.</p>
-      <aside class="meta">
-        <span><b>5</b> habits</span>
-        <span><b>~1130</b> lines of proof</span>
-        <span><b>0</b> hand-waving</span>
-        <span>open devtools →</span>
-      </aside>
+      <h1>Things I've made.</h1>
+      <p class="lede">A product I ship and run, and a workshop of small tools I built because I wanted them. Further down: the way I work, wired into the page you're reading.</p>
+    </section>
+
+    <section class="patterns">
+      <ul class="pattern-grid" role="list">
+        <li>
+          <h3><a href="https://getwhen.net">When.</a></h3>
+          <p>A private period tracker that lives in the calendar you already check — Google, Notion, or CalDAV — not one more app to open. Log the day a period starts; it learns your cycle and drops each predicted phase onto your calendar. Built and run with Anna, end to end.</p>
+          <span class="where">→ getwhen.net · live · €4/mo after a 14-day trial</span>
+        </li>
+        <li>
+          <h3><a href="https://codeberg.org/litozor/baker">baker</a></h3>
+          <p>Single-binary static site bundler and HTTP server in Zig. Brotli + gzip, ETags, 304s, hot reload via SIGHUP. Bakes a site into one <code>.bin</code> file, then serves it.</p>
+          <span class="where">→ codeberg.org/litozor/baker · Zig</span>
+        </li>
+        <li>
+          <h3><a href="https://codeberg.org/litozor/zremdic">zremdic</a></h3>
+          <p>A small, latency-focused key-value cache served over UDP, in Zig. One datagram per lookup, a sharded store with a worker per core, atomic ops with exactly-once semantics over an unreliable transport, TTLs and LRU eviction. ~210k ops/sec at ~19μs on loopback. A cache, not a database: values live in memory only.</p>
+          <span class="where">→ codeberg.org/litozor/zremdic · <a href="https://github.com/Linh35/zremdic">GitHub</a> · Zig</span>
+        </li>
+        <li>
+          <h3><a href="https://codeberg.org/litozor/zhecs">zhecs</a></h3>
+          <p>An entity component system in Zig, small enough to read in an afternoon. Plain Zig types as components, no registration; matching entities stored together in contiguous columns. Systems run in ordered phases; relationships, singletons, and observers when you want them. A million entities stepped in ~19&nbsp;ms per chunk. Examples wired to raylib, Bullet, and SDL.</p>
+          <span class="where">→ codeberg.org/litozor/zhecs · <a href="https://github.com/Linh35/zhecs">GitHub</a> · Zig</span>
+        </li>
+        <li>
+          <h3><a href="https://codeberg.org/litozor/wiki-art-downloader">wiki-art-downloader</a></h3>
+          <p>Bulk-downloads an artist's catalogue from WikiArt as JPGs. Node 18+, zero deps. Walks the eight CDN shards in parallel, with dry-run and resume-by-skip.</p>
+          <span class="where">→ codeberg.org/litozor/wiki-art-downloader · Node</span>
+        </li>
+        <li>
+          <h3><a href="https://codeberg.org/litozor/ssw">ssw</a></h3>
+          <p>Multi-tab state, no ceremony. SharedWorker as the single source of truth, optimistic per-tab mirror, batched ack protocol. ~3.5&nbsp;KB gzipped, tested against real MessageChannels.</p>
+          <span class="where">→ codeberg.org/litozor/ssw · TypeScript</span>
+        </li>
+        <li>
+          <h3><a href="https://codeberg.org/litozor/number-helper-extensions">number-helper-extensions</a></h3>
+          <p>Ergonomic helpers on <code>Number</code>: <code>(6).minutes()</code>, <code>(3).times(i =&gt; i*2)</code>, <code>clamp</code>, <code>ordinal</code>, <code>ago()</code>/<code>fromNow()</code>. The prototype is only touched if you call <code>extendNumber()</code>; every helper is also exported raw.</p>
+          <span class="where">→ codeberg.org/litozor/number-helper-extensions · JS</span>
+        </li>
+      </ul>
+      <p class="more">The rest of the workshop lives at <a href="https://codeberg.org/litozor">codeberg.org/litozor</a> — also backed up to <a href="https://github.com/Linh35">GitHub</a> — when it's working.</p>
+    </section>
+
+    <section class="intro">
+      <h2>The way I work.</h2>
+      <p>Five habits I keep coming back to in serious work. Each one is wired into the site you're reading: the column on the right is the receipt, pulled straight from the source. Open devtools any time and check.</p>
     </section>
 
     <section class="principle" data-num="01">
@@ -243,36 +283,6 @@
           <span class="where">→ FPS · MMORPG · engine</span>
         </li>
       </ul>
-    </section>
-
-    <section class="patterns">
-      <header class="patterns-head">
-        <span class="num">For fun</span>
-        <h2>Here are some things I made for myself.</h2>
-      </header>
-      <ul class="pattern-grid" role="list">
-        <li>
-          <h3><a href="https://codeberg.org/litozor/baker">baker</a></h3>
-          <p>Single-binary static site bundler and HTTP server in Zig. Brotli + gzip, ETags, 304s, hot reload via SIGHUP. Bakes a site into one <code>.bin</code> file, then serves it.</p>
-          <span class="where">→ codeberg.org/litozor/baker · Zig</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/wiki-art-downloader">wiki-art-downloader</a></h3>
-          <p>Bulk-downloads an artist's catalogue from WikiArt as JPGs. Node 18+, zero deps. Walks the eight CDN shards in parallel, with dry-run and resume-by-skip.</p>
-          <span class="where">→ codeberg.org/litozor/wiki-art-downloader · Node</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/ssw">ssw</a></h3>
-          <p>Multi-tab state, no ceremony. SharedWorker as the single source of truth, optimistic per-tab mirror, batched ack protocol. ~3.5&nbsp;KB gzipped, tested against real MessageChannels.</p>
-          <span class="where">→ codeberg.org/litozor/ssw · TypeScript</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/number-helper-extensions">number-helper-extensions</a></h3>
-          <p>Ergonomic helpers on <code>Number</code>: <code>(6).minutes()</code>, <code>(3).times(i =&gt; i*2)</code>, <code>clamp</code>, <code>ordinal</code>, <code>ago()</code>/<code>fromNow()</code>. The prototype is only touched if you call <code>extendNumber()</code>; every helper is also exported raw.</p>
-          <span class="where">→ codeberg.org/litozor/number-helper-extensions · JS</span>
-        </li>
-      </ul>
-      <p class="more">The rest of the workshop lives at <a href="https://codeberg.org/litozor">codeberg.org/litozor</a> — also backed up to <a href="https://github.com/Linh35">GitHub</a> — when it's working.</p>
     </section>
 
     <section class="next">
