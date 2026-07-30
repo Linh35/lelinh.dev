@@ -8,33 +8,41 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#21222c">
   <meta name="author" content="Linh Le">
-  <meta name="description" content="What Linh Le has made - a shipped product and a workshop of small, zero-dependency tools - and the way he works, wired into the page you're reading.">
-  <title>Work - Linh Le, Senior Full-Stack Engineer</title>
+  <meta name="description" content="What Linh Le has made — a shipped product and a workshop of small, zero-dependency tools — and the way he works, wired into the page you're reading.">
+  <title>Work — Linh Le, Senior Full-Stack Engineer</title>
   <link rel="canonical" href="https://lelinh.dev/work/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Linh Le">
-  <meta property="og:title" content="Work - Linh Le">
-  <meta property="og:description" content="What I've made - a shipped product and a workshop of small tools - and the way I work, wired into this page.">
+  <meta property="og:title" content="Work — Linh Le">
+  <meta property="og:description" content="What I've made — a shipped product and a workshop of small tools — and the way I work, wired into this page.">
   <meta property="og:url" content="https://lelinh.dev/work/">
   <meta property="og:image" content="https://lelinh.dev/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Linh Le - senior full-stack engineer · lelinh.dev">
+  <meta property="og:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Work - Linh Le">
-  <meta name="twitter:description" content="What I've made - a shipped product and a workshop of small tools - and the way I work, wired into this page.">
+  <meta name="twitter:title" content="Work — Linh Le">
+  <meta name="twitter:description" content="What I've made — a shipped product and a workshop of small tools — and the way I work, wired into this page.">
   <meta name="twitter:image" content="https://lelinh.dev/assets/og.png">
-  <meta name="twitter:image:alt" content="Linh Le - senior full-stack engineer · lelinh.dev">
+  <meta name="twitter:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
   <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
   <link rel="stylesheet" href="/assets/tokens/base.css">
   <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
   <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
+  <style>
+    /* The sim canvas lives on the landing page, but the router swaps only
+       <main> - arriving at / via SPA nav keeps *this* page's <head>. So every
+       page carries the #rd rules, or the canvas lands unstyled at 300x150. */
+    #rd { display: block; width: 100%; height: 40vh; min-height: 200px; max-height: 500px; }
+    @media (prefers-reduced-motion: reduce) { #rd { display: none; } }
+  </style>
 </head>
 <body>
   <noscript><p>JavaScript is off. Every page is plain HTML and the links work.</p></noscript>
+  <a class="skip" href="#main">Skip to content</a>
   <site-header></site-header>
-  <main>
+  <main id="main" tabindex="-1">
     <section class="hero">
       <h1>Things I've made.</h1>
       <p class="lede">A product I ship and run, and a workshop of small tools I built because I wanted them. Further down: the way I work, wired into the page you're reading.</p>
@@ -83,7 +91,7 @@
           <span class="where">→ codeberg.org/litozor/number-helper-extensions · JS</span>
         </li>
       </ul>
-      <p class="more">The rest of the workshop lives at <a href="https://codeberg.org/litozor">codeberg.org/litozor</a> — also backed up to <a href="https://github.com/Linh35">GitHub</a> — when it's working.</p>
+      <p class="more">The rest of the workshop lives at <a href="https://codeberg.org/litozor">codeberg.org/litozor</a>, mirrored to <a href="https://github.com/Linh35">GitHub</a>.</p>
     </section>
 
     <section class="intro">
@@ -291,7 +299,7 @@
     </section>
 
     <section class="next">
-      <p>If a team treats the work like this, I'd love to talk. <a href="/about.html">About</a> · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a href="https://codeberg.org/litozor">codeberg.org/litozor</a> · <a href="https://github.com/Linh35">GitHub (backup, when it's working)</a> · <a href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a></p>
+      <p>If a team treats the work like this, I'd love to talk. <a href="/about.html">About</a> · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a href="https://codeberg.org/litozor">codeberg.org/litozor</a> · <a href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a></p>
     </section>
   </main>
   <site-footer></site-footer>
@@ -310,7 +318,10 @@
     import '/assets/features/key-hint.js';
     initMode(); initRouter();
     // #rd only exists on the landing page; mount it on arrival there via SPA nav.
-    const mountRD = () => { if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); } };
+    const mountRD = () => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // CSS hides #rd too
+      if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); }
+    };
     bus.on('route:change', mountRD);
   </script>
 </body>

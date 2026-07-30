@@ -4,7 +4,7 @@
  * Dependencies: ../kernel/mode-manager.js
  * Invariants: never preventDefault unless we handled the key.
  *             Ignored when a text input is focused or when a modifier is held.
- * Non-goals: no command palette (Season 4); no chord shortcuts; no help overlay.
+ * Non-goals: no command palette; no chord shortcuts; no help overlay.
  */
 
 import { setMode } from '../kernel/mode-manager.js';

@@ -6,8 +6,8 @@
  * Dependencies: none.
  * Invariants: fetches each src once (process-wide cache); escapes HTML;
  *             always renders a "raw ↗" link to the actual file.
- * Non-goals: no syntax highlighting (Season 2 /source viewer does that);
- *            no language detection; no copy button.
+ * Non-goals: no syntax highlighting - that needs a tokenizer, and a tokenizer
+ *            is a dependency; no language detection; no copy button.
  */
 
 const cache = new Map();

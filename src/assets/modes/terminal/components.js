@@ -24,7 +24,7 @@ register('site-header', 'terminal', host => {
 });
 
 register('site-footer', 'terminal', host => {
-  host.innerHTML = `<span># </span>linh le · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a rel="me" href="https://codeberg.org/litozor">codeberg</a> · <a rel="me" href="https://github.com/Linh35">github <span class="hint">(backup)</span></a> · <a rel="me" href="https://www.linkedin.com/in/le-linh-42269082/">linkedin</a> ·<span class="hint"># tip: Ctrl+U on any page</span> · ${new Date().getFullYear()}`;
+  host.innerHTML = `<span># </span>linh le · <a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a> · <a rel="me" href="https://codeberg.org/litozor">codeberg</a> · <a rel="me" href="https://github.com/Linh35">github</a> · <a rel="me" href="https://www.linkedin.com/in/le-linh-42269082/">linkedin</a> · <span class="hint"># tip: Ctrl+U on any page</span> · ${new Date().getFullYear()}`;
 });
 
 register('project-card', 'terminal', async host => {

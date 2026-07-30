@@ -8,24 +8,24 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#21222c">
   <meta name="author" content="Linh Le">
-  <meta name="description" content="Linh Le - senior full-stack engineer. End to end, from server to screen. A fast, zero-dependency portfolio where the source is the work sample.">
-  <title>Linh Le - Senior Full-Stack Engineer</title>
+  <meta name="description" content="Linh Le — senior full-stack engineer. End to end, from server to screen. A fast, zero-dependency portfolio where the source is the work sample.">
+  <title>Linh Le — Senior Full-Stack Engineer</title>
   <link rel="canonical" href="https://lelinh.dev/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Linh Le">
-  <meta property="og:title" content="Linh Le - senior full-stack engineer">
+  <meta property="og:title" content="Linh Le — senior full-stack engineer">
   <meta property="og:description" content="End to end, from server to screen. A fast, zero-dependency portfolio where the source is the work sample.">
   <meta property="og:url" content="https://lelinh.dev/">
   <meta property="og:image" content="https://lelinh.dev/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Linh Le - senior full-stack engineer · lelinh.dev">
+  <meta property="og:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Linh Le - senior full-stack engineer">
+  <meta name="twitter:title" content="Linh Le — senior full-stack engineer">
   <meta name="twitter:description" content="End to end, from server to screen. A fast, zero-dependency portfolio where the source is the work sample.">
   <meta name="twitter:image" content="https://lelinh.dev/assets/og.png">
-  <meta name="twitter:image:alt" content="Linh Le - senior full-stack engineer · lelinh.dev">
+  <meta name="twitter:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://lelinh.dev/#website","url":"https://lelinh.dev/","name":"Linh Le","inLanguage":"en","publisher":{"@id":"https://lelinh.dev/#person"}},{"@type":"Person","@id":"https://lelinh.dev/#person","name":"Linh Le","jobTitle":"Senior Full-Stack Engineer","url":"https://lelinh.dev/","image":"https://lelinh.dev/assets/og.png","email":"mailto:linh@lelinh.dev","sameAs":["https://codeberg.org/litozor","https://github.com/Linh35","https://www.linkedin.com/in/le-linh-42269082/"],"knowsAbout":["Full-stack web development","Node.js","TypeScript","Rust","Zig","C++","IoT & LoRaWAN","AWS","Data analysis","Game engine programming","Unity / C#"]}]}</script>
   <!-- data-mode must be set before first paint to avoid FOUC. Stays inline. -->
   <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
@@ -34,12 +34,16 @@
   <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
   <style>
     #rd { display: block; width: 100%; height: 40vh; min-height: 200px; max-height: 500px; }
+    /* A 40vh field that never stops moving is exactly what reduced-motion asks
+       not to get. Hide it here; the mount script below also skips the sim. */
+    @media (prefers-reduced-motion: reduce) { #rd { display: none; } }
   </style>
 </head>
 <body>
   <noscript><p>JavaScript is off. Every page is plain HTML and the links work. Only the mode toggle and the inline source previews need JS.</p></noscript>
+  <a class="skip" href="#main">Skip to content</a>
   <site-header></site-header>
-  <main>
+  <main id="main" tabindex="-1">
     <section class="hero">
       <p class="ident"><b>Linh Le</b> · senior full-stack engineer. End to end means end to end, from server to screen.</p>
       <h1>It loaded fast. Here's why.</h1>
@@ -50,6 +54,11 @@
         <span><b>~1130</b> lines</span>
         <span><b>0</b> deps</span>
       </aside>
+    </section>
+
+    <section class="intro">
+      <h2>Shipped, and running.</h2>
+      <p><a href="https://getwhen.net">When.</a> — a private period tracker that lives in the calendar you already check: Google, Notion, or CalDAV, instead of one more app to open. Log the day a period starts; it learns the cycle and puts each predicted phase on the calendar. Live and paid: €4/mo after a 14-day trial. Built and run end to end — product, infrastructure, billing, support. <a href="/work/">The rest of what I've made →</a></p>
     </section>
 
     <section class="intro">
@@ -187,7 +196,10 @@
     // The sim lives inside <main>, which the router swaps on SPA nav (its
     // bootstrap script doesn't re-run). Mount on every route:change, once per
     // canvas element; idle-deferred so it never blocks first paint.
-    const mountRD = () => { if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); } };
+    const mountRD = () => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // CSS hides #rd too
+      if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); }
+    };
     bus.on('route:change', mountRD);
   </script>
 </body>

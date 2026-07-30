@@ -58,7 +58,7 @@
   html[data-mode="swiss"] section.claim header { display: flex; flex-direction: column; gap: var(--u); }
   html[data-mode="swiss"] section.claim .num { font-family: var(--mono); font-size: 0.72rem; color: var(--echo); letter-spacing: 0.18em; text-transform: uppercase; padding-bottom: var(--u); border-bottom: 1px solid var(--rule); }
   html[data-mode="swiss"] section.claim h3 { font-size: var(--t-2); }
-  html[data-mode="swiss"] section.claim .achieves { color: var(--muted); max-width: 38ch; margin: 0; line-height: 1.55; }
+  html[data-mode="swiss"] section.claim .achieves { color: var(--fg); max-width: 38ch; margin: 0; line-height: 1.55; }
   /* Default (odd): header left, snippet right. */
   html[data-mode="swiss"] section.claim header { grid-column: 1 / span 5; }
   html[data-mode="swiss"] section.claim :is(source-snippet, figure.source) { grid-column: 7 / -1; }
@@ -95,12 +95,12 @@
   /* Patterns (2x2 grid) + Decisions log (numbered, otherwise identical) */
   html[data-mode="swiss"] :is(section.patterns header.patterns-head, section.decisions header.decisions-head) { grid-column: 1 / -1; display: flex; flex-direction: column; gap: var(--u); padding-bottom: calc(var(--u)*2); border-bottom: 1px solid var(--echo); }
   html[data-mode="swiss"] :is(section.patterns, section.decisions) h2 { font-size: var(--t-3); }
-  html[data-mode="swiss"] section.decisions .lede { color: var(--muted); max-width: 56ch; font-size: 1em; line-height: 1.55; }
+  html[data-mode="swiss"] section.decisions .lede { color: var(--fg); max-width: 56ch; font-size: 1em; line-height: 1.55; }
   html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) { grid-column: 1 / -1; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--u)*5); counter-reset: dec; }
   html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) li { padding-top: calc(var(--u)*2); border-top: 1px solid var(--rule); counter-increment: dec; }
   html[data-mode="swiss"] ol.decision-list li::before { content: "№ 0" counter(dec); display: block; font-family: var(--mono); font-size: 0.72rem; color: var(--echo); letter-spacing: 0.18em; margin-bottom: var(--u); }
   html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) h3 { font-size: var(--t-2); margin: 0 0 var(--u); }
-  html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) p { color: var(--muted); margin: 0 0 var(--u); max-width: 48ch; line-height: 1.55; }
+  html[data-mode="swiss"] :is(ul.pattern-grid, ol.decision-list) p { color: var(--fg); margin: 0 0 var(--u); max-width: 48ch; line-height: 1.55; }
   html[data-mode="swiss"] ul.pattern-grid .where { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.06em; }
   html[data-mode="swiss"] section.patterns p.more { grid-column: 1 / -1; color: var(--muted); font-size: 0.95em; }
 
@@ -113,8 +113,9 @@
   html[data-mode="swiss"] figure.source pre { font-family: var(--mono); background: var(--bg-sunk); padding: var(--u) calc(var(--u)*2); overflow-x: auto; font-size: 0.85rem; line-height: 1.5; border-left: 2px solid var(--echo); margin: 0; }
   html[data-mode="swiss"] figure.source p { padding: var(--u) calc(var(--u)*2); border-left: 2px solid var(--echo); margin: 0; line-height: 1.55; }
 
-  /* Closing line */
-  html[data-mode="swiss"] section.next p { grid-column: 3 / span 8; text-align: center; font-family: var(--serif); font-style: italic; font-size: 1.4em; line-height: 1.4; color: var(--muted); padding: calc(var(--u)*3) 0; border-top: 1px solid var(--echo); border-bottom: 1px solid var(--echo); }
+  /* Closing line - the CTA on /about and /work. Full contrast, upright: a footnote-styled CTA is a wasted one. */
+  html[data-mode="swiss"] section.next p { grid-column: 3 / span 8; text-align: center; font-family: var(--serif); font-size: 1.4em; line-height: 1.5; color: var(--fg); padding: calc(var(--u)*3) 0; border-top: 1px solid var(--echo); border-bottom: 1px solid var(--echo); }
+  html[data-mode="swiss"] section.next a { text-decoration: underline; text-underline-offset: 0.2em; }
 
   @container (max-width: 800px) {
     html[data-mode="swiss"] section.claim :is(header, source-snippet, figure.source), html[data-mode="swiss"] section.principle :is(.body, pre.proof, dl.stats, table.budget) { grid-column: 1 / -1; }

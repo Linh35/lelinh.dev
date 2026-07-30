@@ -27,10 +27,13 @@
     --bg-sunk: #21222c;
     --rule:    #44475a;
     --fg:      #f8f8f2;
-    --muted:   #6272a4;
+    /* Dracula's comment blue (#6272a4) is 3.03:1 on --bg and 2.73:1 on
+       --bg-soft - below AA for text. Lifted to clear 4.5:1 on every surface
+       we set it against. Labels may be quiet; they still have to be read. */
+    --muted:   #8b98c9;
     --pink:    #ff79c6;
     --green:   #50fa7b;
-    --purple:  #bd93f5;
+    --purple:  #bd93f9;
     --cyan:    #8be9fd;
     /* Monokai */
     --yellow:  #e6db74;
@@ -64,6 +67,10 @@
   }
   a { color: inherit; }
   code { font-family: var(--mono); font-size: 0.95em; }
+  /* Skip link. Lives here, not in a mode sheet: it must look and behave
+     identically in every mode, and modes are forbidden to share styling. */
+  a.skip { position: absolute; left: -9999px; top: 0; z-index: 100; }
+  a.skip:focus { left: var(--u); top: var(--u); background: var(--bg-sunk); color: var(--fg); border: 1px solid var(--rule); padding: var(--u) calc(var(--u)*2); font-family: var(--mono); font-size: 0.85rem; }
   noscript p {
     display: block;
     padding: var(--u) calc(var(--u)*2);

@@ -61,7 +61,7 @@
   html[data-mode="terminal"] section.claim h3::before { content: "│ "; color: var(--rule); }
   html[data-mode="terminal"] section.claim .achieves { color: var(--fg); margin: 0; padding-left: 2ch; max-width: 56ch; }
   @container (max-width: 720px) { html[data-mode="terminal"] section.claim { grid-template-columns: minmax(0, 1fr); } }
-  html[data-mode="terminal"] section.next p { color: var(--muted); padding-left: 2ch; }
+  html[data-mode="terminal"] section.next p { color: var(--fg); padding-left: 2ch; }
   html[data-mode="terminal"] section.next p::before { content: "$ "; color: var(--cyan); }
 
   html[data-mode="terminal"] section.principle { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: calc(var(--u)*3); align-items: start; }
