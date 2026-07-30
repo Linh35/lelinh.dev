@@ -21,6 +21,7 @@ const MIME = {
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
   ".gif": "image/gif",
+  ".pdf": "application/pdf",
   ".webp": "image/webp",
   ".ico": "image/x-icon",
   ".woff": "font/woff",
