@@ -63,7 +63,7 @@
     </div>
     <p>An editor and a runtime over a Vulkan renderer, written in Zig. You compose a scene visually — entities, components, an inspector, lights, meshes, physics and UI — and it serialises to a <code>.zon</code> file. A separate generic runtime deserialises that file and drives it with zero scene-specific code, which is the point: the data describes the application, and the runtime stays general.</p>
     <p class="deep-only">Three executables over one shared engine module and one entity-component-system world: the editor, the generic runtime, and a hand-wired scene that exercises the render and interaction paths an empty scene would hide. It is the closest thing I have to a hard real-time problem right now — a frame budget, a GPU, and a compiler that all have to be satisfied at once. It's also the codebase my model fleet works against, so the verification runs against a real compiler rather than a benchmark.</p>
-    <p class="more"><a href="https://codeberg.org/litozor/zigity-game-builder">codeberg.org/litozor/zigity-game-builder</a></p>
+    <p class="more">Private while it's in progress.</p>
   </section>
 
   <section>
