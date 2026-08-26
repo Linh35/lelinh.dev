@@ -1,0 +1,125 @@
+/*
+ * deep/blocks.css - repeated blocks in deep mode: header, claims, cards,
+ * fleet table, CTA, footer, mode indicator.
+ * Dependencies: deep/tokens.css, deep/layout.css.
+ * Invariants: scoped under [data-mode="deep"]; colours come from tokens.
+ *             Cards carry their own border rather than relying on grid gaps
+ *             for it, so an incomplete final row leaves empty space and not
+ *             a filled slab where a card would have been.
+ * Non-goals: no page-level structure; no mode-switching logic.
+ */
+
+@layer components {
+  [data-mode="deep"] site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--u);
+    max-width: var(--shell); margin-inline: auto;
+    padding: calc(var(--u) * 2) var(--gutter);
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.88rem;
+  }
+  [data-mode="deep"] site-header .wordmark { color: var(--accent); font-weight: 700; text-decoration: none; }
+  [data-mode="deep"] site-header .wordmark::before { content: "~/"; color: var(--muted); }
+  [data-mode="deep"] site-header nav { display: flex; gap: calc(var(--u) * 2); }
+  [data-mode="deep"] site-header nav a { color: var(--muted); text-decoration: none; }
+  [data-mode="deep"] site-header nav a:hover,
+  [data-mode="deep"] site-header nav a[aria-current] { color: var(--accent-3); }
+
+  [data-mode="deep"] .claims { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 1.5); font-size: 0.86rem; }
+  [data-mode="deep"] .claims li {
+    border: 1px solid var(--rule); background: var(--bg-sunk);
+    padding: calc(var(--u) * 0.5) calc(var(--u) * 1.25);
+    color: var(--muted);
+  }
+  [data-mode="deep"] .claims li::before { content: "▸ "; color: var(--accent-2); }
+  [data-mode="deep"] .claims b { color: var(--accent-3); font-variant-numeric: tabular-nums; }
+
+  [data-mode="deep"] .stack { font-size: 0.82rem; color: var(--muted); max-width: 74ch; }
+  [data-mode="deep"] .stack b { color: var(--accent-3); }
+
+  [data-mode="deep"] .meta {
+    display: flex; flex-wrap: wrap; gap: calc(var(--u) * 2);
+    font-size: 0.82rem; color: var(--muted);
+    padding-top: calc(var(--u) * 1.5);
+  }
+  [data-mode="deep"] .meta a { color: var(--accent); }
+
+  [data-mode="deep"] .cta {
+    display: inline-flex; align-items: center; gap: var(--u);
+    border: 1px solid var(--accent); color: var(--accent);
+    background: var(--bg-sunk);
+    padding: calc(var(--u) * 1.25) calc(var(--u) * 2.5);
+    text-decoration: none; font-weight: 700;
+    align-self: flex-start;
+  }
+  [data-mode="deep"] .cta::before { content: "> "; }
+  [data-mode="deep"] .cta:hover { background: var(--accent); color: var(--bg); }
+
+  [data-mode="deep"] .card {
+    background: var(--bg-sunk);
+    border: 1px solid var(--rule);
+    padding: calc(var(--u) * 2.5);
+    display: flex; flex-direction: column; gap: var(--u);
+  }
+  [data-mode="deep"] .card p { color: var(--muted); font-size: 0.88rem; }
+  [data-mode="deep"] .card .where {
+    margin-top: auto; padding-top: var(--u);
+    font-size: 0.76rem; color: var(--accent-2);
+  }
+  [data-mode="deep"] .card a { color: var(--accent); }
+
+  [data-mode="deep"] .fleet { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  [data-mode="deep"] .fleet th {
+    text-align: left; font-weight: 700; font-size: 0.74rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent-3); padding-bottom: var(--u);
+    border-bottom: 1px solid var(--rule);
+  }
+  [data-mode="deep"] .fleet td { padding: calc(var(--u) * 1.25) calc(var(--u) * 2) calc(var(--u) * 1.25) 0; border-bottom: 1px dashed var(--rule); vertical-align: top; }
+  [data-mode="deep"] .fleet td:first-child { color: var(--accent); }
+  [data-mode="deep"] .fleet td:last-child { color: var(--muted); white-space: nowrap; }
+  [data-mode="deep"] .scroll-x { overflow-x: auto; }
+
+  [data-mode="deep"] pre.proof {
+    background: var(--bg-sunk); border-left: 2px solid var(--accent-2);
+    padding: calc(var(--u) * 2); overflow-x: auto;
+    font-size: 0.8rem; color: var(--muted); line-height: 1.5;
+    margin-top: calc(var(--u) * 2);
+  }
+
+  [data-mode="deep"] .skills {
+    display: grid; gap: var(--u) calc(var(--u) * 3);
+    grid-template-columns: minmax(11rem, max-content) 1fr;
+    font-size: 0.86rem;
+  }
+  [data-mode="deep"] .skills dt { color: var(--accent-3); }
+  [data-mode="deep"] .skills dt::before { content: "  "; }
+  [data-mode="deep"] .skills dd { margin: 0; color: var(--muted); }
+  @container (max-width: 34rem) {
+    [data-mode="deep"] .skills { grid-template-columns: 1fr; gap: 0.25rem; }
+    [data-mode="deep"] .skills dd { margin-bottom: var(--u); }
+  }
+
+  [data-mode="deep"] site-footer {
+    display: block; max-width: var(--shell); margin-inline: auto;
+    padding: calc(var(--u) * 4) var(--gutter);
+    border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: 0.82rem;
+  }
+  [data-mode="deep"] site-footer a { color: var(--accent); }
+
+  [data-mode="deep"] mode-indicator {
+    position: fixed; right: calc(var(--u) * 2); bottom: calc(var(--u) * 2); z-index: 50;
+    background: var(--bg-sunk); border: 1px solid var(--rule);
+    padding: calc(var(--u) * 0.5); display: flex; gap: calc(var(--u) * 0.5);
+  }
+  [data-mode="deep"] mode-indicator button {
+    font-size: 0.76rem; padding: calc(var(--u) * 0.5) calc(var(--u) * 1.5);
+    color: var(--muted);
+  }
+  [data-mode="deep"] mode-indicator button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+  [data-mode="deep"] kbd {
+    font-size: 0.8em; border: 1px solid var(--rule);
+    padding: 0 0.35em; background: var(--bg-sunk); color: var(--accent-3);
+  }
+}

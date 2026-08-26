@@ -1,0 +1,36 @@
+/*
+ * deep/tokens.css - semantic bindings for deep mode: Dracula, monospace,
+ * dense. The engineer's read - every number and tradeoff restored.
+ * Dependencies: ../../tokens/base.css (raw palette).
+ * Invariants: introduces no hex values; every colour is a --d-* token.
+ *             Scoped entirely under [data-mode="deep"].
+ * Non-goals: no layout - that is deep/layout.css.
+ */
+
+@layer modes {
+  [data-mode="deep"] {
+    color-scheme: dark;
+
+    --bg:      var(--d-bg);
+    --bg-soft: var(--d-bg-soft);
+    --bg-sunk: var(--d-bg-sunk);
+    --rule:    var(--d-rule);
+    --fg:      var(--d-fg);
+    --muted:   var(--d-muted);
+    --accent:  var(--d-cyan);
+    --accent-2: var(--d-green);
+    --accent-3: var(--d-yellow);
+    --tint:    var(--d-bg-soft);
+    --tint-2:  var(--d-bg-soft);
+    --tint-3:  var(--d-bg-soft);
+    --tint-4:  var(--d-bg-soft);
+
+    --font-body: var(--mono);
+    --font-display: var(--mono);
+
+    --step-display: clamp(1.8rem, 1.2rem + 2.6vw, 3rem);
+    --step-h2: clamp(1.25rem, 1.1rem + 0.8vw, 1.65rem);
+    --step-h3: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+    --step-lede: clamp(1rem, 0.96rem + 0.3vw, 1.12rem);
+  }
+}

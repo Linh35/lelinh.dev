@@ -1,0 +1,38 @@
+/*
+ * brief/tokens.css - semantic bindings for brief mode: warm pastel, light,
+ * one screen to the ask. Binds palette roles and the type scale only.
+ * Dependencies: ../../tokens/base.css (raw palette).
+ * Invariants: introduces no hex values; every colour is a --p-* token.
+ *             Scoped entirely under [data-mode="brief"].
+ * Non-goals: no layout - that is brief/layout.css.
+ */
+
+@layer modes {
+  [data-mode="brief"] {
+    color-scheme: light;
+
+    --bg:      var(--p-bg);
+    --bg-soft: var(--p-surface);
+    --bg-sunk: var(--p-sunk);
+    --rule:    var(--p-rule);
+    --fg:      var(--p-fg);
+    --muted:   var(--p-muted);
+    --accent:  var(--p-ink-violet);
+    --accent-2: var(--p-ink-teal);
+    --accent-3: var(--p-ink-clay);
+    --tint:    var(--p-lilac);
+    --tint-2:  var(--p-mint);
+    --tint-3:  var(--p-peach);
+    --tint-4:  var(--p-sky);
+
+    --font-body: var(--sans);
+    --font-display: var(--sans);
+
+    /* Display sizes are fluid: a phone gets a readable hero, a desktop gets
+       a statement, and nothing in between needs a breakpoint. */
+    --step-display: clamp(2.6rem, 1.4rem + 5.4vw, 5.2rem);
+    --step-h2: clamp(1.5rem, 1.1rem + 1.6vw, 2.2rem);
+    --step-h3: clamp(1.05rem, 0.98rem + 0.4vw, 1.22rem);
+    --step-lede: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
+  }
+}

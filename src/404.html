@@ -5,54 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <meta name="robots" content="noindex, follow">
-  <meta name="theme-color" content="#21222c">
-  <meta name="description" content="Page not found — Linh Le, senior full-stack engineer.">
-  <title>Not found — Linh Le</title>
-  <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Linh Le">
+  <!-- data-mode before any stylesheet: no flash of the wrong mode. -->
+  <script>document.documentElement.setAttribute('data-mode', (function () { try { return localStorage.getItem('mode') === 'deep' ? 'deep' : 'brief'; } catch (e) { return 'brief'; } })());</script>
   <link rel="stylesheet" href="/assets/tokens/base.css">
-  <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
-  <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
-  <style>
-    /* The sim canvas lives on the landing page, but the router swaps only
-       <main> - arriving at / via SPA nav keeps *this* page's <head>. So every
-       page carries the #rd rules, or the canvas lands unstyled at 300x150. */
-    #rd { display: block; width: 100%; height: 40vh; min-height: 200px; max-height: 500px; }
-    @media (prefers-reduced-motion: reduce) { #rd { display: none; } }
-  </style>
+  <link rel="stylesheet" href="/assets/modes/brief/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/brief/layout.css">
+  <link rel="stylesheet" href="/assets/modes/brief/blocks.css">
+  <link rel="stylesheet" href="/assets/modes/deep/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/deep/layout.css">
+  <link rel="stylesheet" href="/assets/modes/deep/blocks.css">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Page not found — lelinh.dev">
+  <title>Not found — Linh Le</title>
 </head>
 <body>
-  <noscript><p>JavaScript is off. The links below are plain HTML and work.</p></noscript>
-  <a class="skip" href="#main">Skip to content</a>
-  <site-header></site-header>
-  <main id="main" tabindex="-1">
-    <section class="hero">
-      <h1>404.</h1>
-      <p class="lede">That path doesn't resolve. Nothing's lost. The site is small; here's all of it.</p>
-    </section>
-    <section class="next">
-      <p>Start at <a href="/">home</a>, see the <a href="/work/">work</a>, or read <a href="/about.html">about</a>.</p>
-    </section>
-  </main>
-  <site-footer></site-footer>
-  <mode-indicator></mode-indicator>
-  <script type="module">
-    import { init as initMode } from '/assets/kernel/mode-manager.js';
-    import { init as initRouter } from '/assets/kernel/router.js';
-    import { bus } from '/assets/kernel/event-bus.js';
-    import '/assets/modes/components.js';
-    import '/assets/modes/terminal/components.js';
-    import '/assets/modes/swiss/components.js';
-    import '/assets/features/mode-indicator.js';
-    import '/assets/features/shortcuts.js';
-    import '/assets/features/key-hint.js';
-    initMode(); initRouter();
-    // #rd only exists on the landing page; mount it on arrival there via SPA nav.
-    const mountRD = () => {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // CSS hides #rd too
-      if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); }
-    };
-    bus.on('route:change', mountRD);
-  </script>
+<noscript><p>JavaScript is off. The links below work.</p></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<site-header></site-header>
+<main id="main" tabindex="-1">
+  <section class="hero">
+    <p class="ident">404</p>
+    <h1>That page isn't here.</h1>
+    <p class="lede">The link is wrong, or something moved. Nothing on this site is more than two clicks from the front page.</p>
+    <a class="cta" href="/">Back to the front page</a>
+    <p class="meta">
+      <span><a href="/work/">Work</a></span>
+      <span><a href="/about">About</a></span>
+      <span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a></span>
+    </p>
+  </section>
+</main>
+<site-footer></site-footer>
+<mode-indicator></mode-indicator>
+<script type="module">
+  import { init as initModes } from '/assets/kernel/mode-manager.js';
+  import { init as initRouter } from '/assets/kernel/router.js';
+  import '/assets/modes/components.js';
+  import '/assets/modes/brief/components.js';
+  import '/assets/modes/deep/components.js';
+  import '/assets/features/mode-indicator.js';
+  import '/assets/features/key-hint.js';
+  import '/assets/features/shortcuts.js';
+  import '/assets/features/console-banner.js';
+  initModes();
+  initRouter();
+</script>
 </body>
 </html>

@@ -1,46 +1,48 @@
 /*
- * mode-indicator.js - fixed bottom-right mode toggle. Collapsed shows current
- * mode (~40px). Expanded shows both modes with one-line pitches. Renders
- * differently per mode - styling lives in each mode's tokens.css.
+ * mode-indicator.js - fixed bottom-right depth switch. Always shows both
+ * choices: the whole point of the site is that the reader picks the depth,
+ * and a collapsed control hides that from the person most likely to want it.
  * Dependencies: ../kernel/event-bus.js, ../kernel/mode-manager.js
- * Invariants: only one element per page; aria-expanded tracks panel state.
- * Non-goals: no keyboard shortcut binding; no drag; no auto-collapse.
+ * Invariants: only one element per page; exactly one button carries
+ *             aria-pressed="true"; re-renders on every mode:change so the
+ *             current button stays correct after a keyboard switch too.
+ *             render() rebuilds innerHTML, which destroys the focused
+ *             button - focus is restored afterwards or a keyboard user is
+ *             dumped back to <body> mid-interaction.
+ * Non-goals: no open/close state; no keyboard binding (shortcuts.js owns
+ *            that); no drag; no persistence (mode-manager owns that).
  */
 
 import { bus } from '../kernel/event-bus.js';
 import { getMode, setMode, MODES } from '../kernel/mode-manager.js';
 
 const PITCHES = {
-  terminal: 'CLI fluency. Source as artifact.',
-  swiss: 'Typography first. Whitespace as argument.',
+  brief: 'The short read: claims, numbers, and how to reach me.',
+  deep: 'The long read: architecture, tradeoffs, operating detail.',
 };
-const LABELS = { terminal: '$ terminal', swiss: 'Aa  Swiss' };
 
 class ModeIndicator extends HTMLElement {
   connectedCallback() {
-    this._open = false;
+    this.setAttribute('role', 'group');
+    this.setAttribute('aria-label', 'Reading depth');
     this.render();
     this._unsub = bus.on('mode:change', () => this.render());
     this.addEventListener('click', this.onClick);
   }
   disconnectedCallback() { this._unsub?.(); }
   onClick = (e) => {
-    const choice = e.target.closest('[data-mode-choice]');
-    if (choice) { setMode(choice.dataset.modeChoice); this._open = false; this.render(); return; }
-    if (e.target.closest('[data-toggle]')) { this._open = !this._open; this.render(); }
+    const btn = e.target.closest('[data-mode-choice]');
+    if (btn) setMode(btn.dataset.modeChoice);
   };
   render() {
     const cur = getMode();
-    if (!this._open) {
-      this.innerHTML = `<button data-toggle aria-expanded="false" aria-label="open mode picker">${LABELS[cur]}</button>`;
-      return;
-    }
-    const items = MODES.map(m => `
-      <li><button data-mode-choice="${m}" aria-current="${m === cur ? 'true' : 'false'}">
-        <span class="lbl">${LABELS[m]}</span>
-        <span class="pitch">${PITCHES[m]}</span>
-      </button></li>`).join('');
-    this.innerHTML = `<button data-toggle aria-expanded="true" aria-label="close mode picker">${LABELS[cur]} ▾</button><ul role="list">${items}</ul>`;
+    const hadFocus = this.contains(document.activeElement);
+    this.innerHTML = MODES.map(m => `
+      <button data-mode-choice="${m}"
+              aria-pressed="${m === cur ? 'true' : 'false'}"
+              aria-label="${m} read - ${PITCHES[m]}">${m}</button>`).join('');
+    if (hadFocus) this.querySelector(`[data-mode-choice="${cur}"]`)?.focus();
   }
 }
+
 customElements.define('mode-indicator', ModeIndicator);

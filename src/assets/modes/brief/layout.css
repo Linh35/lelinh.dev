@@ -1,0 +1,121 @@
+/*
+ * brief/layout.css - page structure for brief mode: centred measure, wide
+ * gutters, one screen from the top of the page to the contact line.
+ * Dependencies: brief/tokens.css for every colour and size token.
+ * Invariants: scoped under [data-mode="brief"]. Layout only - the styling of
+ *             repeated blocks (cards, rows, chips) is brief/blocks.css.
+ * Non-goals: no colour literals; no component internals.
+ */
+
+@layer components {
+  [data-mode="brief"] {
+    --gutter: clamp(1.25rem, 5vw, 5rem);
+    --shell: 76rem;
+  }
+
+  [data-mode="brief"] main { padding-bottom: calc(var(--u) * 12); }
+
+  [data-mode="brief"] section {
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Hero. Only .hero.lead (the home page) claims the viewport: on a short
+     inner page, centring in 88svh pushes the H1 below the fold and the
+     visitor's first screen is empty. min-height is svh, not vh, so mobile
+     browser chrome cannot push the contact line out of view either. */
+  [data-mode="brief"] .hero {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--u) * 3);
+    padding-block: calc(var(--u) * 6) calc(var(--u) * 5);
+  }
+  [data-mode="brief"] .hero.lead {
+    min-height: 84svh;
+    justify-content: center;
+    padding-block: calc(var(--u) * 8) calc(var(--u) * 6);
+  }
+  [data-mode="brief"] .hero h1 {
+    font-family: var(--font-display);
+    font-size: var(--step-display);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 680;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  [data-mode="brief"] .hero .lede {
+    font-size: var(--step-lede);
+    color: var(--muted);
+    max-width: 52ch;
+    text-wrap: pretty;
+  }
+  [data-mode="brief"] .ident {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  [data-mode="brief"] section + section { padding-top: calc(var(--u) * 9); }
+
+  [data-mode="brief"] h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-h2);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 660;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+  [data-mode="brief"] h3 {
+    font-size: var(--step-h3);
+    font-weight: 640;
+    letter-spacing: -0.01em;
+  }
+  [data-mode="brief"] p { max-width: var(--measure); text-wrap: pretty; }
+  [data-mode="brief"] section > p { margin-top: calc(var(--u) * 2); }
+
+  /* Section headers: a small counter/label above the heading. */
+  [data-mode="brief"] .sec-head {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--u) * 1.5);
+    margin-bottom: calc(var(--u) * 4);
+  }
+  [data-mode="brief"] .sec-head .num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: var(--u);
+  }
+  [data-mode="brief"] .sec-head .num::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  [data-mode="brief"] .grid {
+    display: grid;
+    gap: calc(var(--u) * 2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+  [data-mode="brief"] .grid-2 {
+    display: grid;
+    gap: calc(var(--u) * 2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  }
+
+  [data-mode="brief"] .more {
+    margin-top: calc(var(--u) * 3);
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+}

@@ -1,50 +1,53 @@
 # lelinh.dev — portfolio
 
-Personal portfolio of Linh Le. Plain HTML, CSS, and ES modules — no build step, no framework, no runtime dependencies. Source is the product: every file opens with a header comment, every file is short, and the same content reads two different ways depending on the active mode.
+Personal portfolio of Linh Le. Plain HTML, CSS, and ES modules — no build step, no framework, no runtime dependencies.
+
+The site has **two reads of the same pages**, and the reader picks:
+
+- **Brief** — the short read. Claims, numbers, and how to reach me, in one screen. Warm pastel, light, generous. This is the default.
+- **Deep** — the long read. The architecture, the tradeoffs, and the operating detail restored inline. Dracula, monospace, dense.
+
+Both reads live in the same HTML at once. `.deep-only` and `.brief-only` blocks are shown or hidden by CSS keyed on `<html data-mode>`, which means a visitor with JavaScript disabled gets *everything* rather than a broken page. Switch with the control bottom-right, or press <kbd>b</kbd> / <kbd>d</kbd>.
 
 ## Run it
-
-The site is in `src/`. Use the included dev server:
 
 ```bash
 node serve.js   # :3000
 ```
 
-Then open `http://localhost:3000/`.
+`./check.sh` runs the static verifier from the repo root.
 
-`./check.sh` runs the static verifier from repo root.
+## Architecture
 
-## Three-ring architecture
+Three rings. Each ring may depend on the ones inside it, never the ones outside.
 
-1. **Kernel** (`src/assets/kernel/`) — pages depend on these directly.
+1. **Kernel** (`src/assets/kernel/`)
    - `event-bus.js` — signal-style pub/sub. Topics remember their last value and replay it to new subscribers in a microtask.
-   - `router.js` — same-origin click intercept. Fetches HTML, swaps `<main>`, updates history, wraps swap in `document.startViewTransition`. Hover-prefetches via `<link rel="prefetch">`.
+   - `router.js` — same-origin click intercept. Fetches HTML, swaps `<main>`, updates history, wraps the swap in `document.startViewTransition`. Hover-prefetches via `<link rel="prefetch">`.
    - `mode-manager.js` — owner of `<html data-mode>`. Persists to `localStorage['mode']`. `setMode(name)` runs through a View Transition.
-   - `content-loader.js` — fetches `src/assets/content/{slug}.md`, parses frontmatter and a small markdown subset. Hand-written; no library.
 
-2. **Renderers** (`src/assets/modes/`) — shared custom-element shells (`<site-header>`, `<site-footer>`, `<project-card>`, `<project-list>`) with per-mode renderer registrations. Switching mode re-runs the active renderer against the same elements.
-   - **Terminal** — monospace, dark, cyan headers, yellow accents.
-   - **Swiss** — editorial sans + serif, 12-column grid, large display type.
+2. **Renderers** (`src/assets/modes/`) — shared custom-element shells (`<site-header>`, `<site-footer>`) with a per-mode renderer registry. Switching mode re-runs the active renderer against the same element. `nav.js` holds the link data both modes read, so the two renderers cannot drift.
 
-3. **Features** (`src/assets/features/`) — fully optional, deletable without breaking the kernel.
-   - `mode-indicator.js` — fixed bottom-right toggle.
-   - `source-snippet.js` — pulls live source excerpts into the page so claims are checkable.
-   - `shortcuts.js`, `key-hint.js` — keyboard mode-toggle and the hint chip.
+3. **Features** (`src/assets/features/`) — optional, deletable without breaking the kernel.
+   - `mode-indicator.js` — the always-visible depth switch, bottom-right.
+   - `shortcuts.js`, `key-hint.js` — <kbd>b</kbd>/<kbd>d</kbd> switching and the hint chip.
    - `console-banner.js` — devtools welcome.
-   - `gray-scott.js`, `rd-shaders.js` — Gray-Scott reaction-diffusion sim on the landing page (idle-deferred WebGL).
 
 ## Palette
 
-Dracula background `#282a36`. Dracula cyan `#8be9fd` and Monokai yellow `#e6db74` paired as the lead/echo accents — cyan leads in Swiss, yellow leads in Terminal. Defined once in `src/assets/tokens/base.css`; mode sheets only re-bind `--accent` and the font stack.
+Defined once in `src/assets/tokens/base.css` as two raw scales; mode sheets bind them to semantic roles (`--bg`, `--fg`, `--accent`, …) and introduce no hex values of their own.
+
+- **Deep** — Dracula. Background `#282a36`, cyan `#8be9fd` leading, Monokai yellow `#e6db74` as the echo. Dracula's comment blue is lifted to `#8b98c9` so quiet labels still clear 4.5:1.
+- **Brief** — warm pastel. Paper `#f6f2ec`, ink `#2b2733`, violet/teal/clay inks for text and lilac/mint/peach/sky tints for fills. Tints rotate by `:nth-child`, so a grid reads as a set without per-card classes.
 
 ## Constraints
 
 - Vanilla HTML, CSS, ES modules. No React/Vue/Svelte/Alpine/jQuery/lit-html.
 - No build step. No bundler, transpiler, minifier, preprocessor.
-- Every `.js`/`.css` ≤ 150 lines.
+- Every `.js`/`.css` ≤ 150 lines, and every file opens with a header saying what it does and what it must not do.
 - All imports inside `src/assets/` are relative.
 - `<html data-mode>` set inline in every page's `<head>` before any stylesheet — no FOUC.
-- Site is readable with JavaScript disabled.
+- The site is readable with JavaScript disabled.
 - `prefers-reduced-motion: reduce` skips the View Transition wrap.
 
 `./check.sh` enforces all of the above mechanically.
@@ -54,5 +57,7 @@ Dracula background `#282a36`. Dracula cyan `#8be9fd` and Monokai yellow `#e6db74
 Hosted on Cloudflare Pages (project `lelinh`, custom domain `lelinh.dev`). Deploys are manual, direct-upload from the working tree — a push to GitHub does not deploy:
 
 ```bash
-npx wrangler pages deploy src --project-name=lelinh
+./deploy.sh
 ```
+
+Auth is via `CLOUDFLARE_API_TOKEN` in the environment (needs Account → Cloudflare Pages → Edit), or `npx wrangler login` on a machine with a browser.

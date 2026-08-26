@@ -6,165 +6,142 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="theme-color" content="#21222c">
   <meta name="author" content="Linh Le">
-  <meta name="description" content="About Linh Le — full-stack web developer. Fast because I read the platform; readable because someone has to maintain it.">
-  <title>About Linh Le — Senior Full-Stack Engineer</title>
-  <link rel="canonical" href="https://lelinh.dev/about.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Linh Le">
-  <meta property="og:title" content="About Linh Le — Senior Full-Stack Engineer">
-  <meta property="og:description" content="Full-stack web developer. Fast because I read the platform; readable because someone has to maintain it.">
-  <meta property="og:url" content="https://lelinh.dev/about.html">
-  <meta property="og:image" content="https://lelinh.dev/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
-  <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About Linh Le — Senior Full-Stack Engineer">
-  <meta name="twitter:description" content="Full-stack web developer. Fast because I read the platform; readable because someone has to maintain it.">
-  <meta name="twitter:image" content="https://lelinh.dev/assets/og.png">
-  <meta name="twitter:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
-  <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
+  <!-- data-mode before any stylesheet: no flash of the wrong mode. -->
+  <script>document.documentElement.setAttribute('data-mode', (function () { try { return localStorage.getItem('mode') === 'deep' ? 'deep' : 'brief'; } catch (e) { return 'brief'; } })());</script>
   <link rel="stylesheet" href="/assets/tokens/base.css">
-  <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
-  <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
-  <style>
-    /* The sim canvas lives on the landing page, but the router swaps only
-       <main> - arriving at / via SPA nav keeps *this* page's <head>. So every
-       page carries the #rd rules, or the canvas lands unstyled at 300x150. */
-    #rd { display: block; width: 100%; height: 40vh; min-height: 200px; max-height: 500px; }
-    @media (prefers-reduced-motion: reduce) { #rd { display: none; } }
-  </style>
+  <link rel="stylesheet" href="/assets/modes/brief/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/brief/layout.css">
+  <link rel="stylesheet" href="/assets/modes/brief/blocks.css">
+  <link rel="stylesheet" href="/assets/modes/deep/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/deep/layout.css">
+  <link rel="stylesheet" href="/assets/modes/deep/blocks.css">
+  <meta name="description" content="Linh Le — thirteen years of software engineering. OpenSensors, MentorMate, Finmaven. Full-stack web, AWS infrastructure, IoT telemetry at scale.">
+  <title>About — Linh Le</title>
+  <link rel="canonical" href="https://lelinh.dev/about">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="About — Linh Le">
+  <meta property="og:description" content="Thirteen years of software engineering: full-stack web, AWS infrastructure, and IoT telemetry at scale.">
+  <meta property="og:url" content="https://lelinh.dev/about">
+  <meta property="og:image" content="https://lelinh.dev/assets/og.png">
 </head>
 <body>
-  <noscript><p>JavaScript is off. Content below is plain HTML and the links work.</p></noscript>
-  <a class="skip" href="#main">Skip to content</a>
-  <site-header></site-header>
-  <main id="main" tabindex="-1">
-    <section class="hero">
-      <h1>The short version.</h1>
-      <p class="lede">Full-stack web developer. Also games, LoRaWAN fleets, and data at scale. Fast because I read the platform; readable because someone has to maintain it, and I only ship what I can explain to myself. The <a href="/work/">work</a> page has the long one.</p>
-      <aside class="meta">
-        <span><b>Node · Web · Zig · Unity C#</b></span>
-        <span>web · systems · data · games</span>
-        <span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a></span>
-        <span><a href="/assets/linh-le-cv.pdf">CV (PDF)</a></span>
-        <span><a rel="me" href="https://codeberg.org/litozor">codeberg.org/litozor</a></span>
-        <span><a rel="me" href="https://github.com/Linh35">github.com/Linh35</a> <em>(mirror)</em></span>
-        <span><a href="https://www.linkedin.com/in/le-linh-42269082/">linkedin.com/in/le-linh</a></span>
-      </aside>
-      <aside class="meta domains">
-        <span>web apps · games · telemetry · IoT fleets</span>
-      </aside>
-    </section>
+<noscript><p>JavaScript is off. Content below is plain HTML and the links work.</p></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<site-header></site-header>
+<main id="main" tabindex="-1">
 
-    <section class="patterns">
-      <header class="patterns-head">
-        <span class="num">History</span>
-        <h2>Where the thirteen years went.</h2>
-      </header>
-      <ul class="pattern-grid" role="list">
-        <li>
-          <h3>OpenSensors</h3>
-          <p>Software Engineer, on contract. Owned the LoRaWAN radio-to-database pipeline on AWS compute, storage and queues: ~100 networks, hundreds of thousands of devices reporting every 10 minutes, ingested and queryable in under 250&nbsp;ms. Also sensor inventory, low-level device code, Unix server administration, Vue 3 operator dashboards over an Elasticsearch read layer, cross-platform mobile apps, and the platform authentication system.</p>
-          <span class="where">→ Apr 2017 – present · 9 yrs</span>
-        </li>
-        <li>
-          <h3>Contract engagements · under NDA</h3>
-          <p>A steady roster of clients carried alongside the OpenSensors platform, one after another — full-stack work across logistics and healthcare. The names are under NDA; the work shape isn't.</p>
-          <span class="where">→ Apr 2017 – present · logistics · healthcare</span>
-        </li>
-        <li>
-          <h3>MentorMate</h3>
-          <p>Software Developer. Client applications at speed on what was then the newest web technology: Angular 1 single-page apps with real-time features over WebSockets.</p>
-          <span class="where">→ Sep 2015 – Apr 2017</span>
-        </li>
-        <li>
-          <h3>Finmaven / Mavendocs</h3>
-          <p>Software Engineer. Full-stack JavaScript and Node.js on social-intelligence tools.</p>
-          <span class="where">→ Feb 2014 – Mar 2015</span>
-        </li>
-        <li>
-          <h3>Masthead Studios</h3>
-          <p>Software Engineer. Custom C++ engine on Earthrise, a sci-fi MMORPG; Unity C# on Guns n Robots, a multiplayer shooter.</p>
-          <span class="where">→ Oct 2011 – Jan 2014 · 2 yrs 4 mos</span>
-        </li>
-        <li>
-          <h3>Haemimont AAD</h3>
-          <p>Junior Web Developer. Browser games: WebGL rendering with WebSocket multiplayer, starting in 2011 — the WebGL 1.0 spec was barely a month old. Where the thirteen years start.</p>
-          <span class="where">→ Apr 2011 – Sep 2011 · 6 mos</span>
-        </li>
-        <li>
-          <h3>Studied &amp; certified</h3>
-          <p>BS in Informatics, New Bulgarian University. Software Engineering at TUES before that. CCNA — Cisco Certified Network Associate.</p>
-          <span class="where">→ BSc 2016 · TUES 2012 · CCNA</span>
-        </li>
-      </ul>
-      <p class="more">Full detail, including what I'm after next, is in the <a href="/assets/linh-le-cv.pdf">CV (PDF)</a>.</p>
-    </section>
+  <section class="hero">
+    <p class="ident">About</p>
+    <h1>Thirteen years, every layer.</h1>
+    <p class="lede">Full-stack web developer. Also AWS infrastructure, LoRaWAN fleets, and data at scale. Fast because I read the platform; readable because someone has to maintain it, and I only ship what I can explain to myself.</p>
+    <p class="meta">
+      <span><b>TypeScript · Node · React · React Native · Vue 3 · AWS</b></span>
+      <span>web · systems · data · infrastructure</span>
+      <span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a></span>
+      <span><a href="/assets/linh-le-cv.pdf">CV (PDF)</a></span>
+      <span><a rel="me" href="https://codeberg.org/litozor">codeberg.org/litozor</a></span>
+      <span><a rel="me" href="https://github.com/Linh35">github.com/Linh35</a></span>
+      <span><a href="https://www.linkedin.com/in/le-linh-42269082/">linkedin.com/in/le-linh</a></span>
+    </p>
+  </section>
 
-    <section class="intro">
+  <section>
+    <div class="sec-head">
+      <span class="num">History</span>
+      <h2>Where the years went.</h2>
+    </div>
+    <ul class="grid" role="list">
+      <li class="card">
+        <h3>OpenSensors</h3>
+        <p>Software Engineer, on contract. Owned the full path a sensor reading travels: LoRaWAN radio and low-level device code, through an AWS pipeline built on IoT Core, Lambda, SQS and SNS, into the database. ~100 networks, hundreds of thousands of devices reporting every 10 minutes, queryable in under 250&nbsp;ms. Also sensor inventory, Unix server administration, Vue 3 operator dashboards over Elasticsearch, the cross-platform mobile apps in React Native, and the platform authentication system.</p>
+        <span class="where">Apr 2017 – present · 9 yrs</span>
+      </li>
+      <li class="card">
+        <h3>Contract engagements · under NDA</h3>
+        <p>A steady roster of clients carried alongside the OpenSensors platform — full-stack work across logistics and healthcare. The names are under NDA; the work shape isn't.</p>
+        <span class="where">Apr 2017 – present</span>
+      </li>
+      <li class="card">
+        <h3>MentorMate</h3>
+        <p>Software Developer. Client applications at speed for a steady run of clients: single-page apps with real-time features over WebSockets, shipped on short cycles.</p>
+        <span class="where">Sep 2015 – Apr 2017</span>
+      </li>
+      <li class="card">
+        <h3>Finmaven / Mavendocs</h3>
+        <p>Software Engineer. Full-stack JavaScript and Node.js on social-intelligence tools.</p>
+        <span class="where">Feb 2014 – Mar 2015</span>
+      </li>
+      <li class="card">
+        <h3>Where it started · 2011–14</h3>
+        <p>Two engineering roles in games before the web work: a custom C++ engine and Unity C# at Masthead Studios, and WebGL browser games with WebSocket multiplayer at Haemimont AAD from April 2011, when the WebGL 1.0 spec was a month old.</p>
+        <span class="where">Apr 2011 – Jan 2014 · Masthead · Haemimont</span>
+      </li>
+      <li class="card">
+        <h3>Studied &amp; certified</h3>
+        <p>BS in Informatics, New Bulgarian University. Software Engineering at TUES before that. CCNA — Cisco Certified Network Associate.</p>
+        <span class="where">BSc 2016 · TUES 2012 · CCNA</span>
+      </li>
+    </ul>
+    <p class="more">Full detail is in the <a href="/assets/linh-le-cv.pdf">CV (PDF)</a>.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="num">Working together</span>
       <h2>How I am to work with.</h2>
-      <p>I like meeting people, hearing how they got where they are, and talking shop. Most of what I know got there because someone else explained it first. Decisions I take slow: they tend to be better after someone's had a chance to argue with them.</p>
-    </section>
+    </div>
+    <p>I like meeting people, hearing how they got where they are, and talking shop. Most of what I know got there because someone else explained it first.</p>
+    <p class="deep-only">Remote by default, and written-first — the strongest work I've been part of came from someone pushing back in a thread rather than nodding in a meeting. I've shipped across mid-size companies and small startups: one that made it, several that folded. The ones that failed taught more: what you cut when runway is the real constraint, and which calls you don't make twice.</p>
+    <div class="deep-only">
+      <p>Where models come into it, I'd rather be judged on the operating discipline than the novelty — budgets that keep cost proportional to value, failover that keeps a long job alive, and a check that catches output reporting work it didn't do. It's one more system to run properly, not a different kind of thing.</p>
+    </div>
+  </section>
 
-    <section class="patterns">
-      <header class="patterns-head">
-        <span class="num">Stack</span>
-        <h2>Tools I reach for, and when.</h2>
-      </header>
-      <ul class="pattern-grid" role="list">
-        <li>
-          <h3>Node</h3>
-          <p>Default for anything web-shaped on the server side. The stdlib is most of a framework, if you bother to read it.</p>
-          <span class="where">→ servers · tooling · scripts</span>
-        </li>
-        <li>
-          <h3>Web</h3>
-          <p>The browser is the system. First paint, prefetch, View Transitions, view-source: most of what you need is already in the platform once you read the docs. Vue 3 or React when a framework actually pays for itself.</p>
-          <span class="where">→ first paint · prefetch · view transitions</span>
-        </li>
-        <li>
-          <h3>Zig</h3>
-          <p>For write paths that have to be deterministic. No hidden allocator, no surprises. Comptime makes hand-written serialization worth the typing.</p>
-          <span class="where">→ hot loops · parsers · binary formats</span>
-        </li>
-        <li>
-          <h3>Rust</h3>
-          <p>For games and high-performance systems — the same ground I covered in C++ and Unity C# on Earthrise and Guns n Robots. Rust doesn't let you skip the parts that bite later.</p>
-          <span class="where">→ games · high-performance · systems</span>
-        </li>
-      </ul>
-      <p class="more">Also worked with, in production: Python, Go, SQL, Elasticsearch, DynamoDB, Vue 3, React, AWS, Azure, Linux, Android, iOS, and the networking gear underneath.</p>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">Stack</span>
+      <h2>What I work in.</h2>
+    </div>
+    <dl class="skills">
+      <dt>Languages</dt>
+      <dd>TypeScript · JavaScript · Node.js · Python · Go · Rust · C · C++ · Zig · C#</dd>
+      <dt>Frontend &amp; mobile</dt>
+      <dd>React · React Native · Vue 3 · Preact · web components · Android · iOS</dd>
+      <dt>Data</dt>
+      <dd>SQL · Elasticsearch · DynamoDB · SQLite</dd>
+      <dt>Infrastructure</dt>
+      <dd>AWS (IoT Core, Lambda, SQS, SNS, EC2, VPC, RDS, DynamoDB) · Azure · Linux/Unix administration · Podman · Caddy · self-hosting · networking (CCNA)</dd>
+      <dt>Domains</dt>
+      <dd>LoRaWAN &amp; IoT telemetry · real-time systems · billing &amp; auth · model/LLM infrastructure</dd>
+    </dl>
+  </section>
 
-    <section class="next">
-      <p>If you're hiring for someone who cares how it's built as much as that it ships: <a href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">linh@lelinh.dev</a>, or the <a href="/assets/linh-le-cv.pdf">CV (PDF)</a>. Also on <a href="https://codeberg.org/litozor">Codeberg</a> and <a href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a>.</p>
-    </section>
-  </main>
-  <site-footer></site-footer>
-  <mode-indicator></mode-indicator>
-  <script type="module">
-    import { init as initMode } from '/assets/kernel/mode-manager.js';
-    import { init as initRouter } from '/assets/kernel/router.js';
-    import { bus } from '/assets/kernel/event-bus.js';
-    import '/assets/modes/components.js';
-    import '/assets/modes/terminal/components.js';
-    import '/assets/modes/swiss/components.js';
-    import '/assets/features/mode-indicator.js';
-    import '/assets/features/source-snippet.js';
-    import '/assets/features/console-banner.js';
-    import '/assets/features/shortcuts.js';
-    import '/assets/features/key-hint.js';
-    initMode(); initRouter();
-    // #rd only exists on the landing page; mount it on arrival there via SPA nav.
-    const mountRD = () => {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // CSS hides #rd too
-      if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); }
-    };
-    bus.on('route:change', mountRD);
-  </script>
+  <section>
+    <div class="sec-head">
+      <span class="num">Next</span>
+      <h2>Open to contract and full-time remote.</h2>
+    </div>
+    <p>Sofia-based (UTC+2), comfortable across time zones, and used to written-first async work. B2B contracts through my own company, or a full-time remote role.</p>
+    <p>Rate depends on scope and duration, so I quote rather than list. Tell me the scope, the rough duration, and when you want to start, and you'll get a number back the same day.</p>
+    <a class="cta" href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">linh@lelinh.dev</a>
+  </section>
+
+</main>
+<site-footer></site-footer>
+<mode-indicator></mode-indicator>
+<script type="module">
+  import { init as initModes } from '/assets/kernel/mode-manager.js';
+  import { init as initRouter } from '/assets/kernel/router.js';
+  import '/assets/modes/components.js';
+  import '/assets/modes/brief/components.js';
+  import '/assets/modes/deep/components.js';
+  import '/assets/features/mode-indicator.js';
+  import '/assets/features/key-hint.js';
+  import '/assets/features/shortcuts.js';
+  import '/assets/features/console-banner.js';
+  initModes();
+  initRouter();
+</script>
 </body>
 </html>

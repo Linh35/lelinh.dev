@@ -5,8 +5,8 @@
  * Dependencies: ../kernel/event-bus.js, ../kernel/mode-manager.js
  * Invariants: renderers are (host) => void. They write to host.innerHTML and
  *             do not attach listeners outside the host. No shadow DOM -
- *             source must be inspectable in devtools. IDs (if used) live
- *             inside one component; cross-component talk goes through the bus.
+ *             source must be inspectable in devtools. Cross-component talk
+ *             goes through the bus.
  * Non-goals: no slotted projection; no two-way attribute sync.
  */
 
@@ -38,6 +38,6 @@ class Shell extends HTMLElement {
   }
 }
 
-for (const tag of ['site-header', 'site-footer', 'project-card', 'project-list']) {
+for (const tag of ['site-header', 'site-footer']) {
   if (!customElements.get(tag)) customElements.define(tag, class extends Shell {});
 }

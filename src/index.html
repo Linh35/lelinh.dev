@@ -6,201 +6,149 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="theme-color" content="#21222c">
   <meta name="author" content="Linh Le">
-  <meta name="description" content="Linh Le — senior full-stack engineer. Thirteen years across web apps, IoT telemetry fleets, and game engine work. Open to B2B contracts and full-time remote roles. Sofia-based, comfortable across time zones.">
+  <!-- data-mode before any stylesheet: no flash of the wrong mode. -->
+  <script>document.documentElement.setAttribute('data-mode', (function () { try { return localStorage.getItem('mode') === 'deep' ? 'deep' : 'brief'; } catch (e) { return 'brief'; } })());</script>
+  <link rel="stylesheet" href="/assets/tokens/base.css">
+  <link rel="stylesheet" href="/assets/modes/brief/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/brief/layout.css">
+  <link rel="stylesheet" href="/assets/modes/brief/blocks.css">
+  <link rel="stylesheet" href="/assets/modes/deep/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/deep/layout.css">
+  <link rel="stylesheet" href="/assets/modes/deep/blocks.css">
+  <meta name="description" content="Linh Le — senior full-stack engineer, 13 years. Web apps, 8 years of AWS, IoT telemetry at six figures of devices, and a paid product of my own. Open to B2B contracts and full-time remote roles.">
   <title>Linh Le — Senior Full-Stack Engineer</title>
   <link rel="canonical" href="https://lelinh.dev/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Linh Le">
   <meta property="og:title" content="Linh Le — senior full-stack engineer">
-  <meta property="og:description" content="Thirteen years across web apps, IoT telemetry fleets, and game engine work. Open to B2B contracts and full-time remote roles. Sofia-based, comfortable across time zones.">
+  <meta property="og:description" content="Thirteen years across web apps, AWS infrastructure, and telemetry fleets. I own systems end to end, and I run a paid product of my own.">
   <meta property="og:url" content="https://lelinh.dev/">
   <meta property="og:image" content="https://lelinh.dev/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
-  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Linh Le — senior full-stack engineer">
-  <meta name="twitter:description" content="Thirteen years across web apps, IoT telemetry fleets, and game engine work. Open to B2B contracts and full-time remote roles. Sofia-based, comfortable across time zones.">
-  <meta name="twitter:image" content="https://lelinh.dev/assets/og.png">
-  <meta name="twitter:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://lelinh.dev/#website","url":"https://lelinh.dev/","name":"Linh Le","inLanguage":"en","publisher":{"@id":"https://lelinh.dev/#person"}},{"@type":"Person","@id":"https://lelinh.dev/#person","name":"Linh Le","jobTitle":"Senior Full-Stack Engineer","url":"https://lelinh.dev/","image":"https://lelinh.dev/assets/og.png","email":"mailto:linh@lelinh.dev","sameAs":["https://codeberg.org/litozor","https://github.com/Linh35","https://www.linkedin.com/in/le-linh-42269082/"],"knowsAbout":["Full-stack web development","Node.js","Python","TypeScript","Go","Rust","Zig","C++","SQL","Elasticsearch","DynamoDB","Vue.js","React","IoT & LoRaWAN","AWS","Azure","Linux","Computer networking","Android","iOS","Data analysis","Game engine programming","Unity / C#"]}]}</script>
-  <!-- data-mode must be set before first paint to avoid FOUC. Stays inline. -->
-  <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
-  <link rel="stylesheet" href="/assets/tokens/base.css">
-  <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
-  <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
-  <style>
-    #rd { display: block; width: 100%; height: 40vh; min-height: 200px; max-height: 500px; }
-    /* A 40vh field that never stops moving is exactly what reduced-motion asks
-       not to get. Hide it here; the mount script below also skips the sim. */
-    @media (prefers-reduced-motion: reduce) { #rd { display: none; } }
-  </style>
 </head>
 <body>
-  <noscript><p>JavaScript is off. Every page is plain HTML and the links work. Only the mode toggle and the inline source previews need JS.</p></noscript>
-  <a class="skip" href="#main">Skip to content</a>
-  <site-header></site-header>
-  <main id="main" tabindex="-1">
-    <section class="hero">
-      <p class="ident"><b>Linh Le</b> · senior full-stack engineer. End to end means end to end, from server to screen.</p>
-      <h1>Thirteen years, every layer.</h1>
-      <p class="lede">Web apps, telemetry fleets at six figures of devices, and game engine work. I own systems end to end — and I run a paid product of my own.</p>
-      <aside class="meta">
-        <key-hint variant="compact"></key-hint>
-        <span><b>13</b> yrs</span>
-        <span>remote · Sofia-based</span>
-        <span>full-time or contract</span>
-        <span><a href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">linh@lelinh.dev</a></span>
-      </aside>
-    </section>
+<noscript><p>JavaScript is off. Every page is plain HTML and the links work — with JS off you get the full text of both reads at once.</p></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<site-header></site-header>
+<main id="main" tabindex="-1">
 
-    <section class="intro">
-      <h2>Shipped, and running.</h2>
-      <p><a href="https://getwhen.net">When.</a> — a private period tracker that lives in the calendar you already check: Google, Notion, or CalDAV, instead of one more app to open. Log the day a period starts; it learns the cycle and puts each predicted phase on the calendar. Live and paid: €4/mo after a 14-day trial. Co-created with Anna, and run end to end — product, infrastructure, billing, support. <a href="/work/">The rest of what I've made →</a></p>
-      <figure class="source">
-        <figcaption><span class="path">The constraint · nothing of yours kept</span></figcaption>
-        <p>The rule came before the features: a period tracker shouldn't hold your cycle. So this one doesn't. The calendar you already own is the only place that data lives — When. reads the days you log through the provider's own API, works out the prediction, and writes the phases back as events. There's no cycle database to design, to secure, or to breach. The cost is that the calendar API <em>is</em> the storage layer: anything the product wants to remember has to be expressible as an event on a calendar, and every feature has to earn its way back through that constraint.</p>
-      </figure>
-    </section>
+  <section class="hero lead">
+    <p class="ident">Linh Le · senior full-stack engineer</p>
+    <h1>Thirteen years, every layer.</h1>
+    <p class="lede">Web apps, eight years of AWS infrastructure, telemetry fleets at six figures of devices, and a paid product of my own. I own systems end to end — browser to API to data layer to the machine it runs on.</p>
+    <ul class="claims" role="list">
+      <li><b>13</b> yrs shipping software</li>
+      <li><b>8</b> yrs AWS infrastructure</li>
+      <li><b>100+</b> IoT networks · &lt;250ms reads</li>
+      <li><b>When.</b> — live and paid</li>
+    </ul>
+    <p class="stack"><b>Stack</b> · TypeScript · JavaScript · Node.js · React · React&nbsp;Native · Vue&nbsp;3 · Python · Go · Rust · C++ · Zig · AWS (IoT&nbsp;Core, Lambda, SQS, SNS, EC2, VPC, RDS, DynamoDB) · Azure · SQL · Elasticsearch · Linux/Unix · LoRaWAN/IoT</p>
+    <a class="cta" href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">Talk about a contract</a>
+    <p class="meta">
+      <span>Sofia-based · remote</span>
+      <span>full-time or B2B contract</span>
+      <span><a href="mailto:linh@lelinh.dev">linh@lelinh.dev</a></span>
+      <span><a href="/assets/linh-le-cv.pdf">CV (PDF)</a></span>
+      <span class="deep-only"><key-hint variant="compact"></key-hint></span>
+    </p>
+  </section>
 
-    <section class="patterns">
-      <header class="patterns-head">
-        <span class="num">Track record</span>
-        <h2>Where the years went.</h2>
-      </header>
-      <ul class="pattern-grid" role="list">
-        <li>
-          <h3>Full-stack web · 11 yrs</h3>
-          <p>Frontend through API through data layer. Production apps owned end to end, not handed across a fence.</p>
-          <span class="where">→ browser · server · data</span>
-        </li>
-        <li>
-          <h3>IoT &amp; large data · 9 yrs</h3>
-          <p>Alongside the web work, inside the same 11 years. ~100 networks, hundreds of thousands of devices reporting every 10 min: ingested, aggregated, and queryable in under 250&nbsp;ms. LoRaWAN radio→DB; AWS compute/storage/queues; Vue 3 operator dashboards on top of an Elasticsearch read layer.</p>
-          <span class="where">→ 100+ networks · &lt;250ms aggregated read</span>
-        </li>
-        <li>
-          <h3>Networking &amp; bare metal</h3>
-          <p>CCNA1-level networking fundamentals and end-to-end physical machine setup: rack, OS, network, runtime.</p>
-          <span class="where">→ CCNA1 · bare-metal → runtime</span>
-        </li>
-        <li>
-          <h3>Game dev · 2011–14</h3>
-          <p>WebGL browser games with WebSocket multiplayer, then a custom C++ engine on Earthrise, a sci-fi MMORPG, and Unity C# on Guns n Robots, a multiplayer shooter. The frame budget is the best "fast enough" forcing function I've worked under.</p>
-          <span class="where">→ Earthrise · Guns n Robots</span>
-        </li>
-        <li>
-          <h3>Nine years contracting</h3>
-          <p>Independent since 2017. OpenSensors is the long-running client; the rest of the roster sits under NDA — full-stack across logistics and healthcare, client after client. A client who renews is the only performance review a contractor gets.</p>
-          <span class="where">→ 9 yrs · roster under NDA · logistics · healthcare</span>
-        </li>
-        <li>
-          <h3>Mid-size to startup: wins and write-offs</h3>
-          <p>Shipped across mid-size companies and small startups: one that made it, several that folded. I learned more from the ones that failed: what you cut when runway is the real constraint, and which calls you don't make twice.</p>
-          <span class="where">→ mid-size + startup · through the win and the write-offs</span>
-        </li>
-        <li>
-          <h3>Remote-first, with a team</h3>
-          <p>Remote by default. Shipping with a team doesn't mean sharing a room with it. Distributed and written-first; the strongest work came from someone pushing back in a thread.</p>
-          <span class="where">→ remote · distributed · written-first</span>
-        </li>
-      </ul>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">01 · Product</span>
+      <h2>When. — live, paid, and mine.</h2>
+    </div>
+    <p><a href="https://getwhen.net">When.</a> is a private period tracker that lives in the calendar you already check — Google, Notion, or CalDAV — instead of being one more app to open. Log the day a period starts; it learns the cycle and writes each predicted phase back as calendar events. €4/mo after a 14-day trial. Co-created with Anna, and run end to end: product, infrastructure, billing, support.</p>
+    <p class="deep-only">The constraint came before the features: a period tracker shouldn't hold your cycle. So this one doesn't. The calendar you already own is the only place that data lives, which means there is no cycle database to design, to secure, or to breach. The cost is that the calendar API <em>is</em> the storage layer — anything the product remembers has to be expressible as an event, and every feature has to earn its way back through that constraint.</p>
+  </section>
 
-    <section class="intro">
-      <h2>It loaded fast. Here's why.</h2>
-      <p>The rest of this page is the work sample: 17 files, ~1130 lines, no dependencies, no build step. Five things below are fast because I read what the browser already does well, and you can check every one of them. Ctrl+U anytime. Where the right column shows code, it's pulled live from disk; the <em>raw ↗</em> link opens the file.</p>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">02 · Track record</span>
+      <h2>Where the thirteen years went.</h2>
+    </div>
+    <ul class="grid" role="list">
+      <li class="card">
+        <h3>Full-stack web · 12 yrs</h3>
+        <p>Frontend through API through data layer. Production apps owned end to end, not handed across a fence.</p>
+        <span class="where">browser · server · data</span>
+      </li>
+      <li class="card">
+        <h3>AWS infrastructure · 8 yrs</h3>
+        <p>The telemetry pipeline runs on IoT Core, Lambda, SQS and SNS, over EC2, VPC design and managed databases. Compute, messaging and storage owned rather than delegated.</p>
+        <span class="where">IoT Core · Lambda · SQS · SNS · EC2 · VPC · RDS</span>
+      </li>
+      <li class="card">
+        <h3>IoT &amp; large data · 9 yrs</h3>
+        <p>~100 networks, hundreds of thousands of devices reporting every 10 minutes: ingested, aggregated and queryable in under 250&nbsp;ms. LoRaWAN radio to database, Vue 3 operator dashboards over an Elasticsearch read layer, and the cross-platform mobile apps in React Native.</p>
+        <span class="where">100+ networks · &lt;250ms</span>
+      </li>
+      <li class="card">
+        <h3>Self-hosted operations</h3>
+        <p>Twenty services on my own hardware under rootless Podman, behind Caddy and a Zero Trust tunnel with restic backups. Nothing published to a public hostname.</p>
+        <span class="where">podman · caddy · zero trust · restic</span>
+      </li>
+      <li class="card">
+        <h3>Nine years contracting</h3>
+        <p>Independent since 2017. OpenSensors is the long-running client; the rest of the roster sits under NDA — full-stack across logistics and healthcare.</p>
+        <span class="where">9 yrs · logistics · healthcare</span>
+      </li>
+    </ul>
+    <p class="more"><a href="/about">The full history →</a></p>
+  </section>
 
-    <section class="claim">
-      <header>
-        <span class="num">№ 01 · input</span>
-        <h3>Two letters and you've redecorated.</h3>
-        <p class="achieves"><key-hint></key-hint> The shortcut steps aside if you're typing into a search box, so it never fights you. <em>(Seven lines of vanilla event-listening; no library involved.)</em></p>
-      </header>
-      <source-snippet src="/assets/features/shortcuts.js" lines="12-18" caption="shortcuts.js · keydown"></source-snippet>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">03 · Recent</span>
+      <h2>Running models became an infrastructure problem.</h2>
+    </div>
+    <p class="brief-only">I run model infrastructure the way I run anything else in production: several providers behind one interface so a rate limit or an outage doesn't kill a running job, work routed per task so the expensive model is only used where it earns its cost, and automated checking of what comes back before it's trusted. Reliability and cost work, on a newer kind of dependency.</p>
+    <div class="deep-only">
+      <p>Using models seriously in my own work stopped being an API call and became something to operate: long jobs die when a provider rate-limits, cost scales with the work rather than its value, and some context shouldn't leave my machines at all. So I built for that — an endpoint I own, a fleet of providers behind one interface, and budgets that put cheap work on cheap models.</p>
+      <div class="scroll-x" tabindex="0" role="region" aria-label="Model infrastructure layers">
+        <table class="fleet">
+          <thead><tr><th>Layer</th><th>The problem it solves</th><th>What it is</th></tr></thead>
+          <tbody>
+            <tr><td>Own endpoint</td><td>Work that shouldn't be metered per token, or shouldn't leave my infrastructure.</td><td>llm.lelinh.dev · 35B · 93k ctx</td></tr>
+            <tr><td>Provider fleet</td><td>One vendor is one price, one rate limit, and one outage.</td><td>8 providers · one interface</td></tr>
+            <tr><td>Budgets &amp; routing</td><td>The expensive model is waste on most work; the cheap one is waste on the rest.</td><td>per-model context + sampling</td></tr>
+            <tr><td>Verification</td><td>The real failure isn't a model that stops — it's one reporting work it didn't do.</td><td>claims audited vs. files on disk</td></tr>
+            <tr><td>Supervision</td><td>Long jobs die quietly and lose everything since the last checkpoint.</td><td>systemd · relaunch · rolling commit</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The verification row is the one I'd defend hardest — everything above it is cost and uptime engineering, but that one is correctness engineering, and it's what changed the output quality. The whole loop is deliberately non-durable: nothing enabled at boot, everything started on demand. A fleet that runs when I'm not watching is a bill, not a tool.</p>
+    </div>
+    <p class="more">It drives real work rather than demos — currently a Vulkan-rendered 3D editor and runtime in Zig. <a href="/work/">See the work →</a></p>
+  </section>
 
-    <section class="claim">
-      <header>
-        <span class="num">№ 02 · hover</span>
-        <h3>Hover ahead. The next page is already on its way.</h3>
-        <p class="achieves">Move your cursor onto a nav link and the site fetches the next page in the background. By the time you actually click, it's already on disk. Open the network tab and watch the prefetch fire. <em>(The router injects a <code>&lt;link rel="prefetch"&gt;</code> into <code>&lt;head&gt;</code>, deduped per URL.)</em></p>
-      </header>
-      <figure class="source">
-        <figcaption><span class="path">Tried first · prefetch every link</span></figcaption>
-        <p>The easy version walked every in-page link on load and injected <code>&lt;link rel="prefetch"&gt;</code> for each. It works, but it spends the visitor's bandwidth on pages they'll never open, on a site whose whole pitch is that every byte is deliberate. An IntersectionObserver that prefetched links as they scrolled into view was better but still speculative. Hover won: once the cursor lands on a link the intent is real. One <code>&lt;link&gt;</code>, deduped per pathname, almost always on disk by the click.</p>
-      </figure>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">04 · Next</span>
+      <h2>Available for contract and full-time remote.</h2>
+    </div>
+    <p>If you have a system that has to hold up — telemetry at volume, an AWS bill that stopped making sense, or a platform that needs owning end to end rather than handing across a fence — that is the work I want.</p>
+    <a class="cta" href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">linh@lelinh.dev</a>
+  </section>
 
-    <section class="claim">
-      <header>
-        <span class="num">№ 03 · order</span>
-        <h3>Late subscribers still get the last value.</h3>
-        <p class="achieves">Init order stops mattering: each topic caches its last value and replays it to new subscribers in a microtask.</p>
-      </header>
-      <source-snippet src="/assets/kernel/event-bus.js" lines="19-25" caption="event-bus.js · on()"></source-snippet>
-    </section>
-
-    <section class="claim">
-      <header>
-        <span class="num">№ 04 · paint</span>
-        <h3>Nothing flickered.</h3>
-        <p class="achieves">The site picks a theme before the browser draws a single pixel, so a hard-refresh never gives you that "whoops, we meant the dark version" flash. <em>(Inside: an inline <code>&lt;head&gt;</code> script sets <code>data-mode</code> before any stylesheet starts loading.)</em></p>
-      </header>
-      <source-snippet src="/index.html" lines="30-31" caption="index.html · &lt;head&gt;"></source-snippet>
-    </section>
-
-    <section class="claim">
-      <header>
-        <span class="num">№ 05 · system</span>
-        <h3>Those drifting spots are a system, not a texture.</h3>
-        <p class="achieves">Two chemicals on a grid: A gets fed in, B eats A and decays; the patterns are emergent. State lives in an RGBA texture, a shader runs the Gray-Scott update on every cell in parallel, ping-pong framebuffers step time forward. <em>(The interesting call was what to put on the GPU and what to leave in JS.)</em></p>
-      </header>
-      <figure class="source">
-        <figcaption><span class="path">Tried first · the CPU</span></figcaption>
-        <p>First version stepped Gray-Scott in plain JS over a Canvas2D buffer: two float arrays, a double loop every frame. Correct, and far too slow: a few hundred cells in, the frame budget was gone and the pattern crawled. Moved the update onto the GPU: state in an RGBA texture, the step as a fragment shader, ping-pong framebuffers to advance time. Now the CPU does nothing per frame except ask for the next draw.</p>
-      </figure>
-    </section>
-
-    <canvas id="rd" aria-hidden="true"></canvas>
-
-    <section class="intro">
-      <h2>What I'm looking for.</h2>
-      <p>A B2B contract or a full-time remote role where it helps to have one senior engineer own a product surface end to end, with a team that argues about how. Based in Sofia, comfortable across time zones. If that's the req you're filling: <a href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">linh@lelinh.dev</a>, or start with the <a href="/assets/linh-le-cv.pdf">CV (PDF)</a>.</p>
-    </section>
-
-    <section class="next">
-      <p>Or keep reading the <a href="/work/">work</a>.</p>
-    </section>
-  </main>
-  <site-footer></site-footer>
-  <mode-indicator></mode-indicator>
-  <script type="module">
-    import { init as initMode } from '/assets/kernel/mode-manager.js';
-    import { init as initRouter } from '/assets/kernel/router.js';
-    import { bus } from '/assets/kernel/event-bus.js';
-    import '/assets/modes/components.js';
-    import '/assets/modes/terminal/components.js';
-    import '/assets/modes/swiss/components.js';
-    import '/assets/features/mode-indicator.js';
-    import '/assets/features/source-snippet.js';
-    import '/assets/features/console-banner.js';
-    import '/assets/features/shortcuts.js';
-    import '/assets/features/key-hint.js';
-    initMode();
-    initRouter();
-    // The sim lives inside <main>, which the router swaps on SPA nav (its
-    // bootstrap script doesn't re-run). Mount on every route:change, once per
-    // canvas element; idle-deferred so it never blocks first paint.
-    const mountRD = () => {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // CSS hides #rd too
-      if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); }
-    };
-    bus.on('route:change', mountRD);
-  </script>
+</main>
+<site-footer></site-footer>
+<mode-indicator></mode-indicator>
+<script type="module">
+  import { init as initModes } from '/assets/kernel/mode-manager.js';
+  import { init as initRouter } from '/assets/kernel/router.js';
+  import '/assets/modes/components.js';
+  import '/assets/modes/brief/components.js';
+  import '/assets/modes/deep/components.js';
+  import '/assets/features/mode-indicator.js';
+  import '/assets/features/key-hint.js';
+  import '/assets/features/shortcuts.js';
+  import '/assets/features/console-banner.js';
+  initModes();
+  initRouter();
+</script>
 </body>
 </html>

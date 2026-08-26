@@ -6,323 +6,143 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="theme-color" content="#21222c">
   <meta name="author" content="Linh Le">
-  <meta name="description" content="What Linh Le has made — a shipped product and a workshop of small, zero-dependency tools — and the way he works, wired into the page you're reading.">
-  <title>Work — Linh Le, Senior Full-Stack Engineer</title>
+  <!-- data-mode before any stylesheet: no flash of the wrong mode. -->
+  <script>document.documentElement.setAttribute('data-mode', (function () { try { return localStorage.getItem('mode') === 'deep' ? 'deep' : 'brief'; } catch (e) { return 'brief'; } })());</script>
+  <link rel="stylesheet" href="/assets/tokens/base.css">
+  <link rel="stylesheet" href="/assets/modes/brief/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/brief/layout.css">
+  <link rel="stylesheet" href="/assets/modes/brief/blocks.css">
+  <link rel="stylesheet" href="/assets/modes/deep/tokens.css">
+  <link rel="stylesheet" href="/assets/modes/deep/layout.css">
+  <link rel="stylesheet" href="/assets/modes/deep/blocks.css">
+  <meta name="description" content="Things Linh Le has made: When. (a live, paid product), a Vulkan-rendered 3D editor and runtime in Zig, systems tools, and self-hosted infrastructure.">
+  <title>Work — Linh Le</title>
   <link rel="canonical" href="https://lelinh.dev/work/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Linh Le">
   <meta property="og:title" content="Work — Linh Le">
-  <meta property="og:description" content="What I've made — a shipped product and a workshop of small tools — and the way I work, wired into this page.">
+  <meta property="og:description" content="A product I ship and run, a Vulkan-rendered 3D editor and runtime in Zig, and a workshop of systems tools.">
   <meta property="og:url" content="https://lelinh.dev/work/">
   <meta property="og:image" content="https://lelinh.dev/assets/og.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
-  <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Work — Linh Le">
-  <meta name="twitter:description" content="What I've made — a shipped product and a workshop of small tools — and the way I work, wired into this page.">
-  <meta name="twitter:image" content="https://lelinh.dev/assets/og.png">
-  <meta name="twitter:image:alt" content="Linh Le — senior full-stack engineer · lelinh.dev">
-  <script>try { const m = localStorage.getItem('mode'); document.documentElement.setAttribute('data-mode', m === 'terminal' ? 'terminal' : 'swiss'); } catch { document.documentElement.setAttribute('data-mode', 'swiss'); }</script>
-  <link rel="stylesheet" href="/assets/tokens/base.css">
-  <link rel="stylesheet" href="/assets/modes/terminal/tokens.css">
-  <link rel="stylesheet" href="/assets/modes/swiss/tokens.css">
-  <style>
-    /* The sim canvas lives on the landing page, but the router swaps only
-       <main> - arriving at / via SPA nav keeps *this* page's <head>. So every
-       page carries the #rd rules, or the canvas lands unstyled at 300x150. */
-    #rd { display: block; width: 100%; height: 40vh; min-height: 200px; max-height: 500px; }
-    @media (prefers-reduced-motion: reduce) { #rd { display: none; } }
-  </style>
 </head>
 <body>
-  <noscript><p>JavaScript is off. Every page is plain HTML and the links work.</p></noscript>
-  <a class="skip" href="#main">Skip to content</a>
-  <site-header></site-header>
-  <main id="main" tabindex="-1">
-    <section class="hero">
-      <h1>Things I've made.</h1>
-      <p class="lede">A product I ship and run, and a workshop of small tools I built because I wanted them. Further down: the way I work, wired into the page you're reading.</p>
-    </section>
+<noscript><p>JavaScript is off. Every page is plain HTML and the links work.</p></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<site-header></site-header>
+<main id="main" tabindex="-1">
 
-    <section class="patterns">
-      <ul class="pattern-grid" role="list">
-        <li>
-          <h3><a href="https://getwhen.net">When.</a></h3>
-          <p>A private period tracker that lives in the calendar you already check — Google, Notion, or CalDAV — not one more app to open. Log the day a period starts; it learns your cycle and drops each predicted phase onto your calendar. The calendar is the only datastore: no cycle data is held on our side, which decided every architectural call that followed. Co-created with Anna, and run end to end.</p>
-          <span class="where">→ getwhen.net · live · €4/mo after a 14-day trial</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/baker">baker</a></h3>
-          <p>Single-binary static site bundler and HTTP server in Zig. Brotli + gzip, ETags, 304s, hot reload via SIGHUP. Bakes a site into one <code>.bin</code> file, then serves it.</p>
-          <span class="where">→ codeberg.org/litozor/baker · Zig</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/zremdic">zremdic</a></h3>
-          <p>A small, latency-focused key-value cache served over UDP, in Zig. One datagram per lookup, a sharded store with a worker per core, atomic ops with exactly-once semantics over an unreliable transport, TTLs and LRU eviction. ~210k ops/sec at ~19μs on loopback. A cache, not a database: values live in memory only.</p>
-          <span class="where">→ codeberg.org/litozor/zremdic · <a href="https://github.com/Linh35/zremdic">GitHub</a> · Zig</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/zhecs">zhecs</a></h3>
-          <p>An entity component system in Zig, small enough to read in an afternoon. Plain Zig types as components, no registration; matching entities stored together in contiguous columns. Systems run in ordered phases; relationships, singletons, and observers when you want them. A million entities stepped in ~19&nbsp;ms per chunk. Examples wired to raylib, Bullet, and SDL.</p>
-          <span class="where">→ codeberg.org/litozor/zhecs · <a href="https://github.com/Linh35/zhecs">GitHub</a> · Zig</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/wiki-art-downloader">wiki-art-downloader</a></h3>
-          <p>Bulk-downloads an artist's catalogue from WikiArt as JPGs. Node 18+, zero deps. Walks the eight CDN shards in parallel, with dry-run and resume-by-skip.</p>
-          <span class="where">→ codeberg.org/litozor/wiki-art-downloader · Node</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/ssw">ssw</a></h3>
-          <p>Multi-tab state, no ceremony. SharedWorker as the single source of truth, optimistic per-tab mirror, batched ack protocol. ~3.5&nbsp;KB gzipped, tested against real MessageChannels.</p>
-          <span class="where">→ codeberg.org/litozor/ssw · TypeScript</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/swr">swr</a></h3>
-          <p>A SharedWorker HTML renderer on top of ssw. Views are functions that return HTML strings; the render runs once in the worker and broadcasts to every tab, skipping identical output so no tab repaints for nothing. Per-view error isolation, keyed-list memoization, and a tab-side runtime that's just a port and an <code>innerHTML</code>. ~65 integration tests.</p>
-          <span class="where">→ codeberg.org/litozor/swr · <a href="https://github.com/Linh35/swr">GitHub</a> · TypeScript</span>
-        </li>
-        <li>
-          <h3><a href="https://codeberg.org/litozor/number-helper-extensions">number-helper-extensions</a></h3>
-          <p>Ergonomic helpers on <code>Number</code>: <code>(6).minutes()</code>, <code>(3).times(i =&gt; i*2)</code>, <code>clamp</code>, <code>ordinal</code>, <code>ago()</code>/<code>fromNow()</code>. The prototype is only touched if you call <code>extendNumber()</code>; every helper is also exported raw.</p>
-          <span class="where">→ codeberg.org/litozor/number-helper-extensions · JS</span>
-        </li>
-      </ul>
-      <p class="more">The rest of the workshop lives at <a href="https://codeberg.org/litozor">codeberg.org/litozor</a>, mirrored to <a href="https://github.com/Linh35">GitHub</a>.</p>
-    </section>
+  <section class="hero">
+    <p class="ident">Work</p>
+    <h1>Things I've made.</h1>
+    <p class="lede">A product I ship and run, a real-time 3D editor and runtime I am building in Zig, and a workshop of small tools I wrote because I wanted them to exist.</p>
+  </section>
 
-    <section class="intro">
-      <h2>The way I work.</h2>
-      <p>Five habits I keep coming back to in serious work. Each one is wired into the site you're reading: the column on the right is the receipt, pulled straight from the source. Open devtools any time and check.</p>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">Shipped</span>
+      <h2>Running in production.</h2>
+    </div>
+    <ul class="grid-2" role="list">
+      <li class="card">
+        <h3><a href="https://getwhen.net">When.</a></h3>
+        <p>A private period tracker that lives in the calendar you already check — Google, Notion, or CalDAV — not one more app to open. Log the day a period starts; it learns your cycle and drops each predicted phase onto your calendar. The calendar is the only datastore: no cycle data is held on our side, which decided every architectural call that followed. TypeScript throughout, server-rendered with Preact — React's component model and hooks at a fraction of the bytes, which is what a server-rendered page wants. Co-created with Anna, and run end to end.</p>
+        <span class="where">getwhen.net · live · €4/mo after a 14-day trial</span>
+      </li>
+      <li class="card">
+        <h3>Self-hosted stack</h3>
+        <p>Twenty services on my own hardware: photos, files, music, documents, media, search. Rootless Podman under Caddy, reached from outside the house over a Cloudflare Zero Trust tunnel rather than a public hostname, with restic backups. Replaces a stack of subscriptions I'd rather not pay for.</p>
+        <span class="where">podman · caddy · zero trust · restic</span>
+      </li>
+    </ul>
+  </section>
 
-    <section class="principle" data-num="01">
-      <header>
-        <span class="num">№ 01</span>
-        <span class="area">Systems</span>
-        <h2>I build in rings.</h2>
-      </header>
-      <div class="body">
-        <p>I split a system into rings: the most important things in the middle, the optional things on the outside. You should be able to peel off any feature without breaking the core. This site is wired exactly that way: a tiny kernel at the center, mode renderers in the middle, optional features at the edge.</p>
-        <p>The bus doesn't know about modes; modes don't know about features; features don't know about each other. <em>Coupling is what makes systems brittle; the boundary is where I draw the line.</em></p>
-      </div>
-      <pre class="proof" aria-label="ring tree">assets/
-├── kernel/    bus, router, mode, loader
-├── modes/     terminal · swiss
-├── features/  indicator · snippets
-│              banner · keys · sim
-└── tokens/    palette + base</pre>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">In progress</span>
+      <h2>A real-time 3D editor and runtime, in Zig.</h2>
+    </div>
+    <p>An editor and a runtime over a Vulkan renderer, written in Zig. You compose a scene visually — entities, components, an inspector, lights, meshes, physics and UI — and it serialises to a <code>.zon</code> file. A separate generic runtime deserialises that file and drives it with zero scene-specific code, which is the point: the data describes the application, and the runtime stays general.</p>
+    <p class="deep-only">Three executables over one shared engine module and one entity-component-system world: the editor, the generic runtime, and a hand-wired scene that exercises the render and interaction paths an empty scene would hide. It is the closest thing I have to a hard real-time problem right now — a frame budget, a GPU, and a compiler that all have to be satisfied at once. It's also the codebase my model fleet works against, so the verification runs against a real compiler rather than a benchmark.</p>
+    <p class="more"><a href="https://codeberg.org/litozor/zigity-game-builder">codeberg.org/litozor/zigity-game-builder</a></p>
+  </section>
 
-    <section class="principle" data-num="02">
-      <header>
-        <span class="num">№ 02</span>
-        <span class="area">Speed</span>
-        <h2>Every byte earns its place.</h2>
-      </header>
-      <div class="body">
-        <p>I treat dependencies and code lines like ingredients: every one has to earn its spot. This site has no third-party libraries, no build step, and every file stays small enough to read in one sitting.</p>
-        <p>Constraints aren't about being a purist; they're how I keep the codebase legible six months later. First time I cut a feature to keep a file small, I realized I didn't need it. <em>Fast is a side-effect of small.</em></p>
-      </div>
-      <dl class="stats" aria-label="constraints">
-        <dt>deps</dt><dd>0</dd>
-        <dt>files</dt><dd>17</dd>
-        <dt>longest</dt><dd>149 lines</dd>
-        <dt>average</dt><dd>66 lines</dd>
-        <dt>fonts</dt><dd>system</dd>
-        <dt>build</dt><dd>none</dd>
-      </dl>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">Workshop</span>
+      <h2>Small tools, written to be read.</h2>
+    </div>
+    <ul class="grid" role="list">
+      <li class="card">
+        <h3><a href="https://codeberg.org/litozor/baker">baker</a></h3>
+        <p>Single-binary static site bundler and HTTP server in Zig. Brotli + gzip, ETags, 304s, hot reload via SIGHUP. Bakes a site into one <code>.bin</code> file, then serves it.</p>
+        <span class="where">Zig</span>
+      </li>
+      <li class="card">
+        <h3><a href="https://codeberg.org/litozor/zremdic">zremdic</a></h3>
+        <p>A latency-focused key-value cache over UDP, in Zig. One datagram per lookup, a sharded store with a worker per core, atomic ops with exactly-once semantics over an unreliable transport, TTLs and LRU eviction. ~210k ops/sec at ~19μs on loopback. A cache, not a database: values live in memory only.</p>
+        <span class="where">Zig · ~210k ops/sec</span>
+      </li>
+      <li class="card">
+        <h3><a href="https://codeberg.org/litozor/zhecs">zhecs</a></h3>
+        <p>An entity component system in Zig, small enough to read in an afternoon. Plain Zig types as components, no registration; matching entities stored together in contiguous columns. Systems run in ordered phases. A million entities stepped in ~19&nbsp;ms per chunk.</p>
+        <span class="where">Zig · 1M entities</span>
+      </li>
+      <li class="card">
+        <h3><a href="https://codeberg.org/litozor/swr">swr</a></h3>
+        <p>A SharedWorker HTML renderer on top of ssw. Views are functions returning HTML strings; the render runs once in the worker and broadcasts to every tab, skipping identical output so no tab repaints for nothing. ~65 integration tests.</p>
+        <span class="where">TypeScript</span>
+      </li>
+      <li class="card">
+        <h3><a href="https://codeberg.org/litozor/ssw">ssw</a></h3>
+        <p>Multi-tab state, no ceremony. SharedWorker as the single source of truth, optimistic per-tab mirror, batched ack protocol. ~3.5&nbsp;KB gzipped, tested against real MessageChannels.</p>
+        <span class="where">TypeScript · 3.5 KB</span>
+      </li>
+      <li class="card">
+        <h3><a href="https://codeberg.org/litozor/wiki-art-downloader">wiki-art-downloader</a></h3>
+        <p>Bulk-downloads an artist's catalogue from WikiArt as JPGs. Node 18+, zero deps. Walks the eight CDN shards in parallel, with dry-run and resume-by-skip.</p>
+        <span class="where">Node · zero deps</span>
+      </li>
+    </ul>
+    <p class="more">The rest of the workshop is at <a href="https://codeberg.org/litozor">codeberg.org/litozor</a>, mirrored to <a href="https://github.com/Linh35">GitHub</a>.</p>
+  </section>
 
-    <section class="principle" data-num="03">
-      <header>
-        <span class="num">№ 03</span>
-        <span class="area">Craft</span>
-        <h2>Source is the product.</h2>
-      </header>
-      <div class="body">
-        <p>Open devtools right now. The HTML, CSS, and JavaScript you'll see is the same code I edited. No compiler in between, no Shadow DOM hiding things. Every file opens with a short comment naming what it's for, what it depends on, and what it deliberately won't do.</p>
-        <p>The reader I'm writing for is a senior engineer poking around for ten minutes. <em>Comments explain why something is the way it is; names handle the what.</em></p>
-      </div>
-      <pre class="proof" aria-label="example file header">/*
- * mode-manager.js - owns &lt;html data-mode&gt;.
- *   Wraps swap in a View Transition with
- *   reduced-motion fallback. Emits 'mode:change'.
- * Dependencies: ./event-bus.js
- * Invariants: data-mode set inline before paint.
- * Non-goals: no UI; no scheduling.
- */</pre>
-    </section>
+  <section class="deep-only">
+    <div class="sec-head">
+      <span class="num">This page</span>
+      <h2>How the site is built.</h2>
+    </div>
+    <p>Vanilla HTML, CSS and ES modules. No framework, no build step, no bundler, no runtime dependencies. Every JS and CSS file is under 150 lines and opens with a header saying what it does and what it must not do; a script in the repo enforces both mechanically.</p>
+    <p>Two reads share one set of pages. <b>Brief</b> is the short version — claims, numbers, and how to reach me, in one screen. <b>Deep</b> restores the architecture and the tradeoffs. Both are in the HTML at once, so with JavaScript disabled you simply get all of it.</p>
+    <pre class="proof">assets/
+├── kernel/    bus, router, mode
+├── modes/     brief/ · deep/ renderers
+└── features/  indicator, shortcuts, hints</pre>
+    <p class="more">Source: <a href="https://github.com/Linh35/lelinh.dev">github.com/Linh35/lelinh.dev</a></p>
+  </section>
 
-    <section class="principle" data-num="04">
-      <header>
-        <span class="num">№ 04</span>
-        <span class="area">Proof</span>
-        <h2>Numbers over adjectives.</h2>
-      </header>
-      <div class="body">
-        <p>"Faster" is unfalsifiable. "<em>P99 dropped from 412ms to 89ms after dropping the N+1 query</em>" isn't. When I claim something about performance, I want a number behind it and a script that reproduces it. Otherwise the optimization didn't really happen.</p>
-        <p>This site has a budget too: the table on the right. Modest numbers, picked on purpose and then held to — a budget you meet beats a benchmark you quote.</p>
-      </div>
-      <table class="budget" aria-label="performance budget">
-        <thead><tr><th>metric</th><th>target</th></tr></thead>
-        <tbody>
-          <tr><td>first paint</td><td>&lt; 100 ms</td></tr>
-          <tr><td>transfer</td><td>&lt; 50 KB</td></tr>
-          <tr><td>CLS</td><td>0</td></tr>
-          <tr><td>INP</td><td>1 frame</td></tr>
-          <tr><td>fonts</td><td>system</td></tr>
-        </tbody>
-      </table>
-    </section>
+  <section>
+    <div class="sec-head">
+      <span class="num">Next</span>
+      <h2>Available for contract and full-time remote.</h2>
+    </div>
+    <a class="cta" href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">linh@lelinh.dev</a>
+  </section>
 
-    <section class="principle" data-num="05">
-      <header>
-        <span class="num">№ 05</span>
-        <span class="area">Care</span>
-        <h2>Code is for the next reader.</h2>
-      </header>
-      <div class="body">
-        <p>In three months I'll read this code as a stranger. Header comments, honest names, and notes about <em>why</em> are the breadcrumbs I leave for that stranger.</p>
-        <p>Files stay small enough to hold in one head. When a file gets fat, split it; don't compress it.</p>
-      </div>
-      <pre class="proof" aria-label="every file's shape">/*
- * file.js - one-line purpose.
- * Dependencies: ...
- * Invariants: ...
- * Non-goals: ...
- */</pre>
-    </section>
-
-    <section class="patterns">
-      <header class="patterns-head">
-        <span class="num">Patterns</span>
-        <h2>Habits I keep coming back to.</h2>
-      </header>
-      <ul class="pattern-grid" role="list">
-        <li>
-          <h3>Signal-style bus</h3>
-          <p>Topics remember their last value. Late subscribers replay. Init order stops mattering.</p>
-          <span class="where">→ kernel/event-bus.js</span>
-        </li>
-        <li>
-          <h3>View Transition + motion fallback</h3>
-          <p>Feature-detect <code>startViewTransition</code> and respect <code>prefers-reduced-motion</code> in four lines.</p>
-          <span class="where">→ kernel/mode-manager.js</span>
-        </li>
-        <li>
-          <h3>Registry of renderers</h3>
-          <p>One shell per element, mode-keyed renderer per shell. Add a mode without touching the shell.</p>
-          <span class="where">→ modes/components.js</span>
-        </li>
-        <li>
-          <h3>Inline pre-paint script</h3>
-          <p>Set the theme attribute on <code>&lt;html&gt;</code> before any stylesheet loads. FOUC dies.</p>
-          <span class="where">→ &lt;head&gt; of every page</span>
-        </li>
-      </ul>
-    </section>
-
-    <section class="decisions">
-      <header class="decisions-head">
-        <h2>Things I tried and dropped.</h2>
-        <p class="lede">Six decisions on this site that lost. The version that shipped is better because of the version that didn't.</p>
-      </header>
-      <ol class="decision-list" role="list">
-        <li>
-          <h3>Separate tags per mode.</h3>
-          <p>First sketch had <code>&lt;terminal-card&gt;</code> and <code>&lt;swiss-card&gt;</code> as distinct elements; the router would swap tags on mode change. Killed it the first time I switched modes mid-scroll: swapping tags throws out the DOM node, so focus, scroll position, and any in-flight transition reset with it. Now there's one <code>&lt;project-card&gt;</code> shell and a per-mode renderer registry; the element survives the swap, only its innards change.</p>
-        </li>
-        <li>
-          <h3>One renderer with <code>if (mode === ...)</code> branches.</h3>
-          <p>Considered a single mode-aware function per shell. Dropped it because adding a third mode would mean editing every renderer: modes coupled through every shell. The registry inverts that: each mode owns its own file and registers itself. <em>(Adding Blueprint mode later is a new file, not a sweep through old ones.)</em></p>
-        </li>
-        <li>
-          <h3>Shadow DOM.</h3>
-          <p>The obvious choice for custom elements. Pulled it out anyway. The page told one story and devtools told another, and the thesis of this site is that the source <em>is</em> the product. View-source has to match what's actually rendering. Renderers now write straight to <code>host.innerHTML</code>.</p>
-        </li>
-        <li>
-          <h3>A Proxy-based observable store.</h3>
-          <p>Started sketching one for cross-component state and stopped about thirty lines in. The actual need was "late subscribers should see the current value." The event bus solves that in forty lines by replaying the last published value to new subscribers in a microtask. <em>(The fancier option was solving a problem I didn't have.)</em></p>
-        </li>
-        <li>
-          <h3>Mode from <code>prefers-color-scheme</code>.</h3>
-          <p>The first cut had no toggle: read <code>matchMedia</code> and pick terminal or swiss off the OS theme. But the modes aren't dark vs light; they're different readings of the page, which the OS theme doesn't control. A <code>?mode=</code> URL param came next: shareable, but it doesn't survive a click to the next page and clutters every link. Now an explicit choice persists to <code>localStorage</code>, and an inline <code>&lt;head&gt;</code> script replays it before first paint so the switch never flashes.</p>
-        </li>
-        <li>
-          <h3>Project content as a JSON manifest.</h3>
-          <p>Card data started as one <code>content.json</code>: title, summary, tags, body as an HTML string. Two problems: editing prose inside JSON strings is miserable, and a body of pre-baked HTML is exactly the opaque-source thing this site argues against. Inline-HTML-per-card had the same second problem. Settled on one markdown file per project with frontmatter, and a hand-written parser for the small markdown subset actually used: ~90 lines, not CommonMark, and a card's source reads as the card.</p>
-        </li>
-      </ol>
-    </section>
-
-    <section class="patterns">
-      <header class="patterns-head">
-        <span class="num">At scale</span>
-        <h2>Where I've put this to work.</h2>
-      </header>
-      <ul class="pattern-grid" role="list">
-        <li>
-          <h3>Sensor fleets at volume</h3>
-          <p>Ingestion for 100,000+ sensors, each reporting every few minutes: tens of millions of data points a day, sustained, zero dropped readings, no backlog.</p>
-          <span class="where">→ 100k+ devices · ~tens of M points/day</span>
-        </li>
-        <li>
-          <h3>LoRaWAN, end to end</h3>
-          <p>Gateways, device provisioning, network-server integration: the full path from radio to database. The edges you only hit running a live fleet, not reading the spec.</p>
-          <span class="where">→ field-deployed, full stack</span>
-        </li>
-        <li>
-          <h3>AWS in production</h3>
-          <p>Compute, storage, queues, and the pipelines between them: production systems I own from the instance up. The fleet above runs here.</p>
-          <span class="where">→ years in production</span>
-        </li>
-        <li>
-          <h3>Data analysis on the stream</h3>
-          <p>Sensor-signal analysis on the telemetry above; document and word-frequency analysis on text corpora; sentiment analysis on social-media streams.</p>
-          <span class="where">→ sensor · text · social sentiment</span>
-        </li>
-        <li>
-          <h3>Networking &amp; bare metal</h3>
-          <p>The radio→DB path starts at hardware I racked myself: switch config and addressing, OS, runtime, then the service on top. Knowing what the packet does before it reaches your code changes how you debug the code.</p>
-          <span class="where">→ CCNA1 · bare-metal → runtime</span>
-        </li>
-        <li>
-          <h3>Games · Earthrise and Guns n Robots</h3>
-          <p>Custom C++ engine work on Earthrise, a sci-fi MMORPG, and Unity C# gameplay on Guns n Robots, a multiplayer shooter: a 16&nbsp;ms client budget on one side, thousands of concurrent players holding state on the other. Before both, WebGL browser games with WebSocket multiplayer.</p>
-          <span class="where">→ Earthrise · Guns n Robots · C++ engine · Unity</span>
-        </li>
-      </ul>
-    </section>
-
-    <section class="next">
-      <p>If a team treats the work like this, I'd love to talk. <a href="mailto:linh@lelinh.dev?subject=Hiring%20Linh%20Le">linh@lelinh.dev</a> · <a href="/assets/linh-le-cv.pdf">CV (PDF)</a> · <a href="/about.html">About</a> · <a href="https://codeberg.org/litozor">Codeberg</a> · <a href="https://www.linkedin.com/in/le-linh-42269082/">LinkedIn</a></p>
-    </section>
-  </main>
-  <site-footer></site-footer>
-  <mode-indicator></mode-indicator>
-  <script type="module">
-    import { init as initMode } from '/assets/kernel/mode-manager.js';
-    import { init as initRouter } from '/assets/kernel/router.js';
-    import { bus } from '/assets/kernel/event-bus.js';
-    import '/assets/modes/components.js';
-    import '/assets/modes/terminal/components.js';
-    import '/assets/modes/swiss/components.js';
-    import '/assets/features/mode-indicator.js';
-    import '/assets/features/source-snippet.js';
-    import '/assets/features/console-banner.js';
-    import '/assets/features/shortcuts.js';
-    import '/assets/features/key-hint.js';
-    initMode(); initRouter();
-    // #rd only exists on the landing page; mount it on arrival there via SPA nav.
-    const mountRD = () => {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // CSS hides #rd too
-      if (window.rd && !rd.__rd) { rd.__rd = 1; (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => import('/assets/features/gray-scott.js').then(m => m.init(rd))); }
-    };
-    bus.on('route:change', mountRD);
-  </script>
+</main>
+<site-footer></site-footer>
+<mode-indicator></mode-indicator>
+<script type="module">
+  import { init as initModes } from '/assets/kernel/mode-manager.js';
+  import { init as initRouter } from '/assets/kernel/router.js';
+  import '/assets/modes/components.js';
+  import '/assets/modes/brief/components.js';
+  import '/assets/modes/deep/components.js';
+  import '/assets/features/mode-indicator.js';
+  import '/assets/features/key-hint.js';
+  import '/assets/features/shortcuts.js';
+  import '/assets/features/console-banner.js';
+  initModes();
+  initRouter();
+</script>
 </body>
 </html>

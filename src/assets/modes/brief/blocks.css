@@ -1,0 +1,140 @@
+/*
+ * brief/blocks.css - repeated blocks in brief mode: header, claim chips,
+ * cards, the fleet table, CTA, footer, mode indicator.
+ * Dependencies: brief/tokens.css, brief/layout.css.
+ * Invariants: scoped under [data-mode="brief"]; colours come from tokens.
+ *             Tints rotate by :nth-child so a grid reads as a set without
+ *             per-card classes in the HTML.
+ * Non-goals: no page-level structure; no mode-switching logic.
+ */
+
+@layer components {
+  [data-mode="brief"] site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--u);
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding: calc(var(--u) * 2.5) var(--gutter);
+    border-bottom: 1px solid var(--rule);
+  }
+  [data-mode="brief"] site-header .wordmark {
+    font-weight: 700; letter-spacing: -0.02em; text-decoration: none;
+  }
+  [data-mode="brief"] site-header nav { display: flex; gap: calc(var(--u) * 2.5); font-size: 0.94rem; }
+  [data-mode="brief"] site-header nav a { color: var(--muted); text-decoration: none; }
+  [data-mode="brief"] site-header nav a:hover,
+  [data-mode="brief"] site-header nav a[aria-current] { color: var(--accent); }
+
+  /* Claim chips - the four things a hiring reader should leave with. */
+  [data-mode="brief"] .claims { display: flex; flex-wrap: wrap; gap: var(--u); }
+  [data-mode="brief"] .claims li {
+    padding: calc(var(--u) * 0.75) calc(var(--u) * 1.75);
+    border-radius: 999px;
+    font-size: 0.92rem;
+    background: var(--tint);
+    color: var(--fg);
+  }
+  [data-mode="brief"] .claims li:nth-child(2) { background: var(--tint-2); }
+  [data-mode="brief"] .claims li:nth-child(3) { background: var(--tint-3); }
+  [data-mode="brief"] .claims li:nth-child(4) { background: var(--tint-4); }
+  [data-mode="brief"] .claims b { font-variant-numeric: tabular-nums; }
+
+  /* Stack line: deliberately a plain keyword list. Recruiters search by
+     product name, and a phrase like "managed databases" matches nothing. */
+  [data-mode="brief"] .stack {
+    font-size: 0.86rem; color: var(--muted); max-width: 62ch;
+  }
+  [data-mode="brief"] .stack b { color: var(--accent); font-weight: 620; }
+
+  [data-mode="brief"] .meta {
+    display: flex; flex-wrap: wrap; gap: calc(var(--u) * 2);
+    font-size: 0.9rem; color: var(--muted);
+    padding-top: calc(var(--u) * 2);
+    border-top: 1px solid var(--rule);
+  }
+  [data-mode="brief"] .meta a { color: var(--accent); text-underline-offset: 3px; }
+
+  [data-mode="brief"] .cta {
+    display: inline-flex; align-items: center; gap: var(--u);
+    background: var(--fg); color: var(--bg-soft);
+    padding: calc(var(--u) * 1.5) calc(var(--u) * 3);
+    border-radius: calc(var(--u) * 0.75);
+    text-decoration: none; font-weight: 600;
+    align-self: flex-start;
+    transition: transform 120ms ease;
+  }
+  [data-mode="brief"] .cta:hover { transform: translateY(-1px); }
+
+  [data-mode="brief"] .card {
+    background: var(--bg-soft);
+    border: 1px solid var(--rule);
+    border-radius: calc(var(--u) * 1.5);
+    padding: calc(var(--u) * 3);
+    display: flex; flex-direction: column; gap: var(--u);
+  }
+  [data-mode="brief"] .card p { color: var(--muted); font-size: 0.96rem; }
+  [data-mode="brief"] .card .where {
+    margin-top: auto; padding-top: var(--u);
+    font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
+  }
+  [data-mode="brief"] .card a { color: inherit; text-underline-offset: 3px; }
+
+  /* Fleet table - the AI infrastructure inventory. */
+  [data-mode="brief"] .fleet { width: 100%; border-collapse: collapse; font-size: 0.94rem; }
+  [data-mode="brief"] .fleet th {
+    text-align: left; font-family: var(--mono); font-weight: 500;
+    font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); padding-bottom: var(--u);
+    border-bottom: 1px solid var(--rule);
+  }
+  [data-mode="brief"] .fleet td { padding: calc(var(--u) * 1.75) 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  [data-mode="brief"] .fleet td:first-child { font-weight: 620; padding-right: calc(var(--u) * 2); }
+  [data-mode="brief"] .fleet td:last-child { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); white-space: nowrap; }
+  [data-mode="brief"] .scroll-x { overflow-x: auto; }
+
+  /* Skills list. A <dl> so the grouping is in the markup, not just visual -
+     it is also what a CV parser reads. */
+  [data-mode="brief"] .skills {
+    display: grid; gap: var(--u) calc(var(--u) * 3);
+    grid-template-columns: minmax(9rem, max-content) 1fr;
+  }
+  [data-mode="brief"] .skills dt {
+    font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); padding-top: 0.3em;
+  }
+  [data-mode="brief"] .skills dd { margin: 0; font-size: 0.96rem; }
+  @container (max-width: 34rem) {
+    [data-mode="brief"] .skills { grid-template-columns: 1fr; gap: 0.25rem; }
+    [data-mode="brief"] .skills dd { margin-bottom: var(--u); }
+  }
+
+  [data-mode="brief"] site-footer {
+    display: block;
+    max-width: var(--shell); margin-inline: auto;
+    padding: calc(var(--u) * 4) var(--gutter);
+    border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: 0.9rem;
+  }
+  [data-mode="brief"] site-footer a { color: var(--accent); }
+
+  [data-mode="brief"] mode-indicator {
+    position: fixed; right: calc(var(--u) * 2); bottom: calc(var(--u) * 2); z-index: 50;
+    background: var(--bg-soft); border: 1px solid var(--rule);
+    border-radius: 999px; padding: calc(var(--u) * 0.5);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.06);
+    display: flex; gap: calc(var(--u) * 0.5);
+  }
+  [data-mode="brief"] mode-indicator button {
+    font-family: var(--mono); font-size: 0.76rem;
+    padding: calc(var(--u) * 0.75) calc(var(--u) * 1.75);
+    border-radius: 999px; color: var(--muted);
+  }
+  [data-mode="brief"] mode-indicator button[aria-pressed="true"] { background: var(--tint); color: var(--accent); }
+  [data-mode="brief"] kbd {
+    font-family: var(--mono); font-size: 0.78em;
+    border: 1px solid var(--rule); border-radius: 4px;
+    padding: 0 0.35em; background: var(--bg-sunk);
+  }
+}

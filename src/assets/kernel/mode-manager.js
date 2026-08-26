@@ -11,7 +11,7 @@
 
 import { bus } from './event-bus.js';
 
-export const MODES = ['terminal', 'swiss'];
+export const MODES = ['brief', 'deep'];
 const KEY = 'mode';
 
 function withTransition(fn) {
@@ -21,7 +21,7 @@ function withTransition(fn) {
 
 export function getMode() {
   const m = document.documentElement.getAttribute('data-mode');
-  return MODES.includes(m) ? m : 'swiss';
+  return MODES.includes(m) ? m : 'brief';
 }
 
 export function setMode(name) {

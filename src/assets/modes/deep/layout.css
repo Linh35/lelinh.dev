@@ -1,0 +1,81 @@
+/*
+ * deep/layout.css - page structure for deep mode: dense monospace, wide
+ * measure, everything the brief read omits restored inline.
+ * Dependencies: deep/tokens.css.
+ * Invariants: scoped under [data-mode="deep"]. Layout only; repeated blocks
+ *             live in deep/blocks.css.
+ * Non-goals: no colour literals; no component internals.
+ */
+
+@layer components {
+  [data-mode="deep"] {
+    --gutter: clamp(1rem, 3vw, 3rem);
+    --shell: 88rem;
+  }
+
+  [data-mode="deep"] main { padding-bottom: calc(var(--u) * 10); }
+
+  [data-mode="deep"] section {
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  [data-mode="deep"] section + section { padding-top: calc(var(--u) * 7); }
+
+  [data-mode="deep"] .hero {
+    padding-block: calc(var(--u) * 6) calc(var(--u) * 4);
+    display: flex; flex-direction: column; gap: calc(var(--u) * 2.5);
+    border-bottom: 1px dashed var(--rule);
+  }
+  [data-mode="deep"] .hero h1 {
+    font-family: var(--font-display);
+    font-size: var(--step-display);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: var(--accent);
+    max-width: 26ch;
+  }
+  /* The prompt glyph is decoration, so it is a pseudo-element: it must never
+     land in a copy-paste of the heading text. */
+  [data-mode="deep"] .hero h1::before { content: "$ "; color: var(--muted); }
+  [data-mode="deep"] .hero .lede { font-size: var(--step-lede); color: var(--fg); max-width: 74ch; }
+  [data-mode="deep"] .ident {
+    font-size: 0.8rem; color: var(--accent-3);
+    letter-spacing: 0.04em;
+  }
+
+  [data-mode="deep"] h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-h2);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--accent);
+    max-width: 40ch;
+  }
+  [data-mode="deep"] h2::before { content: "## "; color: var(--rule); }
+  [data-mode="deep"] h3 { font-size: var(--step-h3); font-weight: 700; color: var(--accent-3); }
+  [data-mode="deep"] p { max-width: 78ch; }
+  [data-mode="deep"] section > p { margin-top: calc(var(--u) * 2); color: var(--fg); }
+
+  [data-mode="deep"] .sec-head {
+    display: flex; flex-direction: column; gap: var(--u);
+    margin-bottom: calc(var(--u) * 3);
+  }
+  [data-mode="deep"] .sec-head .num {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  [data-mode="deep"] .grid {
+    display: grid;
+    gap: calc(var(--u) * 2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+  [data-mode="deep"] .grid-2 {
+    display: grid; gap: calc(var(--u) * 2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  }
+
+  [data-mode="deep"] .more { margin-top: calc(var(--u) * 2); color: var(--muted); font-size: 0.88rem; }
+}

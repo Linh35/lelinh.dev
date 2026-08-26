@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // serve.js — Node stdlib dev server for the static site under src/.
-// Single doc root; misses serve src/404.html (matches Cloudflare Pages).
+// Single doc root; misses serve src/404.html, and an extensionless path
+// resolves to <path>.html - both to match Cloudflare Pages in production.
 // Run from the repo root: `node serve.js`.
 const http = require("http");
 const fs = require("fs");
@@ -55,7 +56,15 @@ const server = http.createServer((req, res) => {
   if (!filePath.startsWith(SITE_ROOT)) return send(res, 403, "Forbidden");
 
   fs.stat(filePath, (err, stat) => {
-    if (err) return notFound(res);
+    // Pages serves /about from about.html and 308s /about.html -> /about, so
+    // the dev server has to resolve the extensionless form too or every
+    // internal link 404s locally while working fine in production.
+    if (err) {
+      if (path.extname(filePath)) return notFound(res);
+      return fs.readFile(filePath + '.html', (e, data) =>
+        e ? notFound(res)
+          : send(res, 200, data, { 'Content-Type': 'text/html; charset=utf-8' }));
+    }
 
     if (stat.isDirectory()) {
       if (!urlPath.endsWith("/")) {

@@ -1,58 +1,68 @@
 /*
- * base.css - palette + foundation. Dracula bg with Monokai yellow + Dracula cyan accents.
- * Purpose: cascade layers, reset, palette tokens, type stack, motion preferences.
+ * base.css - foundation shared by every mode. Two palettes live here:
+ * Dracula (deep mode) and a warm pastel set (brief mode).
+ * Purpose: cascade layers, reset, raw palette scales, type stack, motion prefs.
  * Dependencies: none. Loaded before any mode token sheet.
- * Invariants: defines @layer order ONCE; modes only set --accent and font.
- *             Color tokens live here; modes do NOT redefine palette.
- * Non-goals: no component CSS, no mode-specific selectors.
+ * Invariants: defines @layer order ONCE. Raw palette values live here and
+ *             nowhere else; mode sheets bind them to semantic roles
+ *             (--bg/--fg/--accent/...) and never invent new hex values.
+ *             .deep-only / .brief-only visibility is decided here so that a
+ *             page with no data-mode (JS off) shows everything.
+ * Non-goals: no component CSS, no per-mode selectors beyond the two above.
  */
 
 @layer reset, tokens, base, modes, components, features;
 
 @layer reset {
   *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; color-scheme: dark; }
-  body, h1, h2, h3, p, ul, ol, figure, blockquote, pre { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body, h1, h2, h3, h4, p, ul, ol, figure, blockquote, pre, dl, dd { margin: 0; }
   ul[role="list"], ol[role="list"] { padding: 0; list-style: none; }
   img, svg { display: block; max-width: 100%; }
   button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-  :focus-visible { outline: 2px solid color-mix(in oklab, var(--cyan) 70%, var(--fg)); outline-offset: 2px; }
 }
 
 @layer tokens {
   :root {
-    /* Dracula */
-    --bg:      #282a36;
-    --bg-soft: #2f3141;
-    --bg-sunk: #21222c;
-    --rule:    #44475a;
-    --fg:      #f8f8f2;
-    /* Dracula's comment blue (#6272a4) is 3.03:1 on --bg and 2.73:1 on
-       --bg-soft - below AA for text. Lifted to clear 4.5:1 on every surface
-       we set it against. Labels may be quiet; they still have to be read. */
-    --muted:   #8b98c9;
-    --pink:    #ff79c6;
-    --green:   #50fa7b;
-    --purple:  #bd93f9;
-    --cyan:    #8be9fd;
-    /* Monokai */
-    --yellow:  #e6db74;
-    --orange:  #fd971f;
+    /* Dracula - deep mode */
+    --d-bg:      #282a36;
+    --d-bg-soft: #2f3141;
+    --d-bg-sunk: #21222c;
+    --d-rule:    #44475a;
+    --d-fg:      #f8f8f2;
+    /* Dracula's comment blue (#6272a4) is 3.03:1 on --d-bg - below AA.
+       Lifted to clear 4.5:1 on every surface we set it against. */
+    --d-muted:   #8b98c9;
+    --d-pink:    #ff79c6;
+    --d-green:   #50fa7b;
+    --d-purple:  #bd93f9;
+    --d-cyan:    #8be9fd;
+    --d-yellow:  #e6db74;
+    --d-orange:  #fd971f;
+
+    /* Pastel - brief mode. Tints are for fills; inks are for text. Every
+       ink token clears 4.5:1 on --p-bg, --p-surface and --p-sunk, so a
+       label stays legible whichever of the three it lands on. */
+    --p-bg:      #f6f2ec;
+    --p-surface: #fffdf9;
+    --p-sunk:    #efe9e0;
+    --p-rule:    #ded5c8;
+    --p-fg:      #2b2733;
+    --p-muted:   #6c6478;
+    --p-lilac:   #ece4fb;
+    --p-mint:    #dcf2e8;
+    --p-peach:   #fce7d8;
+    --p-sky:     #dee9f8;
+    --p-ink-violet: #6d4bc4;
+    --p-ink-teal:   #197a63;
+    --p-ink-clay:   #9c4b30;
 
     --mono:  ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
     --sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --serif: ui-serif, "Iowan Old Style", Georgia, "Times New Roman", serif;
 
     --u: 8px;
-    --measure: 64ch;
-
-    /* Fibonacci type scale - used everywhere a display size is set. */
-    --t-1: 1em;
-    --t-2: 2em;
-    --t-3: 3em;
-    --t-5: 5em;
-    --t-8: 8em;
-    --t-13: 13em;
+    --measure: 68ch;
   }
 }
 
@@ -62,22 +72,29 @@
     color: var(--fg);
     container-type: inline-size;
     min-height: 100dvh;
-    font-family: var(--sans);
-    line-height: 1.55;
+    font-family: var(--font-body);
+    line-height: 1.6;
   }
   a { color: inherit; }
-  code { font-family: var(--mono); font-size: 0.95em; }
-  /* Skip link. Lives here, not in a mode sheet: it must look and behave
-     identically in every mode, and modes are forbidden to share styling. */
+  code { font-family: var(--mono); font-size: 0.94em; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Depth switching. A page with no data-mode at all (scripting disabled)
+     falls through both rules and renders every block - the most readable
+     no-JS outcome, and the reason these are not `display:none` by default. */
+  [data-mode="brief"] .deep-only { display: none; }
+  [data-mode="deep"] .brief-only { display: none; }
+
   a.skip { position: absolute; left: -9999px; top: 0; z-index: 100; }
-  a.skip:focus { left: var(--u); top: var(--u); background: var(--bg-sunk); color: var(--fg); border: 1px solid var(--rule); padding: var(--u) calc(var(--u)*2); font-family: var(--mono); font-size: 0.85rem; }
+  a.skip:focus {
+    left: var(--u); top: var(--u); background: var(--bg-sunk); color: var(--fg);
+    border: 1px solid var(--rule); padding: var(--u) calc(var(--u)*2);
+    font-family: var(--mono); font-size: 0.85rem;
+  }
   noscript p {
-    display: block;
-    padding: var(--u) calc(var(--u)*2);
-    border-left: 3px solid var(--yellow);
-    color: var(--muted);
-    margin: calc(var(--u)*2);
-    font-family: var(--mono);
+    display: block; padding: var(--u) calc(var(--u)*2);
+    border-left: 3px solid var(--accent); color: var(--muted);
+    margin: calc(var(--u)*2); font-family: var(--mono);
   }
 }
 

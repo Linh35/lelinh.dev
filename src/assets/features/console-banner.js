@@ -4,6 +4,9 @@
  * Dependencies: ../kernel/event-bus.js, ../kernel/mode-manager.js
  * Invariants: prints exactly once per page load (browsers preserve console
  *             across soft navigations, so this script is import-once safe).
+ *             The banner states only facts that cannot drift - a file or
+ *             line count printed here goes stale on the next commit, and a
+ *             page that invites counting will be counted.
  *             Window globals are explicit; nothing else exposes them.
  * Non-goals: no analytics, no fingerprinting, no auto-running examples.
  */
@@ -23,11 +26,11 @@ const lines = [
   '  that is appropriate.',
   '',
   '  source:  codeberg.org/litozor  ·  mirror: github.com/Linh35',
-  '  files:   17 · lines: ~1130 · deps: 0',
+  '  deps:    0 · build steps: 0 · frameworks: 0',
   '',
   '  try:     bus.on("mode:change", console.log)',
-  '  or:      setMode("swiss")',
-  '  also:    press t or s anywhere on the page',
+  '  or:      setMode("deep")',
+  '  also:    press b or d anywhere on the page',
   '',
 ].join('\n');
 
