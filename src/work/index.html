@@ -45,12 +45,12 @@
     <ul class="grid-2" role="list">
       <li class="card">
         <h3><a href="https://getwhen.net">When.</a></h3>
-        <p>A private period tracker that lives in the calendar you already check — Google, Notion, or CalDAV — not one more app to open. Log the day a period starts; it learns your cycle and drops each predicted phase onto your calendar. The calendar is the only datastore: no cycle data is held on our side, which decided every architectural call that followed. TypeScript throughout, server-rendered with Preact — React's component model and hooks at a fraction of the bytes, which is what a server-rendered page wants. Co-created with Anna, and run end to end.</p>
+        <p>When. is a period tracker that writes into the calendar you already have open, whether that is Google, Notion or CalDAV, so there is no second app to remember to check. You log the day a period starts, and from a few of those it works out the shape of your cycle and puts each predicted phase on the calendar as an ordinary event you can see next to everything else in your week. Because the calendar is the only place anything is kept, we never hold cycle data ourselves, and that single constraint went on to settle almost every architectural question that came after it. The whole thing is TypeScript and is server-rendered with Preact, which gives us React's component model and hooks for a fraction of the bytes a server-rendered page would otherwise have to ship. Anna and I created it together, and I run it end to end.</p>
         <span class="where">getwhen.net · live · €4/mo after a 14-day trial</span>
       </li>
       <li class="card">
-        <h3>Self-hosted stack</h3>
-        <p>Twenty services on my own hardware: photos, files, music, documents, media, search. Rootless Podman under Caddy, reached from outside the house over a Cloudflare Zero Trust tunnel rather than a public hostname, with restic backups. Replaces a stack of subscriptions I'd rather not pay for.</p>
+        <h3><a href="https://codeberg.org/litozor/arch-self-hosted-server-script">Self-hosted stack</a></h3>
+        <p>Around twenty services run on a machine in my flat, covering photos, files, music, documents, media and search, and between them they replace most of the subscriptions I would rather not keep paying for. Every service runs as a rootless Podman container behind Caddy, which puts a real name and HTTPS in front of each one instead of a port number, and the only route in from outside the house is a Cloudflare Zero Trust tunnel, so nothing sits on a public hostname waiting to be found by a scanner. Restic takes care of the backups on a timer. The whole setup is a bootstrap script and a compose file per stack, which is what makes it something I can rebuild on a new machine rather than a box I am afraid to touch.</p>
         <span class="where">podman · caddy · zero trust · restic</span>
       </li>
     </ul>
@@ -61,8 +61,8 @@
       <span class="num">In progress</span>
       <h2>A real-time 3D editor and runtime, in Zig.</h2>
     </div>
-    <p>An editor and a runtime over a Vulkan renderer, written in Zig. You compose a scene visually — entities, components, an inspector, lights, meshes, physics and UI — and it serialises to a <code>.zon</code> file. A separate generic runtime deserialises that file and drives it with zero scene-specific code, which is the point: the data describes the application, and the runtime stays general.</p>
-    <p class="deep-only">Three executables over one shared engine module and one entity-component-system world: the editor, the generic runtime, and a hand-wired scene that exercises the render and interaction paths an empty scene would hide. It is the closest thing I have to a hard real-time problem right now — a frame budget, a GPU, and a compiler that all have to be satisfied at once. It's also the codebase my model fleet works against, so the verification runs against a real compiler rather than a benchmark.</p>
+    <p>This is an editor and a runtime sitting on top of a Vulkan renderer, both written in Zig. You build a scene visually, placing entities and their components and adjusting them through an inspector alongside the lights, meshes, physics and UI, and the result serialises out to a <code>.zon</code> file. A separate runtime then reads that file back and drives the whole application from it without containing a single line of code specific to the scene, so the data is what describes the application while the runtime stays entirely general.</p>
+    <p class="deep-only">There are three executables built over one shared engine module and a single entity-component-system world: the editor itself, the generic runtime, and a scene wired up by hand that exercises the render and interaction paths an empty scene would quietly leave untested. It is the closest thing I have to a hard real-time problem at the moment, because a frame budget, a GPU and a compiler all have to be satisfied at once and none of them will negotiate. It is also the codebase my model fleet works against, which means the verification step runs against a real compiler instead of a benchmark that was designed to be passed.</p>
     <p class="more">Private while it's in progress.</p>
   </section>
 
@@ -74,32 +74,32 @@
     <ul class="grid" role="list">
       <li class="card">
         <h3><a href="https://codeberg.org/litozor/baker">baker</a></h3>
-        <p>Single-binary static site bundler and HTTP server in Zig. Brotli + gzip, ETags, 304s, hot reload via SIGHUP. Bakes a site into one <code>.bin</code> file, then serves it.</p>
+        <p>baker is a static site bundler and HTTP server that compiles down to a single Zig binary with nothing else to install. It bakes an entire site into one <code>.bin</code> file and then serves straight out of it, handling Brotli and gzip compression, ETags and 304 responses as it goes, and it will pick up a freshly baked site on a SIGHUP without the process ever going down.</p>
         <span class="where">Zig</span>
       </li>
       <li class="card">
         <h3><a href="https://codeberg.org/litozor/zremdic">zremdic</a></h3>
-        <p>A latency-focused key-value cache over UDP, in Zig. One datagram per lookup, a sharded store with a worker per core, atomic ops with exactly-once semantics over an unreliable transport, TTLs and LRU eviction. ~210k ops/sec at ~19μs on loopback. A cache, not a database: values live in memory only.</p>
+        <p>zremdic is a key-value cache written in Zig for latency rather than for features, and it speaks UDP so that a lookup costs exactly one datagram in each direction. The store is sharded with one worker per core, and the atomic operations give you exactly-once semantics on top of a transport that promises nothing at all, along with TTLs and LRU eviction. On loopback it holds about 210k operations a second at roughly 19μs. It is a cache rather than a database, so values live in memory only and a restart starts you over.</p>
         <span class="where">Zig · ~210k ops/sec</span>
       </li>
       <li class="card">
         <h3><a href="https://codeberg.org/litozor/zhecs">zhecs</a></h3>
-        <p>An entity component system in Zig, small enough to read in an afternoon. Plain Zig types as components, no registration; matching entities stored together in contiguous columns. Systems run in ordered phases. A million entities stepped in ~19&nbsp;ms per chunk.</p>
+        <p>zhecs is an entity component system small enough that you can read the whole of it in an afternoon and come away knowing how it works. Components are ordinary Zig types and there is no registration step to remember, while entities that share a set of components are stored together in contiguous columns so that iterating over them stays friendly to the cache. Systems run in ordered phases, and a million entities step in about 19&nbsp;ms per chunk.</p>
         <span class="where">Zig · 1M entities</span>
       </li>
       <li class="card">
         <h3><a href="https://codeberg.org/litozor/swr">swr</a></h3>
-        <p>A SharedWorker HTML renderer on top of ssw. Views are functions returning HTML strings; the render runs once in the worker and broadcasts to every tab, skipping identical output so no tab repaints for nothing. ~65 integration tests.</p>
+        <p>swr renders HTML inside a SharedWorker, built on top of ssw. Views are just functions that return HTML strings, and because the render happens once in the worker and is then broadcast out to every open tab, output that has not actually changed is skipped rather than being sent on to repaint a tab for no reason. It comes with around 65 integration tests.</p>
         <span class="where">TypeScript</span>
       </li>
       <li class="card">
         <h3><a href="https://codeberg.org/litozor/ssw">ssw</a></h3>
-        <p>Multi-tab state, no ceremony. SharedWorker as the single source of truth, optimistic per-tab mirror, batched ack protocol. ~3.5&nbsp;KB gzipped, tested against real MessageChannels.</p>
+        <p>ssw keeps state in step across every open tab without asking much of you in return. A SharedWorker holds the single source of truth while each tab keeps an optimistic mirror it can read from straight away, and the acknowledgements come back batched instead of one message at a time. It is around 3.5&nbsp;KB gzipped, and the tests run against real MessageChannels rather than against a mock of one.</p>
         <span class="where">TypeScript · 3.5 KB</span>
       </li>
       <li class="card">
         <h3><a href="https://codeberg.org/litozor/wiki-art-downloader">wiki-art-downloader</a></h3>
-        <p>Bulk-downloads an artist's catalogue from WikiArt as JPGs. Node 18+, zero deps. Walks the eight CDN shards in parallel, with dry-run and resume-by-skip.</p>
+        <p>wiki-art-downloader pulls an artist's entire catalogue down from WikiArt as JPGs. It needs Node 18 or newer and has no dependencies at all, it walks the eight CDN shards in parallel so a large catalogue does not take all evening, and it will show you a dry run before it writes anything or pick up a half-finished download by skipping the files it already has.</p>
         <span class="where">Node · zero deps</span>
       </li>
     </ul>
@@ -111,8 +111,8 @@
       <span class="num">This page</span>
       <h2>How the site is built.</h2>
     </div>
-    <p>Vanilla HTML, CSS and ES modules. No framework, no build step, no bundler, no runtime dependencies. Every JS and CSS file is under 150 lines and opens with a header saying what it does and what it must not do; a script in the repo enforces both mechanically.</p>
-    <p>Two reads share one set of pages. <b>Brief</b> is the short version — claims, numbers, and how to reach me, in one screen. <b>Deep</b> restores the architecture and the tradeoffs. Both are in the HTML at once, so with JavaScript disabled you simply get all of it.</p>
+    <p>The site is plain HTML, CSS and ES modules, with no framework, no build step, no bundler and nothing at all to install at runtime. Every JavaScript and CSS file stays under 150 lines and opens with a header setting out what it does and what it must never do, and a script in the repo checks both of those mechanically so that the rules cannot quietly rot as the site grows.</p>
+    <p>One set of pages carries two different reads of the same material. <b>Brief</b> is the short version and gives you the claims, the numbers and a way to reach me inside a single screen, while <b>Deep</b> puts back the architecture and the tradeoffs for anyone who wants to know how something was actually built. Both versions sit in the HTML at the same time, which means that with JavaScript turned off you simply get all of it.</p>
     <pre class="proof">assets/
 ├── kernel/    bus, router, mode
 ├── modes/     brief/ · deep/ renderers
